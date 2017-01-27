@@ -87,7 +87,7 @@ USE_LESS = False
 FEED_USE_SUMMARY = True
 
 GOOGLE_ANALYTICS = 'UA-73000395-1'
-DISQUS_SITENAME = 'girisagar46githubio'
+DISQUS_SITENAME = 'girisagar46-github-io'
 
 # Formatting for URLS
 ARTICLE_URL = '{slug}'
