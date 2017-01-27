@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = u'Sagar Giri'
-SITEURL = ''
+SITEURL = u'http://localhost:8000'
 SITENAME = u"Sagar Giri's Blog"
 SITETITLE = AUTHOR
 SITESUBTITLE = '<pre>$ cd /pub && more beer</pre>'
@@ -86,10 +86,8 @@ HOME_HIDE_TAGS = True
 USE_LESS = False
 FEED_USE_SUMMARY = True
 
-# TODO
-# Accounts 
-# STATUSCAKE = False
-# DISQUS_SITENAME = ""
+GOOGLE_ANALYTICS = 'UA-73000395-1'
+DISQUS_SITENAME = 'girisagar46githubio'
 
 # Formatting for URLS
 ARTICLE_URL = '{slug}'

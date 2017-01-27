@@ -7,13 +7,14 @@ Sagar Giri
 ------------
 
 *My name is Sagar Giri, and I’m currently looking for a job in tech business. I have 2 years of experience working in Grails framework with Java in Deerwalk Services Pvt. Ltd. I am a Computer Science graduate and currently staying in Kathmandu, Nepal. I consider myself a fast learner and problem solver speaker. I love watching movies and fond of nepali literature. My hobbies are programming, hiking and learning new stuffs.*
+**[Download my resume](https://ia601501.us.archive.org/14/items/cv_Sagar_2016/cv_Sagar_2016.pdf)**
 
 ----
 
 Contact Me
 ----------
 
-> *girisagar46@gmail.com* | [facebook](https://facebook.com/girisagar46) | [twitter](https://twitter.com/sagargiri46) |  [github](https://github.com/girisagar46) | **+977-980-7368806** 
+> *girisagar46@gmail.com* | <a href="https://facebook.com/girisagar46" target="_blank"><i class="fa fa-facebook-square fa-1x" aria-hidden="true"></i></a> | <a href="https://twitter.com/sagargiri46" target="_blank"><i class="fa fa-twitter-square fa-1x" aria-hidden="true"></i></a> |  <a href="https://github.com/girisagar46" target="_blank"><i class="fa fa-github-square fa-1x" aria-hidden="true"></i></a> | **+977-980-7368806** 
 
 
 Education
@@ -47,7 +48,7 @@ JOB RESPONSIBILITIES
 
 * Grails upgrade from Grails 2.5.1 to Grails 3.1.6
 
-* PRODUCT: [DeerwalkOne Plan Analytics](www.deerwalk.com/product/plan-analytics)
+* PRODUCT: <a href="http://deerwalk.com/product/plan-analytics" target="_blank">DeerwalkOne Plan Analytics</a>
 
 **Deerwalk Institute of Technology** (Aug 2016 - Oct 2016)
 *Front End and Backend Developer*
