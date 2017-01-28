@@ -10,19 +10,19 @@ If you want to view the HTML rendered, then checkout [master branch](https://git
 
 ## Build and run locally
 
-1. Clone master branch
+### Clone master branch
     
 ```
 $ git clone -b master https://github.com/girisagar46/girisagar46.github.io.git
 ```
 
-2. Serve HTML
+### Serve HTML
 
 ```
     $ cd girisagar46.github.io
     $ python -m SimpleHTTPServer
 ```    
-3. Browse to `http://localhost:8000`
+### Browse to `http://localhost:8000`
 
 ## Contact
 
