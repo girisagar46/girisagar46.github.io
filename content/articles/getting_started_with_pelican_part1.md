@@ -68,7 +68,7 @@ Now, let's start with installing Pelican at the first place. Pelican, Pelican pl
     six==1.10.0
     Unidecode==0.4.19
 
-Wondering, "Why so many modules?". Well, these are the modules that you gona need to get started with the Pelican static website generation.
+Wondering, "Why so many modules?". Well, these are the modules that you gonna need to get started with the Pelican static website generation.
 
 To install the modules which are inside `requirements.txt`, type the following command in the terminal.
     
