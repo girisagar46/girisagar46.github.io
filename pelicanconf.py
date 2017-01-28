@@ -41,7 +41,7 @@ AUTHOR_FEED_RSS = None
 
 # Main Menu
 MAIN_MENU = True
-MENUITEMS = (('Blog', '/'),('Archives', '/archives'),('Categories', '/categories'),('Tags', '/tags'),)
+MENUITEMS = (('Archives', '/archives'),('Categories', '/categories'),('Tags', '/tags'),)
 
 # Blogroll
 # LINKS = (('Blog', '/'),)
