@@ -47,7 +47,7 @@ MENUITEMS = (('Archives', '/archives'),('Categories', '/categories'),('Tags', '/
 # LINKS = (('Blog', '/'),)
 
 # Social widget
-SOCIAL = (('linkedin', 'www.linkedin.com/in/girisagar46'),
+SOCIAL = (('linkedin', 'https://linkedin.com/in/girisagar46'),
           ('github', 'https://github.com/girisagar46'),
           ('twitter', 'https://twitter.com/sagargiri46'),
           ('stack-overflow', 'http://stackoverflow.com/story/girisagar46.github.io'),
