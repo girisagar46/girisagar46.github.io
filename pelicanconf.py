@@ -28,7 +28,7 @@ SITELOGO = '/images/sagar.jpg'
 FAVICON = '/images/favicon.png'
 THEME = 'themes/Flex'
 BROWSER_COLOR = '#333333'
-PYGMENTS_STYLE = 'monokai'
+PYGMENTS_STYLE = 'default'
 
 
 # Feed generation is usually not desired when developing
