@@ -1,4 +1,4 @@
-Title: Bulding a static site and hosting in github (part 2)
+Title: Building a static site and hosting in Github (part 2)
 Date: 2017-1-28 17:00
 Modified: 2017-1-28 17:00
 Category: tutorial

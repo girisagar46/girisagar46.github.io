@@ -1,8 +1,9 @@
-Title: Bulding a static site and hosting in github (part 1)
+Title: Building a static site and hosting in Github (part 1)
 Date: 2017-1-28 13:00
 Modified: 2017-1-28 13:00
 Category: tutorial
 Tags: tutorial, pelican
+Cover: images/pelican_quickstart.png
 Slug: pelican-github-part1
 Summary: The contents that you are seeing right now is the static website built using Pelican. This tutorial series gives you every details on how to create a static blog using pelican and host it to the github server for FREE!
 
