@@ -4,9 +4,9 @@ Modified: 2017-1-28 17:00
 Category: tutorial
 Tags: tutorial, pelican
 Slug: pelican-github-part2
-Summary: In [Part 1], we just got started with our Pelican blog. In this part, we'll be hacking our blog to make it awesome.
+Summary: In [Part 1](https://girisagar46.github.io/pelican-github-part1), we just got started with our Pelican blog. In this part, we'll be hacking our blog to make it awesome.
 
-> In [Part 1] we setup our github.io website and kick started out [Pelican] website. Now, in this second tutorial, we'll configure Fabric and Pelican configuration and when it's all done, we'll create blog post. And push it to github `source` branch.
+> In [Part 1](https://girisagar46.github.io/pelican-github-part1) we setup our github.io website and kick started out [Pelican] website. Now, in this second tutorial, we'll configure Fabric and Pelican configuration and when it's all done, we'll create blog post. And push it to github `source` branch.
 
 
 # Let's setup our blog theme first.
