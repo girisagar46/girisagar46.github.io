@@ -40,10 +40,12 @@ Push the new branch on Github:
 
     $ git push origin source
 
-Now, you are working on the `source` branch.
+You are now working on the `source` branch.
 
 ## Setup Pelican
-Now, let's start with installing Pelican at the first place. Pelican, Pelican plugins and Pelican themes are dependent on different python modules and installing them one by one is a pain in the butt. Hence, for simplicity, create a new file called `requirements.txt`. Open that file in a `notepad` or `gedit` and paste these lines given below and save it:
+Let's start with installing Pelican at the first place. Pelican, Pelican-Plugins and Pelican-Themes are dependent on different python modules and installing them one by one is a pain in the butt. Hence, for the simplicity, create a new file called `requirements.txt`. 
+
+Open `requirements.txt` file in a `notepad` or `gedit` and paste the lines given below and save it.
 
     appdirs==1.4.0
     beautifulsoup4==4.5.1
@@ -68,7 +70,7 @@ Now, let's start with installing Pelican at the first place. Pelican, Pelican pl
     six==1.10.0
     Unidecode==0.4.19
 
-Wondering, "Why so many modules?". Well, these are the modules that you gonna need to get started with the Pelican static website generation.
+These are the modules that we need to get started with the Pelican static website generation.
 
 To install the modules which are inside `requirements.txt`, type the following command in the terminal.
     
@@ -84,10 +86,10 @@ After installing pelican, you can leverage the command `$ pelican-quickstart` fr
 
 ### Quick Setup
 
-1. `cd` into your `username.github.io` repository 
+1. `cd` into your `username.github.io` repository that you cloned earlier.
     `$ cd username.github.io`
-1.  Save this [.gitignore] file in the current directory. It's needed to make your github repo clean.
-1.  Run `$ pelican-quickstart` in terminal
+1.  Save this [.gitignore] file in your directory. It's needed to make your Github repo clean.
+1.  Run `$ pelican-quickstart` in the terminal
 
 The quickstart will ask you various questions, which you can answer in turn. Here are some specific answers you should give:
 

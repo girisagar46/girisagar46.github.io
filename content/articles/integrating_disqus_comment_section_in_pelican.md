@@ -5,7 +5,7 @@ Category: tutorial
 Tags: tutorial, pelican, disqus, commenting
 Slug: integrate-disqus-in-a-post
 share_post: facebook
-Summary: Disqus is a worldwide blog comment hosting service for web sites and online communities that uses a networked platform.<sup>[1](https://en.wikipedia.org/wiki/Disqus)</sup> And integrating Disqus comment in pelican is straight forward and easy.
+Summary: Disqus is a worldwide blog comment hosting service for web sites and online communities that uses a networked platform.<sup>[[1](https://en.wikipedia.org/wiki/Disqus)]</sup> And integrating Disqus comments in Pelican is straight forward and easy.
 
 After you write a blog post, you expect people to comment in your post. Commenting is necessary because it can increase reader engagement and help build relationship among author and reader. 
 
@@ -19,15 +19,15 @@ Now, lets integrate Disqus to our each and every blog posts.
  * Click **Create Site** button.
  * Now on the top left side of the page, you'll see your disqus site. Click on the link. *[refer picture below]*
  
- ![Disqus preview](images/disqus1.png)
+ ![Disqus preview](images/disqus1.png){.img-center}
  
  * Now headover to *setting* menu. *[refer picture below]*
  
- ![Disqus setting](images/disqus2.png)
+ ![Disqus setting](images/disqus2.png){.img-center}
  
  * In the setting page, you'll see the **Shortname** of youtr site as shown below.
  
- ![shortname](images/disqus3.png)
+ ![shortname](images/disqus3.png){.img-center}
  
  * Copy that **shortname**
  
@@ -45,6 +45,6 @@ Now, lets integrate Disqus to our each and every blog posts.
  
  ---
  
- If you're confused, see my configuration [here](https://github.com/girisagar46/girisagar46.github.io/blob/source/pelicanconf.py)
+ If you're confused, see how I configured Disqus comments in my blog from [here](https://github.com/girisagar46/girisagar46.github.io/blob/source/pelicanconf.py)
  
 

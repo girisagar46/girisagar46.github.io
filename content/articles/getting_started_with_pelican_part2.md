@@ -6,12 +6,11 @@ Tags: tutorial, pelican
 Slug: pelican-github-part2
 Summary: In [Part 1](https://girisagar46.github.io/pelican-github-part1), we just got started with our Pelican blog. In this part, we'll be hacking our blog to make it awesome.
 
-> In [Part 1](https://girisagar46.github.io/pelican-github-part1) we setup our github.io website and kick started out [Pelican] website. Now, in this second tutorial, we'll configure Fabric and Pelican configuration and when it's all done, we'll create blog post. And push it to github `source` branch.
+> In [Part 1](https://girisagar46.github.io/pelican-github-part1) we've setup our github.io website and kick started out [Pelican] blog. Now, in this second tutorial, we'll configure Fabric and Pelican configuration and when it's all done, we'll create a blog post. And push it to github `source` branch and generated HTML to `master` branch.
 
+# First, let's setup our blog theme.
 
-# Let's setup our blog theme first.
-
-Pelican has tons of themes. All themes can be previewed at [pelicanthemes.com](http://www.pelicanthemes.com/). You can pick any themes you like. If you are not satisfied, you can also create your [own theme](http://docs.getpelican.com/en/3.1.1/themes.html). For this tutorial, we'll be using a theme called [Flex](https://github.com/alexandrevicenzi/flex) by [Alexandre Vicenzi](https://www.alexandrevicenzi.com/). 
+Pelican has tons of themes. All themes can be previewed at [pelicanthemes.com](http://www.pelicanthemes.com/). You can pick any themes you like. And, if you are not satisfied with the existing themes, you can also create your [own theme](http://docs.getpelican.com/en/3.1.1/themes.html). For this tutorial, we'll be using a theme called [Flex](https://github.com/alexandrevicenzi/flex) by [Alexandre Vicenzi](https://www.alexandrevicenzi.com/). 
 
 To setup a theme, create folder inside your `username.github.io` directory and name it `themes`. Now `cd` into that directory and clone the [Flex](https://github.com/alexandrevicenzi/Flex.git) repository.
 
@@ -19,7 +18,7 @@ To setup a theme, create folder inside your `username.github.io` directory and n
 $ git clone https://github.com/alexandrevicenzi/Flex.git
 ```
 
-You can setup plugins in same way as the themes. The repository for plugins is [pelican-plugins](https://github.com/getpelican/pelican-plugins). We won't setup plugins in this tutorial. You can read the documentation yourself to setup the plugins or I'll be posting a tutorial on how to setup plugins shortly.
+You can setup plugins in same way as the themes. The official repository for the plugins is [pelican-plugins](https://github.com/getpelican/pelican-plugins). We won't setup plugins in this tutorial. You can read the documentation by yourself to setup the plugins or I'll be posting a seperate tutorial post on how to setup plugins shortly*.
 
 # Configuration
 
@@ -27,7 +26,7 @@ We have our Flex theme inside our theme directory. Our theme needs a site logo. 
 
 For the configuration, we'll be working on `pelicanconf.py`, `publishconf.py` and `fabfile.py`.
 
-First let's look at `pelicanconf.py`. Open it in a text editor and update it. See the comments beginning with `#` to know what's happening.
+First let's look at `pelicanconf.py`. Open it in a text editor and update it as described in the snippet below. See the comments beginning with `#` to know what's happening.
 
 ```python
 from __future__ import unicode_literals
@@ -76,8 +75,10 @@ If you want to know more details about the configuration, go [here](https://gith
 Next, open `publishconf.py` file and modify these lines:
 
 ```python
+...
 SITEURL = 'https://your_username.github.io'
 RELATIVE_URLS = False
+...
 ```
 
 # Our first post
@@ -101,7 +102,13 @@ To know more, read the official [documentation](http://docs.getpelican.com/en/st
 
 # Generate HTML
 
-In the terminal, type `$ fab clean; fab build; fab serve` and browse to `http://localhost:8000`. You'll see new shining blog with new design.
+Go to the root directory of the project or simple do `$ cd ..` in the terminal, and type 
+
+```bash
+$ fab clean; fab build; fab serve;
+``` 
+
+and browse to `http://localhost:8000`. You'll see new shining blog with new design.
 
 # Commit and push to Github
 
@@ -126,7 +133,7 @@ $ git push -u origin master
 Now, redirect your browser to 'https://your_username.github.io' to view your online blog.
 
 
-Upto this you have your blog and is available to public access. Next, I'll be posting some small tutorials on how to add [disqus](https://disqus.com) comments, google analytics, automate publish using Fabric API, adding and configuring plugins and many more.
+Upto this you have your blog hosted in github pages and is available to public viewing. Next, I'll be posting some small tutorials on how to add [disqus](https://disqus.com) comments, google analytics, automate publish using Fabric API, adding and configuring plugins and many more.
 
 
 Keep visiting my [website](https://girisagar46.github.io).
