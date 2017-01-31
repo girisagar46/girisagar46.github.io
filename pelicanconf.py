@@ -24,7 +24,7 @@ COPYRIGHT_YEAR = 2017
 DEFAULT_PAGINATION = 7
 
 # Theme Settings
-SITELOGO = '/images/sagar.jpg'
+SITELOGO = '/images/title.png'
 FAVICON = '/images/favicon.png'
 THEME = 'themes/Flex'
 BROWSER_COLOR = '#333333'
