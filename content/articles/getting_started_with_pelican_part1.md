@@ -157,7 +157,7 @@ In [Part 2] we'll write our first blog post, configure and fabricate pelican, an
    [Setup github.io page]: <#>
    [A code editor]: <#>
    [Pelican]: <#>
-   [here]: <#>
+   [here]: <https://girisagar46/install-python-pip-package-management-system-in-ubuntu>
    [.gitignore]: <https://raw.githubusercontent.com/girisagar46/girisagar46.github.io/source/.gitignore>
    [markdown]: <https://guides.github.com/features/mastering-markdown/>
-   [Part 2]: <#>
+   [Part 2]: <https://girisagar46.github.io/pelican-github-part2#pelican-github-part2>
