@@ -150,7 +150,7 @@ In [Part 2] we'll write our first blog post, configure and fabricate pelican, an
 
    [virtualenv]: <http://docs.python-guide.org/en/latest/dev/virtualenvs/>
    [Setup github.io]: <https://pages.github.com/>
-   [Install Git VCS]: <#>
+   [Install Git VCS]: <https://girisagar46.github.io/installing-git-version-control-system>
    [Install Markdown]: <#>
    [Install Python]: <#>
    [Setup Github account]: <#>
