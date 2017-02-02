@@ -27,4 +27,4 @@ Well, nonetheless, I hope this last exams goes well for me and I wish the questi
 
 On the side note, I've set my mind that I write a blog post everyday. So, for some few days, I'll be posting some random shits.
 
-Keep visitig and wish me all the best :) 
+Keep visiting the blog and wish me all the best :) 
