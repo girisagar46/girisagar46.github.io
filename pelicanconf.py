@@ -100,6 +100,10 @@ DISQUS_SITENAME = 'girisagar46-github-io'
 #     }
 # }
 
+# SHARING
+ADD_THIS_ID = 'ra-589c9f9f19d6a715'
+
+
 # Formatting for URLS
 ARTICLE_URL = '{slug}'
 PAGE_URL = 'pages/{slug}'
