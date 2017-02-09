@@ -88,17 +88,17 @@ FEED_USE_SUMMARY = True
 
 GOOGLE_ANALYTICS = 'UA-73000395-1'
 DISQUS_SITENAME = 'girisagar46-github-io'
-GOOGLE_ADSENSE = {
-    'ca_id' : 'ca-pub-6204331251488075',
-    'ads': {
-        'aside': '1234561',          # Side bar banner (all pages)
-        # 'main_menu': '1234562',      # Banner before main menu (all pages)
-        # 'index_top': '1234563',      # Banner after main menu (index ofabnly)
-        # 'index_bottom': '1234564',   # Banner before footer (index only)
-        # 'article_top': '1234565',    # Banner after article title (article only)
-        # 'article_bottom': '1234566', # Banner after article content (article only)
-    }
-}
+# GOOGLE_ADSENSE = {
+#     'ca_id' : 'ca-pub-6204331251488075',
+#     'ads': {
+#         'aside': '1234561',          # Side bar banner (all pages)
+#         # 'main_menu': '1234562',      # Banner before main menu (all pages)
+#         # 'index_top': '1234563',      # Banner after main menu (index ofabnly)
+#         # 'index_bottom': '1234564',   # Banner before footer (index only)
+#         # 'article_top': '1234565',    # Banner after article title (article only)
+#         # 'article_bottom': '1234566', # Banner after article content (article only)
+#     }
+# }
 
 # Formatting for URLS
 ARTICLE_URL = '{slug}'
@@ -107,3 +107,13 @@ CATEGORY_URL = 'category/{slug}'
 TAG_URL = 'tag/{slug}'
 AUTHOR_SAVE_AS = False
 AUTHORS_SAVE_AS = False
+
+
+#CUSTOM_AD
+
+AD_IMAGE = '/images/merohostel.jpg'
+AD_URL = 'http://merohostel.com/'
+AD_ALT = 'banner for merohostel ad'
+AD_TITLE = 'www.merohostel.com'
+AD_HEIGHT = '250px'
+AD_WIDTH = '200px'
