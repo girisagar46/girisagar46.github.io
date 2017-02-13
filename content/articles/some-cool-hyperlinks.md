@@ -6,6 +6,13 @@ Tags: computer science, bsc csit, tutorial, writings
 Slug: top-website-that-cs-student-should-visit
 Summary: Are you a computer science student? If yes, then this might be a right article for you. 
 
+<script>
+    $(function() {
+        $('a[href]').attr('target', '_blank');
+    });
+</script>
+
+
 > Develop a passion for learning. If you do, you will never cease to grow. - Anthony J. D'Angelo
 
 I was going through Quora feeds and my eye caught one particular question, "What are the top websites computer science students must visit?" This question had more than 3k followers. I immediately opened the question link and bookmarked it. 
