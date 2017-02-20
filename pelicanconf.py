@@ -56,7 +56,7 @@ SOCIAL = (('linkedin', 'https://linkedin.com/in/girisagar46'),
 # Plugins
 # See: http://docs.getpelican.com/en/latest/plugins.html
 PLUGIN_PATHS = ['./plugins']
-PLUGINS = ['sitemap', 'post_stats', 'share_post', 'feed_summary']
+PLUGINS = ['sitemap', 'post_stats', 'feed_summary']
 
 # Sitemap Settings
 SITEMAP = {

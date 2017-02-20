@@ -58,7 +58,6 @@ docs/_build/
 target/
 
 plugins
-themes
 venv
 output
 *.pid
