@@ -6,7 +6,7 @@ Slug: about-me
 Sagar Giri
 ------------
 
-*My name is Sagar Giri, and I’m currently looking for a job in tech business. I have 2 years of experience working in Grails framework with Java in Deerwalk Services Pvt. Ltd. I am a Computer Science graduate and currently staying in Kathmandu, Nepal. I consider myself a fast learner and problem solver. I love watching movies and fond of nepali literature. My hobbies are programming, hiking and learning new stuffs.*
+*I am Sagar Giri, from Kathmandu, Nepal. I am a Computer Science graduate and currently staying in Kathmandu, Nepal. I consider myself a fast learner and problem solver. I have 2 years of experience working in Grails web framework with Java in Deerwalk Services Pvt. Ltd for PlanAnalytics project. I love watching movies and fond of Nepali literature. My hobbies are programming, hiking and learning new things.*
 <button>**[Download my resume](https://ia601509.us.archive.org/7/items/cv_Sagar_2017/cv_Sagar_2016.pdf)**</button>
 
 ----

@@ -44,7 +44,7 @@ MAIN_MENU = True
 MENUITEMS = (('Archives', '/archives'),('Categories', '/categories'),('Tags', '/tags'),)
 
 # Blogroll
-# LINKS = (('Blog', '/'),)
+LINKS = (('Project', 'https://girisagar46.github.io/FYPFruitClassifier/'),)
 
 # Social widget
 SOCIAL = (('linkedin', 'https://linkedin.com/in/girisagar46'),
