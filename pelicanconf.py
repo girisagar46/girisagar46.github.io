@@ -116,9 +116,14 @@ AUTHORS_SAVE_AS = False
 
 #CUSTOM_AD
 
-AD_IMAGE = '/images/merohostel.jpg'
-AD_URL = 'http://merohostel.com/'
-AD_ALT = 'banner for merohostel ad'
-AD_TITLE = 'www.merohostel.com'
-AD_HEIGHT = '250px'
-AD_WIDTH = '200px'
+# AD_IMAGE = '/images/merohostel.jpg'
+# AD_URL = 'http://merohostel.com/'
+# AD_ALT = 'banner for merohostel ad'
+# AD_TITLE = 'www.merohostel.com'
+# AD_HEIGHT = '250px'
+# AD_WIDTH = '200px'
+
+FLAIR = True
+FLAIR_URL = "https://stackexchange.com/users/5684581/sgiri"
+FLAIR_IMAGE_URL = "https://stackexchange.com/users/flair/5684581.png"
+FLAIR_USER_NAME = "sgiri"

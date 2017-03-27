@@ -116,6 +116,12 @@
       </a>
     {% endif %}
 
+  {% if FLAIR %}
+      <a href="{{ FLAIR_URL }}">
+          <img src="{{ FLAIR_IMAGE_URL }}" width="208" height="58" alt="profile for {{ FLAIR_USER_NAME }} on Stack Exchange, a network of free, community-driven Q&amp;A sites" title="profile for {{ FLAIR_USER_NAME }} on Stack Exchange, a network of free, community-driven Q&amp;A sites" />
+      </a>
+  {% endif %}
+
 
     {% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.ads.aside %}
       <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
