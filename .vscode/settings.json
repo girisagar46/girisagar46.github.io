@@ -1,0 +1,28 @@
+{
+    "editor.fontSize": 12,
+    "python.pythonPath": "/home/linuxsagar/PycharmProjects/blog/blog-env/bin/python",
+    "editor.fontFamily": "'monospace'",
+    "workbench.colorTheme": "One Dark Pro",
+    "workbench.colorCustomizations": {
+        "tab.activeBackground": "#282c34",
+        "activityBar.background": "#282c34",
+        "editorGroup.background": "#282c34",
+        "sideBar.background": "#282c34",
+        "activityBarBadge.background": "#64FFDA",
+        "list.activeSelectionForeground": "#64FFDA",
+        "list.inactiveSelectionForeground": "#64FFDA",
+        "list.highlightForeground": "#64FFDA",
+        "scrollbarSlider.activeBackground": "#64FFDA50",
+        "editorSuggestWidget.highlightForeground": "#64FFDA",
+        "textLink.foreground": "#64FFDA",
+        "progressBar.background": "#64FFDA",
+        "pickerGroup.foreground": "#64FFDA",
+        "tab.activeBorder": "#64FFDA"
+    },
+    "materialTheme.cache.workbench.settings": {
+        "accent": "Bright Teal"
+    },
+    "workbench.iconTheme": "eq-material-theme-icons",
+    "python.autoComplete.addBrackets": true,
+    "python.linting.pylintEnabled": false,
+}
