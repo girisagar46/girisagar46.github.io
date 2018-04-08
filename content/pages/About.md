@@ -7,7 +7,7 @@ Sagar Giri
 ------------
 
 *I am Sagar Giri, from Kathmandu, Nepal. I am a Computer Science graduate and currently staying in Kathmandu, Nepal. I consider myself a fast learner and problem solver. I have 2 years of experience working in Grails web framework with Java in Deerwalk Services Pvt. Ltd for PlanAnalytics project. I love watching movies and fond of Nepali literature. My hobbies are programming, hiking and learning new things.*
-<button>**[Download my resume](https://ia601506.us.archive.org/34/items/SagarGiriResume2017/Sagar_Giri_Resume_2017.pdf)**</button>
+**[Download my resume](https://ia601509.us.archive.org/24/items/SagarGiriResume2018/Sagar_Giri_Resume_2018.pdf)**
 
 ----
 
@@ -33,7 +33,41 @@ Jun 2010 - Jun 2012
 Experience
 ----------
 
-**Deerwalk Services Pvt. Ltd.** (Jan 2015 - Present)
+**Insight Workshop, Kamalpokhari, Kathmandu** (Mar 2018 - Present)
+
+*Software Engineer*
+
+- Design and develop modules in Django based on client’s requirements
+- Deploy projects in AWS instance (production server)
+
+**Content Writer at Parewa Labs, Kupondole, Lalitpur** (Aug 2017 - Present)  
+
+- Wrote more than 15 Java articles on different Java topics for www.programiz.com
+- Some of the articles are: 
+    - https://www.programiz.com/java-programming/method-overloading
+    - https://www.programiz.com/java-programming/recursion
+    - https://www.programiz.com/java-programming/varargs
+    - https://www.programiz.com/java-programming/constructors
+    - https://www.programiz.com/java-programming/this-keyword
+    - https://www.programiz.com/java-programming/packages-import
+    - https://www.programiz.com/java-programming/constructors
+    - https://www.programiz.com/java-programming/methods
+
+
+**Deerwalk Training Center, Sifal, Kathmandu** (Dec 2017 - Mar 2018)
+
+*Python and Django Instructor*
+
+- Taught Python programming language and Django web framework 
+
+
+**Deerwalk Institute of Technology, Sifal, Kathmandu** (Oct 2017 - Mar 2018)
+*Python Instructor*
+- Taught Python programming language to students of third semester and conduct term wise examination and grade papers of students.
+
+
+**Deerwalk Services Pvt. Ltd.** (Jan 2015 - Mar 2018)
+
 *Junior Front End Developer Developer (Intern)*
         
 JOB RESPONSIBILITIES
@@ -119,9 +153,9 @@ Extra Section, Call it Whatever You Want
 ---
 ## Knowledge of
 
+* Python, Flask, Django
 * HTML, CSS, Javascript
 * Twitter Bootstrap and jQuery
 * Java, Groovy and Grails Framework
-* Python, Flask, Django
 
 ---
