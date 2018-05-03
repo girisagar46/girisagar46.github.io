@@ -33,13 +33,14 @@ Different users had given many answers and some of the links that I really liked
 - [The Open University](http://www.open.edu/itunes)
 - [Programming Motherfu***r](http://programming-motherfucker.com/)
 - [50+ Killer Resources for Computer Science Students](http://www.virtualhosting.com/blog/2008/50-killer-online-resources-for-computer-science-students/)
--[Computer Science for Fun](http://www.cs4fn.org/)
+- [Computer Science for Fun](http://www.cs4fn.org/)
 - [Code.tutsplus.com](http://code.tutsplus.com/)
+- [Computer Science Education Resource Guide](http://www.smartscholar.com/computer-science-guide/)
 
-These were some of the links I really liked. But, this isn't the limit. Go through each answers by yourself.
+These are some of the links I really liked. But, this isn't the limit. Go through this answer in Quora by yourself.
 [https://www.quora.com/What-are-the-top-websites-computer-science-students-must-visit](https://www.quora.com/What-are-the-top-websites-computer-science-students-must-visit)
 
-And, now some of my personal favrouties are:
+And, now some of my personal favorites are:
 
 - [Data School](http://dataschool.io/) - If you are intersted in data science. 
 - [Big Data University](http://bigdatauniversity.com/) - If you are really into big data, machine learning, spark.
@@ -58,7 +59,7 @@ And, now some of my personal favrouties are:
 - [Awesome Python](https://awesome-python.com/) - Info about different Python libraries.
 - [javascriptissexy.com](http://javascriptissexy.com/) - Indeed JS is sexy. Awesome blog only and about JS.
 
-Many of the links that are mentioned above are releated to programming but, Computer Science is not only about coding/programming.
-A competent computer science students should be able to design new algorithms, reduce complexity of the problem set and algorithms, or design a new programming language, implement a compiler or an intepreter, etc. But, without strong knowledge of programming, nothing is possible.
+Many of the links that are mentioned above are related to programming but, Computer Science is not only about coding/programming.
+A competent computer science students should be able to design new algorithms, reduce complexity of the problem set and algorithms, or design a new programming language, implement a compiler or an interpreter, etc. But, without strong knowledge of programming, nothing is possible.
 
 If you have some cool links, do share it in the comment section below. :) 
