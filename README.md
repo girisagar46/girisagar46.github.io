@@ -1,4 +1,4 @@
-# girisagar46.github.io
+# girisagar46.github.io [![Build Status](https://travis-ci.org/girisagar46/girisagar46.github.io.svg?branch=source)](https://travis-ci.org/girisagar46/girisagar46.github.io)
 
 The source code for my personal blog *[girisagar46.github.io](https://girisagar46.github.io)*
 
