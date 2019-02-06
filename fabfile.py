@@ -105,4 +105,4 @@ def publish(commit_message):
     local('pelican -s publishconf.py')
     with hide('running', 'stdout', 'stderr'):
         local("ghp-import -m '{msg}' -b {gp_branch} {deploy_path}".format(**env))
-        local("git push -fq https://{GH_TOKEN}@github.com/{TRAVIS_REPO_SLUG}.git {gp_branch}".format(**env))
+        local("git push -u origin https://{GH_TOKEN}@github.com/{TRAVIS_REPO_SLUG}.git {gp_branch}".format(**env))
