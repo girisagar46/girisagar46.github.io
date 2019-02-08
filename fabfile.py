@@ -16,7 +16,6 @@ DEPLOY_PATH = env.deploy_path
 env.gp_branch = "master"
 env.msg = "blog update"
 SERVER = '127.0.0.1'
-# Port for `serve`
 PORT = 8000
 
 TEMPLATE = """
@@ -30,21 +29,26 @@ Summary:
 Status: draft
 """
 
-def newpost(title):
-    """creates new post
-	Usage: $ fab newpost:"post title" """
+
+def new_post(title):
+    """
+    creates new post
+    Usage: $ fab new_post:"post title"
+    :param title: Title of the blog post
+    :return:
+    """
     today = datetime.today()
     slug = title.lower().strip().replace(' ', '-')
     file_location = "content/articles/{}.md".format(slug)
-    t = TEMPLATE.strip().format(title=title,
-                                year=today.year,
-                                month=today.month,
-                                day=today.day,
-                                hour=today.hour,
-                                minute=today.minute,
-                                slug=slug)
+    template = TEMPLATE.strip().format(title=title,
+                                       year=today.year,
+                                       month=today.month,
+                                       day=today.day,
+                                       hour=today.hour,
+                                       minute=today.minute,
+                                       slug=slug)
     with open(file_location, 'w') as output_article:
-        output_article.write(t)
+        output_article.write(template)
 
 
 def clean():
@@ -53,18 +57,22 @@ def clean():
         shutil.rmtree(DEPLOY_PATH)
         os.makedirs(DEPLOY_PATH)
 
+
 def build():
     """Build local version of site"""
     local('pelican -s pelicanconf.py')
+
 
 def rebuild():
     """`build` with the delete switch"""
     clean()
     build()
 
+
 def regenerate():
     """Automatically regenerate site upon file modification"""
     local('pelican -r -s pelicanconf.py')
+
 
 def serve():
     """Serve site at http://localhost:8000/"""
@@ -78,25 +86,25 @@ def serve():
     sys.stderr.write('Serving on port {0} ...\n'.format(PORT))
     server.serve_forever()
 
+
 def reserve():
     """`build`, then `serve`"""
     build()
     serve()
 
+
 def preview():
     """Build production version of site"""
     local('pelican -s publishconf.py')
 
-def cf_upload():
-    """Publish to Rackspace Cloud Files"""
-    rebuild()
-    with lcd(DEPLOY_PATH):
-        local('swift -v -A https://auth.api.rackspacecloud.com/v1.0 '
-              '-U {cloudfiles_username} '
-              '-K {cloudfiles_api_key} '
-              'upload -c {cloudfiles_container} .'.format(**env))
 
 def publish(commit_message):
+    """
+    Build the HMTL output and publish to master branch
+    Usage: fab publish:"Added blog post about testing in python"
+    :param commit_message: git commit message
+    :return:
+    """
     env.msg = commit_message
     env.GH_TOKEN = os.getenv('GH_TOKEN')
     env.TRAVIS_REPO_SLUG = os.getenv('TRAVIS_REPO_SLUG')
