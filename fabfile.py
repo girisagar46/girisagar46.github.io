@@ -1,11 +1,10 @@
-from fabric.api import *
-import fabric.contrib.project as project
 import os
 import shutil
-import sys
 import socketserver
+import sys
 from datetime import datetime
 
+from fabric.api import *
 from pelican.server import ComplexHTTPRequestHandler
 
 # Local path configuration (can be absolute or relative to fabfile)
