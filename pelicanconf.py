@@ -130,3 +130,7 @@ FLAIR_USER_NAME = "sgiri"
 
 
 READERS = {'html': None}
+
+# DEFAULT_CONFIG['MD_EXTENSIONS'] =
+
+MD_EXTENSIONS = []
