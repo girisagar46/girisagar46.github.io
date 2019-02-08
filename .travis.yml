@@ -4,8 +4,9 @@ branches:
   only:
   - source
 python:
-- 3.6
+- 3.5
 install:
+- gem install sass
 - pip install -r requirements.txt
 - git config --global user.email "girisagar46@gmail.com"
 - git config --global user.name "Sagar Giri"
