@@ -1,11 +1,10 @@
 Title: From Bitbucket Pipeline to AWS CodeCommit
 Date: 2019-2-8 22:8
 Modified: 2019-2-8 22:8
-Category:
+Category: tutorial
 Tags: devops, cicd, aws, aws codepipeline, codecommit
 Slug: from-bitbucket-pipeline-to-aws-codecommit
 Summary: In this article you'll ne learning how to sync your BitBucket repository to AWS CodeCommit. Once your AWS CodeCommit is synced with your BitBucket repo you can use AWS CodeCommit for many AWS services like CodePipeline, CodeBuild, CodeDeploy etc.
-Status: published
 
 
 ## Setup codecommit IAM user

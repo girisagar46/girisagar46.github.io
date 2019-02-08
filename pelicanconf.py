@@ -127,3 +127,6 @@ FLAIR = True
 FLAIR_URL = "https://stackexchange.com/users/5684581/sgiri"
 FLAIR_IMAGE_URL = "https://stackexchange.com/users/flair/5684581.png"
 FLAIR_USER_NAME = "sgiri"
+
+
+READERS = {'html': None}
