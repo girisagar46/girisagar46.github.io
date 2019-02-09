@@ -133,4 +133,15 @@ READERS = {'html': None}
 
 # DEFAULT_CONFIG['MD_EXTENSIONS'] =
 
-MD_EXTENSIONS = []
+MARKDOWN = {
+               'extension_configs':
+                   {
+                       'markdown.extensions.codehilite':
+                           {
+                               'css_class': 'codehilite'
+                           },
+                       'markdown.extensions.extra': {},
+                       'markdown.extensions.meta': {}
+                   },
+               'output_format': 'html5'
+           }
