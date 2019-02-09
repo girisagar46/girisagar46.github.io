@@ -113,3 +113,12 @@ def publish(commit_message):
     with hide('running', 'stdout', 'stderr'):
         local("ghp-import -m '{msg}' -b {gp_branch} {deploy_path}".format(**env))
         local("git push -fq https://{GH_TOKEN}@github.com/{TRAVIS_REPO_SLUG}.git {gp_branch}".format(**env))
+
+
+def publish_locally(commit_message):
+    """Publish to GitHub Pages"""
+    env.msg = commit_message
+    clean()
+    local('pelican -s publishconf.py')
+    local("ghp-import -m '{msg}' -b {gp_branch} {deploy_path}".format(**env))
+    local("git push -u origin {gp_branch}".format(**env))
