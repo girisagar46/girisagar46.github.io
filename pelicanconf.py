@@ -28,7 +28,7 @@ DEFAULT_PAGINATION = 7
 # Theme Settings
 SITELOGO = '/images/title.png'
 FAVICON = '/images/favicon.png'
-THEME = 'themes/Flex'
+THEME = 'themes/girisagar46.github.io-theme'
 BROWSER_COLOR = '#333333'
 PYGMENTS_STYLE = 'default'
 
