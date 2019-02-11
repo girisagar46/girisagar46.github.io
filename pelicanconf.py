@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
+from markdown.extensions.codehilite import CodeHiliteExtension
+
 AUTHOR = u'Sagar Giri'
 SITEURL = u'http://localhost:8000'
 SITENAME = u"Sagar Giri's Blog"
@@ -133,14 +135,5 @@ READERS = {'html': None}
 
 # DEFAULT_CONFIG['MD_EXTENSIONS'] =
 
-MARKDOWN = {
-               'extension_configs':
-                   {
-                       'markdown.extensions.codehilite':
-                           {
-                               'css_class': 'codehilite'
-                           },
-                       'markdown.extensions.extra': {},
-                       'markdown.extensions.meta': {}
-                   },
-           }
+# MD_EXTENSIONS = []
+MD_EXTENSIONS = [CodeHiliteExtension(css_class='highlight', linenums=True), 'extra']
