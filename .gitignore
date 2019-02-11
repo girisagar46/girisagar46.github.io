@@ -61,3 +61,5 @@ venv
 output
 *.pid
 .idea
+pelican-plugins/
+plugins/
