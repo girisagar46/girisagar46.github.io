@@ -11,6 +11,8 @@ Summary: In this article, you'll learn how to setup AWS CodePipeline for Continu
 
 In [previous tutorial](https://girisagar46.github.io/from-bitbucket-pipeline-to-aws-codecommit), you learnt about syncing your BitBucket repository to AWS CodeCommit. Now, since your source code is already into AWS CodeCommit, you can now setup AWS CodePipeline for CI/CD. 
 
+![Cover](../images/codepipeline/cover.png)
+
 This tutorial will be a little bit long and I will guide you to setup AWS CodePipeline for your Django application step by step with no step skipped. 
 
 Okay, Let's begin!
