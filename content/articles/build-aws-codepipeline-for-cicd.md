@@ -3,7 +3,7 @@ Date: 2019-2-15 22:50
 Modified: 2019-2-15 22:50
 Category: tutorial
 Cover: images/codepipeline/cover.png
-Tags: devops, cicd, aws, aws codepipeline, codecommit, djando, continuous integration, continuous deployment
+Tags: devops, cicd, aws, aws codepipeline, codecommit, django, continuous integration, continuous deployment
 Slug: build-aws-codepipeline-for-cicd
 Summary: In this article, you'll learn how to setup AWS CodePipeline for Continuous Integration and Continuous Delivery (CI/CD) pipeline for your Django Application.
 
