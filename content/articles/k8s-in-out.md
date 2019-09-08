@@ -12,6 +12,7 @@ Summary: In this article, you'll learn about the REST objects in kubernetes (pod
 ### What is Kubernetes?
 
 In a typical microservice architecture, we have these things:
+
 ![Cover](../images/k8s/architecture.jpg)
 
 - In a simple term, k8s is composed of Nodes and Pods.
@@ -24,6 +25,7 @@ In a typical microservice architecture, we have these things:
 - Each pods have one or more container running inside it.
 
 In the birds eye view, Kubernetes architecture can be viewed as:
+
 ![Birds-eye](../images/k8s/birds-eye.jpg)
 
 
@@ -40,7 +42,9 @@ There are two types of nodes:
 - You can think master node as a shepherd who who tends and rears sheep. (worker nodes)
 
 **What's inside a master node?**
+
 ![Master Node](../images/k8s/master-node.jpg)
+
 - Remember a Node is a machine. So the base layer is hardware layer. It can be bare metal, a virtual server, EC2 instance or even your personal laptop (if you are in local environment)
 - Then the layer after that is OS layer. And remember, K8s only works in Linux OS. Kubernetes is platform agnostic in terms of hardware lever, but it needs Linux OS to operate.
 
@@ -102,6 +106,7 @@ Here in above figure, these two containers share the same DB and also same file 
 In detail:
 
 ![Pod Multi](../images/k8s/pod-multi-detail.jpg)
+
 Containers inside the pod share the same IP address of the pod, but the port of each container is different. Intra container communication happens inside the pods by localhost. 
 
 For loosely coupled system, the containers from two different pods can talk to each other through network communication.
@@ -116,7 +121,9 @@ For loosely coupled system, the containers from two different pods can talk to e
 - Ideally 1 pod gets scheduled to one node
 
 Pod Lifecycle:
+
 ![Pod lifecycle](../images/k8s/pod-lifecycle.png)
+
 1. First we provide the manifest file to API server in k8s master node
 2. API server receives manifest file and tries to run container and pod goes to pending mode
 3. In pending mode, image is downloaded
@@ -149,7 +156,9 @@ ReplicationController sits on top of pod and it instantiating the pod(s)
 
 
 ### Deployments
+
 ![Deployments](../images/k8s/deployment.png)
+
 - These are the one which we interact the most
 - They sit above the replication controller. And in the world of k8s deployment, replication sets are called replica set
 - Deployments are:
