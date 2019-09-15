@@ -11,7 +11,7 @@ Summary: In this article, you'll learn about the REST objects in kubernetes (pod
 
 ### What is Kubernetes?
 
-In a typical microservice architecture, we have these things:
+In a typical micro service architecture using k8s, we have these things:
 
 ![Cover](../images/k8s/architecture.jpg)
 
@@ -24,7 +24,7 @@ In a typical microservice architecture, we have these things:
 - Each node has pods.
 - Each pods have one or more container running inside it.
 
-In the birds eye view, Kubernetes architecture can be viewed as:
+**In the birds eye view, Kubernetes architecture can be viewed as:**
 
 ![Birds-eye](../images/k8s/birds-eye.jpg)
 
@@ -33,6 +33,7 @@ In the birds eye view, Kubernetes architecture can be viewed as:
 A node is a worker machine in Kubernetes. Learn more [here](https://lmgtfy.com/?q=kubernetes+nodes)
 
 There are two types of nodes:
+
 1. Master node
 2. Worker node
 
@@ -45,10 +46,11 @@ There are two types of nodes:
 
 ![Master Node](../images/k8s/master-node.jpg)
 
-- Remember a Node is a machine. So the base layer is hardware layer. It can be bare metal, a virtual server, EC2 instance or even your personal laptop (if you are in local environment)
+- Remember a Node is a machine. So the base layer is the hardware layer. It can be bare metal, a virtual server, EC2 instance or even your personal laptop (if you are in local environment)
 - Then the layer after that is OS layer. And remember, K8s only works in Linux OS. Kubernetes is platform agnostic in terms of hardware lever, but it needs Linux OS to operate.
 
 **Components of Master node:**
+
 1. Scheduler: 
 Watches for new pods and assign work to that pod.
 
@@ -56,12 +58,13 @@ Watches for new pods and assign work to that pod.
 This watches for changes in the cluster
 
 3. Key Value Store:
-This is the persistent storage service. It uses `etcd` to maintain it's state. So in a master node, only this component is stateful.
+This is the persistent storage service. It uses [etcd](https://etcd.io/) to maintain it's state. So in a master node, only this component is stateful.
 
 4. API server: This exposes the REST API for developers and clients to interact with k8s cluster. Developers deal directly with api server via command line tool provided by kubernetes called `kubectl`. API server can also be linked with authentication service to provide extra layer of security for k8s cluster.
 
 #### Worker Node
-- Worker node (also used to be called as minion) are also a machine that does the actual work. For example, updating a shopping cart or authenticating a user in your web application.
+
+Worker node (also used to be called as minion) are also a machine that does the actual work. For example, updating a shopping cart or authenticating a user in your web application.
 
 **What's inside a worker node?**
 
@@ -85,7 +88,7 @@ This also does load balancing across all pods in a service (#service section)
 
 ### Declarative model and Desired state
 Kubernetes work in declarative model. Which basically means that we provide the APIServer (which is inside the master node) some specification to describe the desired state. The specification is written in JSON or YAML format. 
-Once we provide the specification *declaration*, then it's the responsibility of Kubernetes to maintain the *desired* state. 
+Once we provide the specification **declaration**, then it's the responsibility of Kubernetes to maintain the *desired* state. 
 
 #### Declarative Model
 We give manifest to do something. For example: At each time, there must be 5 containers running.
@@ -116,7 +119,8 @@ For loosely coupled system, the containers from two different pods can talk to e
 
 - Pods are also the unit of scaling in kubernetes world. We scale pods up and down (add or remove pods) while scaling.
 - Pods are *atomic*. Which means we just create replicas of pods. We don't wait for the containers to be up before creating a pod. We just create create replicas of already up and running pods.
-- Pod lifecycle is: -> pending -> running -> success or failed -> die
+- Pod lifecycle is: 
+    pending :arrow_right: running :arrow_right: success or failed :arrow_right: die
 - There is no half (partially up) pod. Either it's up or not. 
 - Ideally 1 pod gets scheduled to one node
 
