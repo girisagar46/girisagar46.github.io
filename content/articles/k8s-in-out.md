@@ -120,7 +120,7 @@ For loosely coupled system, the containers from two different pods can talk to e
 - Pods are also the unit of scaling in kubernetes world. We scale pods up and down (add or remove pods) while scaling.
 - Pods are *atomic*. Which means we just create replicas of pods. We don't wait for the containers to be up before creating a pod. We just create create replicas of already up and running pods.
 - Pod lifecycle is: 
-    pending :arrow_right: running :arrow_right: success or failed :arrow_right: die
+    **pending -> running -> success or failed -> die**
 - There is no half (partially up) pod. Either it's up or not. 
 - Ideally 1 pod gets scheduled to one node
 
