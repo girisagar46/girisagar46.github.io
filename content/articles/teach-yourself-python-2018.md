@@ -106,3 +106,5 @@ So, inorder to gain more knowledge in Python, I started learning from online res
 - Do small projects with the framework and libraries that you've learned and push your code to GitHub.
 
 - Learn new topic everyday. *P.S. I learned about Python enums today :)* 
+
+- After this you can try applying for Python dev jobs. Here is an interesting [Toptal article](https://www.toptal.com/python#hiring-guide) about what recruiters expect in Python dev. 
