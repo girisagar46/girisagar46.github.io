@@ -7,7 +7,7 @@ Sagar Giri
 ------------
 
 *I am Sagar Giri, from Kathmandu, Nepal. I am a Computer Science graduate and currently staying in Kathmandu, Nepal. I consider myself a fast learner and problem solver. I have 2 years of experience working in Grails web framework with Java in Deerwalk Services Pvt. Ltd for PlanAnalytics project. I love watching movies and fond of Nepali literature. My hobbies are programming, hiking and learning new things.*
-**[Download my resume](https://ia601509.us.archive.org/24/items/SagarGiriResume2018/Sagar_Giri_Resume_2018.pdf)**
+**[Download my resume](https://raw.githubusercontent.com/girisagar46/girisagar46/master/Resume_Sagar_Giri_2020_September.pdf)**
 
 ----
 
