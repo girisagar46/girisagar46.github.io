@@ -12,7 +12,7 @@ SITESUBTITLE = '<pre>$ cd /pub && more beer</pre>'
 SITEDESCRIPTION = u's programming, pelican, python, computer science, logic, algorithm'
 PATH = 'content'
 
-TIMEZONE = 'Asia/Kathmandu'
+TIMEZONE = 'Asia/Tokyo'
 
 DEFAULT_LANG = u'en'
 OG_LOCALE = 'en_US'
@@ -22,7 +22,7 @@ DATE_FORMATS = {
 }
 
 USE_FOLDER_AS_CATEGORY = False
-COPYRIGHT_YEAR = 2017
+COPYRIGHT_YEAR = 2020
 DEFAULT_PAGINATION = 7
 
 # Theme Settings
