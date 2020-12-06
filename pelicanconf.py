@@ -31,7 +31,6 @@ THEME = "themes/girisagar46.github.io-theme"
 BROWSER_COLOR = "#333333"
 PYGMENTS_STYLE = "default"
 
-
 # Feed generation is usually not desired when developing
 FEED_DOMAIN = SITEURL
 FEED_ALL_ATOM = "feeds/all.atom.xml"
@@ -42,17 +41,17 @@ AUTHOR_FEED_RSS = None
 
 # Main Menu
 MAIN_MENU = True
-MENUITEMS = (("Archives", "/archives"),("Categories", "/categories"),("Tags", "/tags"),)
+MENUITEMS = (("Archives", "/archives"), ("Categories", "/categories"), ("Tags", "/tags"),)
 
 # Blogroll
 LINKS = (("Project", "https://girisagar46.github.io/FYPFruitClassifier/"),)
 
 # Social widget
-SOCIAL = (("linkedin", "https://linkedin.com/in/girisagar46"),
-          ("github", "https://github.com/girisagar46"),
-          ("twitter", "https://twitter.com/sagargiri46"),
-          ("stack-overflow", "http://stackoverflow.com/story/girisagar46.github.io"),
-          )
+SOCIAL = (
+    ("linkedin", "https://linkedin.com/in/girisagar46"),
+    ("github", "https://github.com/girisagar46"),
+    ("stack-overflow", "http://stackoverflow.com/story/girisagar46.github.io"),
+)
 
 # Plugins
 # See: http://docs.getpelican.com/en/latest/plugins.html
@@ -105,7 +104,6 @@ DISQUS_SITENAME = "girisagar46-github-io"
 # SHARING
 ADD_THIS_ID = "ra-589c9f9f19d6a715"
 
-
 # Formatting for URLS
 ARTICLE_URL = "{slug}"
 PAGE_URL = "pages/{slug}"
@@ -114,8 +112,7 @@ TAG_URL = "tag/{slug}"
 AUTHOR_SAVE_AS = False
 AUTHORS_SAVE_AS = False
 
-
-#CUSTOM_AD
+# CUSTOM_AD
 
 # AD_IMAGE = "/images/merohostel.jpg"
 # AD_URL = "http://merohostel.com/"
@@ -128,7 +125,6 @@ FLAIR = True
 FLAIR_URL = "https://stackexchange.com/users/5684581/sgiri"
 FLAIR_IMAGE_URL = "https://stackexchange.com/users/flair/5684581.png"
 FLAIR_USER_NAME = "sgiri"
-
 
 READERS = {"html": None}
 
