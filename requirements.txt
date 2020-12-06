@@ -3,3 +3,4 @@ Markdown==3.3.3
 invoke==1.4.1
 livereload==2.6.3
 ghp-import==1.0.0
+bs4==0.0.1
