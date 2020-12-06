@@ -24,11 +24,14 @@ CONFIG = {
     # Output path. Can be absolute or relative to tasks.py. Default: 'output'
     'deploy_path': SETTINGS['OUTPUT_PATH'],
     # Github Pages configuration
-    'github_pages_branch': 'main',
+    'github_pages_branch': 'master',
+    'username': 'girisagar46',
+    'blog_repo': 'girisagar46.github.io.git',
     'commit_message': "'Publish site on {}'".format(datetime.date.today().isoformat()),
     # Host and port for `serve`
     'host': 'localhost',
     'port': 8000,
+    'GH_TOKEN': os.getenv('GH_TOKEN')
 }
 
 TEMPLATE = """
@@ -41,7 +44,6 @@ Slug: {slug}
 Summary:
 Status: draft
 """
-
 
 
 @task
@@ -127,12 +129,20 @@ def livereload(c):
 def publish(c):
     """Publish to production via rsync"""
     pelican_run('-s {settings_publish}'.format(**CONFIG))
-    c.run(
-        'rsync --delete --exclude ".DS_Store" -pthrvz -c '
-        '-e "ssh -p {ssh_port}" '
-        '{} {ssh_user}@{ssh_host}:{ssh_path}'.format(
-            CONFIG['deploy_path'].rstrip('/') + '/',
-            **CONFIG))
+    print("Invoking gph-import.")
+    c.run("ghp-import -m {commit_message} -b {github_pages_branch} {deploy_path}".format(**CONFIG))
+    print("Pushing to master...")
+    c.run("git push -fq https://{username}:{GH_TOKEN}@github.com/{username}/{blog_repo} {github_pages_branch}".format(
+        **CONFIG))
+
+
+@task
+def publish_locally(c):
+    """Publish to GitHub Pages"""
+    clean(c)
+    pelican_run('-s {settings_publish}'.format(**CONFIG))
+    c.run("ghp-import -m {commit_message} -b {github_pages_branch} {deploy_path}".format(**CONFIG))
+    c.run("git push -u origin {github_pages_branch}".format(**CONFIG))
 
 
 @task
