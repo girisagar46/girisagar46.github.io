@@ -1,0 +1,33 @@
+name: Update Blog
+
+on:
+  push:
+    branches:
+      - source
+  pull_request:
+    branches:
+      - source
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7.9
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+        with:
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+      - name: Clone dependencies
+        run: |
+          git clone https://github.com/girisagar46/girisagar46.github.io-theme.git themes/girisagar46.github.io-theme
+          git clone --recursive https://github.com/getpelican/pelican-plugins
+      - name: Build and publish the blog
+        run: |
+          invoke publish
