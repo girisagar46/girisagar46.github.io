@@ -1,4 +1,4 @@
-Title: The Insides of Kubernetes and how it actually works. dsds
+Title: The Insides of Kubernetes and how it actually works.
 Date: 2019-9-06 14:30
 Modified: 2019-9-06 14:30
 Category: tutorial, blog, information
