@@ -1,9 +1,12 @@
 name: Update Blog
 
 on:
+  push:
+    branches:
+      - source
   pull_request:
-    types:
-      - opened
+    branches:
+      - source
 
 jobs:
   build:
