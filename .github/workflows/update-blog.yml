@@ -22,7 +22,7 @@ jobs:
       - name: Clone dependencies
         run: |
           git clone https://github.com/girisagar46/girisagar46.github.io-theme.git themes/girisagar46.github.io-theme
-          git clone --recursive https://github.com/getpelican/pelican-plugins
+          git clone https://github.com/getpelican/pelican-plugins
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Build and publish the blog

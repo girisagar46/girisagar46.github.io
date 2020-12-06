@@ -1,4 +1,4 @@
-Title: The Insides of Kubernetes and how it actually works.
+Title: The Insides of Kubernetes and how it actually works. dsds
 Date: 2019-9-06 14:30
 Modified: 2019-9-06 14:30
 Category: tutorial, blog, information
@@ -51,7 +51,7 @@ There are two types of nodes:
 
 **Components of Master node:**
 
-1. Scheduler: 
+1. Scheduler:
 Watches for new pods and assign work to that pod.
 
 2. Controller:
@@ -73,7 +73,7 @@ Worker node (also used to be called as minion) are also a machine that does the 
 1. Kubelet:
 They are main k8s agent
 They instantiate pod, register node with a cluster and operate on port 10255
-Kubelet just report back to master node if a container dies. 
+Kubelet just report back to master node if a container dies.
 The endpoint provied by kubelet are: `/spec`, `/healtz` , `/pods`
 
 2. Container Engine:
@@ -87,8 +87,8 @@ This also does load balancing across all pods in a service (#service section)
 
 
 ### Declarative model and Desired state
-Kubernetes work in declarative model. Which basically means that we provide the APIServer (which is inside the master node) some specification to describe the desired state. The specification is written in JSON or YAML format. 
-Once we provide the specification **declaration**, then it's the responsibility of Kubernetes to maintain the *desired* state. 
+Kubernetes work in declarative model. Which basically means that we provide the APIServer (which is inside the master node) some specification to describe the desired state. The specification is written in JSON or YAML format.
+Once we provide the specification **declaration**, then it's the responsibility of Kubernetes to maintain the *desired* state.
 
 #### Declarative Model
 We give manifest to do something. For example: At each time, there must be 5 containers running.
@@ -104,13 +104,13 @@ This is done by k8s internally. For example: Since we declared to run 5 replicas
 
 ![Pod Multi](../images/k8s/pod-multi.jpg)
 
-Here in above figure, these two containers share the same DB and also same file system and also the same IP address. 
+Here in above figure, these two containers share the same DB and also same file system and also the same IP address.
 
 In detail:
 
 ![Pod Multi](../images/k8s/pod-multi-detail.jpg)
 
-Containers inside the pod share the same IP address of the pod, but the port of each container is different. Intra container communication happens inside the pods by localhost. 
+Containers inside the pod share the same IP address of the pod, but the port of each container is different. Intra container communication happens inside the pods by localhost.
 
 For loosely coupled system, the containers from two different pods can talk to each other through network communication.
 
@@ -119,9 +119,9 @@ For loosely coupled system, the containers from two different pods can talk to e
 
 - Pods are also the unit of scaling in kubernetes world. We scale pods up and down (add or remove pods) while scaling.
 - Pods are *atomic*. Which means we just create replicas of pods. We don't wait for the containers to be up before creating a pod. We just create create replicas of already up and running pods.
-- Pod lifecycle is: 
+- Pod lifecycle is:
     **pending -> running -> success or failed -> die**
-- There is no half (partially up) pod. Either it's up or not. 
+- There is no half (partially up) pod. Either it's up or not.
 - Ideally 1 pod gets scheduled to one node
 
 Pod Lifecycle:
@@ -146,13 +146,13 @@ ReplicationController sits on top of pod and it instantiating the pod(s)
 
 ### Services
 - Pods are volatile. They are not persistent.
-- Pods go alive and die rapidly. When they die and generate their IP address changes rapidly. If pods die or new pods are added it's very difficult to manage the IP address and connection between these pods. To address this issue, we make use of service. 
+- Pods go alive and die rapidly. When they die and generate their IP address changes rapidly. If pods die or new pods are added it's very difficult to manage the IP address and connection between these pods. To address this issue, we make use of service.
 - Service sits between pods layer and manages the network connection between the pods
 - They also do load balancing tasks
 - It's the job of service to send traffic to healthy pods and it uses TCP protocol by default
 - When our app is deployed in Kubernetes, we want it to be used by public. Hence, Service also helps to expose our application to public world (in the internet)
-- Service gets single DNS, static IP, and never changing port. 
-- Services are stateful and they never change once defined. 
+- Service gets single DNS, static IP, and never changing port.
+- Services are stateful and they never change once defined.
 - Services and pods are tied together by label
 - Our client can talk to service in-order to get access to the application hosted in the pods
 
