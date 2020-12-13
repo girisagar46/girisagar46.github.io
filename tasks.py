@@ -163,14 +163,15 @@ def pelican_run(cmd):
 def new_post(c, title, *args, **kwargs):
     """
     creates new post
-    Usage: $ fab new_post:"post title"
+    Usage: $ invoke new-post title="My Brand New Awesome Post"
     :param title: Title of the blog post
     :return:
     """
     today = datetime.datetime.today()
-    slug = title.split("=")[1].lower().strip().replace(' ', '-')
+    post_title = title.split("=")[1]
+    slug = post_title.lower().strip().replace(' ', '-')
     file_location = "content/articles/{}.md".format(slug)
-    template = TEMPLATE.strip().format(title=title,
+    template = TEMPLATE.strip().format(title=post_title,
                                        year=today.year,
                                        month=today.month,
                                        day=today.day,
