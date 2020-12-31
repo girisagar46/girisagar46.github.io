@@ -21,7 +21,7 @@ jobs:
           python-version: 3.7.9
       - name: Clone dependencies
         run: |
-          git clone https://github.com/girisagar46/girisagar46.github.io-theme.git themes/girisagar46.github.io-theme
+          git clone https://github.com/girisagar46/Flex.git themes/Flex
           git clone https://github.com/getpelican/pelican-plugins
       - name: Cache pip
         uses: actions/cache@v2

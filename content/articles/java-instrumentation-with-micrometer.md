@@ -23,7 +23,37 @@ First and foremost, I will set [Prometheus](https://prometheus.io/) and [Grafana
 
 The `docker-compose.yml` file looks like this:
 
-<script src="https://gist.github.com/girisagar46/da3d3c0326c57c1ee8828271937a45ee.js"></script>
+```
+version: "3.8"
+
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./data/prometheus:/data
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/data"
+    ports:
+      - "9090:9090"
+    restart: always
+
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - ./grafana:/var/lib/grafana
+      - ./grafana/datasources:/etc/grafana/datasources
+      - ./grafana/dashboards:/etc/grafana/dashboard
+    ports:
+      - "3000:3000"
+    restart: always
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+```
 
 Since we're mounting `/monitoring/prometheus.yml` into prometheus service, let's create the directory `monitoring` and create a file `prometheus.yml` inside the `monitoring` directory.
 
@@ -81,7 +111,21 @@ At this point, the source code directory looks like this:
 
 Now if you run your application (Execute Main.java) and go to [http://localhost:8080/metrics](http://localhost:8080/metrics), you'll see following output:
 
-<script src="https://gist.github.com/girisagar46/f7613dc3ced067dfdd23fa3cee18f859.js"></script>
+```
+...
+# HELP jvm_gc_live_data_size_bytes Size of long-lived heap memory pool after reclamation
+# TYPE jvm_gc_live_data_size_bytes gauge
+jvm_gc_live_data_size_bytes 0.0
+# HELP jvm_buffer_count_buffers An estimate of the number of buffers in the pool
+# TYPE jvm_buffer_count_buffers gauge
+jvm_buffer_count_buffers{id="mapped - 'non-volatile memory'",} 0.0
+jvm_buffer_count_buffers{id="mapped",} 0.0
+jvm_buffer_count_buffers{id="direct",} 2.0
+# HELP jvm_memory_used_bytes The amount of used memory
+# TYPE jvm_memory_used_bytes gauge
+...
+
+```
 
 Which means your Java application is exposing metrics for the Prometheus to grab.
 
@@ -123,9 +167,9 @@ Now the basic setup is done, the metrics world does not stop here. It's a vast o
 1. [https://prometheus.io/docs/prometheus/latest/querying/basics/](https://prometheus.io/docs/prometheus/latest/querying/basics/)
 1. [Video: PromQL for Mere Mortals](https://www.youtube.com/watch?v=hTjHuoWxsks)
 1. [Video: The 4 Types Of Prometheus Metrics](https://www.youtube.com/watch?v=nJMRmhbY5hY)
-1. [https://www.robustperception.io/blog]
-1. [https://grafana.com/tutorials/]
-1. [https://github.com/prometheus/client_java]
+1. [https://www.robustperception.io/blog](https://www.robustperception.io/blog)
+1. [https://grafana.com/tutorials/](https://grafana.com/tutorials/)
+1. [https://github.com/prometheus/client_java](https://github.com/prometheus/client_java)
 1. [https://www.reddit.com/r/PrometheusMonitoring](https://www.reddit.com/r/PrometheusMonitoring) -> Reddit community
 1. [https://www.reddit.com/r/grafana](https://www.reddit.com/r/grafana) -> Reddit community
 1. [https://slofile.com/slack/micrometer-metrics](https://slofile.com/slack/micrometer-metrics) -> Official Slack channel for Micrometer (Join and ask any questions related to Prometheus, Grafana and Micrometer)
