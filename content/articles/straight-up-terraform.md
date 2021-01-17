@@ -93,7 +93,7 @@ Summary: This is the very detailed introduction to getting started with Terrafor
 [https://www.Terraform.io/downloads.html](https://www.Terraform.io/downloads.html)
 
 ```shell
-╰─$ Terraform -version
+╰─$ terraform -version
 Terraform v0.14.4
 ```
 
@@ -103,7 +103,7 @@ Initialize Terraform
 
 ```shell
 ╭─sagar-giri@PCN-489 ~/IdeaProjects/HelloTerraform
-╰─$ Terraform init
+╰─$ terraform init
 Terraform initialized in an empty directory!
 
 The directory has no Terraform configuration files. You may begin working
@@ -114,7 +114,7 @@ Plan Terraform
 
 ```shell
 ╭─sagar-giri@PCN-489 ~/IdeaProjects/HelloTerraform
-╰─$ Terraform plan
+╰─$ terraform plan
 
 Error: No configuration files
 
@@ -128,7 +128,7 @@ Apply
 
 ```shell
 ╭─sagar-giri@PCN-489 ~/IdeaProjects/HelloTerraform
-╰─$ Terraform apply                                                                                                 1 ↵
+╰─$ terraform apply                                                                                                 1 ↵
 
 Error: No configuration files
 
@@ -141,7 +141,7 @@ Destroy
 
 ```shell
 ╭─sagar-giri@PCN-489 ~/IdeaProjects/HelloTerraform
-╰─$ Terraform destroy
+╰─$ terraform destroy
 Do you really want to destroy all resources?
   Terraform will destroy all your managed infrastructure, as shown above.
   There is no undo. Only 'yes' will be accepted to confirm.
@@ -150,7 +150,7 @@ Do you really want to destroy all resources?
 
 Destroy cancelled.
 ╭─sagar-giri@PCN-489 ~/IdeaProjects/HelloTerraform
-╰─$ Terraform destroy                                                                                               1 ↵
+╰─$ terraform destroy                                                                                               1 ↵
 Do you really want to destroy all resources?
   Terraform will destroy all your managed infrastructure, as shown above.
   There is no undo. Only 'yes' will be accepted to confirm.
@@ -163,7 +163,7 @@ Destroy complete! Resources: 0 destroyed.
 Help (Look for the _**Main commands**_ section)
 
 ```shell
-╰─$ Terraform help
+╰─$ terraform help
 Usage: Terraform [global options] <subcommand> [args]
 
 The available commands for execution are listed below.
@@ -205,7 +205,7 @@ Global options (use these before the subcommand, if any):
 Format the Terraform file
 
 ```shell
-╰─$ Terraform fmt
+╰─$ terraform fmt
 ```
 
 ### 2.4 The very "Basics of Terraform"
@@ -227,7 +227,7 @@ Create `main.tf` inside a directory
 Initialize Terraform
 
 ```shell
-╰─$ Terraform init
+╰─$ terraform init
 
 Initializing the backend...
 
@@ -243,7 +243,7 @@ you run "Terraform init" in the future.
 
 Terraform has been successfully initialized!
 
-You may now begin working with Terraform. Try running "Terraform plan" to see
+You may now begin working with Terraform. Try running "terraform plan" to see
 any changes that are required for your infrastructure. All Terraform commands
 should now work.
 
@@ -255,7 +255,7 @@ commands will detect it and remind you to do so if necessary.
 Plan it
 
 ```shell
-╰─$ Terraform plan
+╰─$ terraform plan
 
 An execution plan has been generated and is shown below.
 Resource actions are indicated with the following symbols:
@@ -280,7 +280,7 @@ Apply it. You might have to type `yes` in the middle of it.
 After applying it creates a `.tfstate` file, and you should not touch the `.tfstate` file.
 
 ```shell
-╰─$ Terraform apply
+╰─$ terraform apply
 
 An execution plan has been generated and is shown below.
 Resource actions are indicated with the following symbols:
@@ -309,14 +309,14 @@ greeting = "Hello Terraform."
 See the output
 
 ```shell
-╰─$ Terraform output
+╰─$ terraform output
 greeting = "Hello Terraform."
 ```
 
 Specify which output you want
 
 ```shell
-╰─$ Terraform output greeting
+╰─$ terraform output greeting
 "Hello Terraform."
 ```
 
@@ -332,7 +332,7 @@ Example `main.tf` with AWS as a provider:
 
 ```hcl
 # Terraform block is optional but it's a best practice to have it
-Terraform {
+terraform {
   # required_version is the Terraform version which we want to apply
   required_version = ">=0.14.0"
 }
@@ -368,7 +368,7 @@ Example:
 **Create a S3 bucket in AWS using resource block.**
 
 ```hcl
-Terraform {
+terraform {
   required_version = ">=0.14.0"
 }
 
@@ -383,10 +383,10 @@ resource "aws_s3_bucket" "Terraform-bucket-2021" {
 }
 ```
 
-Plan and save the output to a file using command: `Terraform plan -out s3.tfplan` . This will create a file named `s3.tfplan` with following output:
+Plan and save the output to a file using command: `terraform plan -out s3.tfplan` . This will create a file named `s3.tfplan` with following output:
 
 ```bash
-╰─$ Terraform plan -out example.tfplan
+╰─$ terraform plan -out example.tfplan
 
 An execution plan has been generated and is shown below.
 Resource actions are indicated with the following symbols:
@@ -428,12 +428,12 @@ To perform exactly these actions, run the following command to apply:
 
 Anything beginning with the `+` means Terraform will create this resource for us. In the output above, it's `+ create` which means the resource doesn't exist yet and Terraform will perform `create` operation on the resource.
 
-Now, apply the plan using command: `Terraform apply s3.tfplan`
+Now, apply the plan using command: `terraform apply s3.tfplan`
 
 Once applied, following output will be seen:
 
 ```none
-╰─$ Terraform apply example.tfplan
+╰─$ terraform apply example.tfplan
 aws_s3_bucket.Terraform-bucket-2021: Creating...
 aws_s3_bucket.Terraform-bucket-2021: Creation complete after 5s [id=Terraform-bucket-2021]
 
@@ -442,7 +442,7 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 The state of your infrastructure has been saved to the path
 below. This state is required to modify and destroy your
 infrastructure, so keep it safe. To inspect the complete state
-use the `Terraform show` command.
+use the `terraform show` command.
 
 State path: Terraform.tfstate
 
@@ -464,7 +464,7 @@ Bucket is successfully created 🎉
 
 When we don't define some value (bucket name for example), Terraform will create the bucket name for us, and we can know the bucket details using Terraform outputs.
 
-In above case, let's output the bucket information of `Terraform-bucket-2021`
+In above case, let's output the bucket information of `terraform-bucket-2021`
 
 To do that we need to create a output block
 
@@ -479,9 +479,9 @@ output "bucket_info" {
 }
 ```
 
-Now, plan it `Terraform plan -out s3.tfplan` . Here, the previous filename `s3.tfplan` will be replaced with the new fresh file.
+Now, plan it `terraform plan -out s3.tfplan` . Here, the previous filename `s3.tfplan` will be replaced with the new fresh file.
 
-Not apply the `s3.tfplan` using command `Terraform apply s3.tfplan`
+Not apply the `s3.tfplan` using command `terraform apply s3.tfplan`
 
 You'll see following output:
 
@@ -526,7 +526,7 @@ bucket_info = {
 
 As you can see `Apply complete! Resources: 0 added, 0 changed, 0 destroyed.` because no resources were created even though our `.tf` file has resource block.
 
-You can also get the output using `Terraform output` command like this: `Terraform output bucket_info`
+You can also get the output using `terraform output` command like this: `terraform output bucket_info`
 
 Example:
 
@@ -544,7 +544,7 @@ output "aws_availability_zones" {
 }
 ```
 
-Now, plan it `Terraform plan -out s3.tfplan`  and apply `Terraform apply s3.tfplan`
+Now, plan it `terraform plan -out s3.tfplan`  and apply `terraform apply s3.tfplan`
 
 You'll see following output:
 
@@ -628,11 +628,11 @@ resource "aws_s3_bucket" "bucket4" {
   ]
 }
 ```
-To see the dependencies, generate the `dot` file using `Terraform graph > graph.dot`
+To see the dependencies, generate the `dot` file using `terraform graph > graph.dot`
 
 And paste the content in online tool [https://dreampuf.github.io/GraphvizOnline/](https://dreampuf.github.io/GraphvizOnline/) to see the output.
 
-The `Terraform graph` command is only used for debugging purpose.
+The `terraform graph` command is only used for debugging purpose.
 
 ### 3.6 Variables and Locals
 
@@ -665,7 +665,7 @@ resource "aws_s3_bucket" "bucket5" {
 And when plan is executed, the bucket name is expected as an input value:
 
 ```bash
-Terraform plan -out var.tfplan
+$ terraform plan -out var.tfplan
 var.bucket_name
   Enter a value: MyPiBucket31415
 
@@ -949,7 +949,7 @@ upper_map = {
 
 
 - `heredocs`
-  - is a multiline string that is used to create inline JSON documents
+  - is a multiline string that is used to create an inline JSON documents
   - They are used in outputs, variables description and inline documents
 Example:
 
@@ -1029,7 +1029,7 @@ Since we created multiple buckets and all, it's time to clean up.
 
 Even though the buckets don't cost any, it's wise to clean up since we're just playing with Terraform in development mode.
 
-First look for states that's tracked by Terraform using `Terraform state list` . If it shows bunch of outputs of your bucket, execute `Terraform destroy` which will destroy all resources that were created.
+First look for states that's tracked by Terraform using `terraform state list` . If it shows bunch of outputs of your bucket, execute `terraform destroy` which will destroy all resources that were created.
 
 # Chapter 4: Code Re-Use for applying DRY
 
@@ -1048,7 +1048,7 @@ What is a module in Terraform?
   - `<NAME>` can contain hyphens
 Module layout
 
-```none
+```bash
 ├── Terraform-aws-s3
 │   ├── README.md
 │   ├── datas.tf
@@ -1085,7 +1085,7 @@ Play with [https://github.com/rojopolis/Terraform-aws-lambda-python-archive/](ht
 ### 4.2 Distributing modules
 
 
-- Name the module properly `Terraform-<PROVIDER>-<NAME>`
+- Name the module properly `terraform-<PROVIDER>-<NAME>`
 - Should be in public repository in GitHub.
 - Should have license and examples
 - Repo should be released with a tag
@@ -1108,7 +1108,7 @@ Play with [https://github.com/rojopolis/Terraform-aws-lambda-python-archive/](ht
 Example:
 
 ```hcl
-Terraform {
+terraform {
   required_version = ">=0.14.0"
   backend "s3" {
     # bucket should already exist
@@ -1120,7 +1120,8 @@ Terraform {
   }
 }
 ```
-You must init again inorder to change the backend.
+
+You must `init` again inorder to change the backend.
 
 Locks are stored in dynamodb table. Whoever acquires the lock first has the precedence of getting the resource.
 
@@ -1135,43 +1136,43 @@ We can also have remote backend
     }
   }
 ```
-If we change the S3 backend to remote backend, we need to do `Terraform init` again which will ask us if we'd like to move the state file from S3 to the remote backend.
+If we change the S3 backend to remote backend, we need to do `terraform init` again which will ask us if we'd like to move the state file from S3 to the remote backend.
 
 ### 5.2 Terraform workspaces
 
 
 - Workspace helps us to create different environment with the same sets of Terraform configurations.
-- You can view the list of your Terraform workspaces using the command `Terraform workspace list`
+- You can view the list of your Terraform workspaces using the command `terraform workspace list`
 - The default workspace name is called `default`
 - You can not delete the default workspace
-- Execute `Terraform workspace --help` to view the workspaces sub-commands
+- Execute `terraform workspace --help` to view the workspaces sub-commands
 
 Create a new workspace:
 
 ```shell
-╰─$ Terraform workspace new staging
+╰─$ terraform workspace new staging
 Created and switched to workspace "staging"!
 
 You're now on a new, empty workspace. Workspaces isolate their state,
-so if you run "Terraform plan" Terraform will not see any existing state
+so if you run "terraform plan" Terraform will not see any existing state
 for this configuration.
 ```
 
 List the workspaces:
 
 ```bash
-╰─$ Terraform workspace list
+╰─$ terraform workspace list
   default
 * staging
 
 ```
 
-Where the `*` is the current one and we can also use `Terraform workspace show` to get the current workspace.
+Where the `*` is the current one, and we can also use `terraform workspace show` to get the current workspace.
 
 Switch the workspace back to `default`
 
 ```bash
-╰─$ Terraform workspace select default                                                                                                                                                                                              1 ↵
+╰─$ terraform workspace select default                                                                                                                                                                                              1 ↵
 Switched to workspace "default".
 
 ```
@@ -1179,7 +1180,7 @@ Switched to workspace "default".
 Deleting the workspace:
 
 ```bash
-╰─$ Terraform workspace delete staging
+╰─$ terraform workspace delete staging
 Deleted workspace "staging"!
 
 ```
