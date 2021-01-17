@@ -13,38 +13,38 @@ Summary: This is the very detailed introduction to getting started with Terrafor
 ### 1.1 Begin with a look back
 
 - [1960-1970] - Mainframe Computers
-  - Big machines
-  - Big facilities and using fork-lifts to move machines
-  - Automation was not that critical in this era
+    - Big machines
+    - Big facilities and using fork-lifts to move machines
+    - Automation was not that critical in this era
 - [1980-1990] - Client/Server World
-  - Things started to get little more complicated
-  - UNIX or PC servers running various OS
-  - These machines serve users using networking
+    - Things started to get little more complicated
+    - UNIX or PC servers running various OS
+    - These machines serve users using networking
 - [Mid 90's-2000] - Virtualization
-  - Software defines infrastructures
-  - Hardware were virtualized
-  - Clients do not have any hardware debt
+    - Software defines infrastructures
+    - Hardware were virtualized
+    - Clients do not have any hardware debt
 - Cloud Era
-  - No hardware to manage
-  - It's all software management problem
-  - All these things could be managed by API's, Scripts
-  - Manage all the infrastructures by the code
+    - No hardware to manage
+    - It's all software management problem
+    - All these things could be managed by API's, Scripts
+    - Manage all the infrastructures by the code
 
 
 ### 1.2 Why infrastructure as code?
 
 - Repeatability
-  - We can deploy the same thing over and over again
-  - We'll have a backup
-  - We can have multiple environments (dev, stage, prod)
+    - We can deploy the same thing over and over again
+    - We'll have a backup
+    - We can have multiple environments (dev, stage, prod)
 - Auditability
-  - We can see what changed, who changed and impact of change
-  - We can detect the problems easily
+    - We can see what changed, who changed and impact of change
+    - We can detect the problems easily
 - Change control
-  - Allows us to use VCS to control what to change
+    - Allows us to use VCS to control what to change
 - Collaboration
-  - Multiple people can work together on the same code base
-  - Example: Use GitHub to propose a change
+    - Multiple people can work together on the same code base
+    - Example: Use GitHub to propose a change
 
 ### 1.3 Terminology
 
@@ -61,14 +61,14 @@ Summary: This is the very detailed introduction to getting started with Terrafor
 ### 1.4 Explore approaches to IaC
 
 - Imperative Approach
-  - Procedural Approach
-  - Answers How?
-  - Example Tools: AWS Cli, Python/Boto3
+    - Procedural Approach
+    - Answers How?
+    - Example Tools: AWS Cli, Python/Boto3
 - Declarative Approach
-  - Answers What?
-  - Example Tools: AWS CloudFormation, Terraform
-  - We can change things easily for example AWS instance type
-  - Tool does everything for us
+    - Answers What?
+    - Example Tools: AWS CloudFormation, Terraform
+    - We can change things easily for example AWS instance type
+    - Tool does everything for us
 
 
 # Chapter 2: Terraform
@@ -77,16 +77,16 @@ Summary: This is the very detailed introduction to getting started with Terrafor
 
 - Terraform is a cross-platform command line tool
 - Declarative IaC tool
-  - We define what we want and Terraform will create it for us
+    - We define what we want and Terraform will create it for us
 - Also, an Online Service
-  - Provided through Terraform Cloud
-  - Remote execution, Secret Storage
+    - Provided through Terraform Cloud
+    - Remote execution, Secret Storage
 - Terraform consists
-  - **Configuration**: Configuration files to define what we want
-  - **State**: Like a Database which stores the current state and can be stored anywhere like in local PC, S3, GCS, Google Drive, etc
-    - State is the Terraform view of the world
-    - Terraform looks here instead of cloud provider
-    - Terraform compares **Config and State** to create-destroy resource
+    - **Configuration**: Configuration files to define what we want
+    - **State**: Like a Database which stores the current state and can be stored anywhere like in local PC, S3, GCS, Google Drive, etc
+        - State is the Terraform view of the world
+        - Terraform looks here instead of cloud provider
+        - Terraform compares **Config and State** to create-destroy resource
 
 ### 2.2 Install Terraform
 
@@ -353,16 +353,16 @@ provider "aws" {
 ### 3.2 Terraform data sources and resources
 
 - Resources
-  - Resource is any object that you want to manage with Terraform. For example: S3, AWS EKS, GKE, VM's.
-  - Resources are defined in the resource block
-  - Declaring a resource tells Terraform that it should CREATE and manage the Resource described.
-  - If the resource already exists, it must be imported into Terraform state.
-  - Example: `resource "aws_s3_bucket" "Terraform-bucket-2021" {}`
-  - REF: [https://www.Terraform.io/docs/configuration/blocks/resources/index.html](https://www.Terraform.io/docs/configuration/blocks/resources/index.html)
+    - Resource is any object that you want to manage with Terraform. For example: S3, AWS EKS, GKE, VM's.
+    - Resources are defined in the resource block
+    - Declaring a resource tells Terraform that it should CREATE and manage the Resource described.
+    - If the resource already exists, it must be imported into Terraform state.
+    - Example: `resource "aws_s3_bucket" "Terraform-bucket-2021" {}`
+    - REF: [https://www.Terraform.io/docs/configuration/blocks/resources/index.html](https://www.Terraform.io/docs/configuration/blocks/resources/index.html)
 - Data sources
-  - Data sources are resources that Terraform does not manage. For example: _Availability Zones, Account ID_
-  - We can use data source to get the availability zones to place EC2 instances in multiple AZ's
-  - REF: [https://www.Terraform.io/docs/configuration/data-sources.html](https://www.Terraform.io/docs/configuration/data-sources.html)
+    - Data sources are resources that Terraform does not manage. For example: _Availability Zones, Account ID_
+    - We can use data source to get the availability zones to place EC2 instances in multiple AZ's
+    - REF: [https://www.Terraform.io/docs/configuration/data-sources.html](https://www.Terraform.io/docs/configuration/data-sources.html)
 Example:
 
 **Create a S3 bucket in AWS using resource block.**
@@ -639,7 +639,6 @@ The `terraform graph` command is only used for debugging purpose.
 Variables are ways to get input to the Terraform config
 
 Ways to provide variables:
-
 
 - Using command line while applying
 - Specify them in files such as `.tfvars` or `.auto.tfvars` for complex data types
@@ -949,8 +948,8 @@ upper_map = {
 
 
 - `heredocs`
-  - is a multiline string that is used to create an inline JSON documents
-  - They are used in outputs, variables description and inline documents
+    - is a multiline string that is used to create an inline JSON documents
+    - They are used in outputs, variables description and inline documents
 Example:
 
 ```hcl
@@ -1044,8 +1043,8 @@ What is a module in Terraform?
 - Modules written by others can be get here [https://registry.Terraform.io](https://registry.Terraform.io)
 - Module helps in implementing DRY principle
 - Module naming convention (if you want to publish to Terraform registry)
-  - `terraform-<PROVIDER>-<NAME>`
-  - `<NAME>` can contain hyphens
+    - `terraform-<PROVIDER>-<NAME>`
+    - `<NAME>` can contain hyphens
 Module layout
 
 ```bash
@@ -1089,7 +1088,7 @@ Play with [https://github.com/rojopolis/Terraform-aws-lambda-python-archive/](ht
 - Should be in public repository in GitHub.
 - Should have license and examples
 - Repo should be released with a tag
-- Signin to [https://registry.Terraform.io](https://registry.Terraform.io)
+- Sign-in to [https://registry.Terraform.io](https://registry.Terraform.io)
 - Select the repo which is named correctly
 - Done 🎉
 - Profit 🏦
