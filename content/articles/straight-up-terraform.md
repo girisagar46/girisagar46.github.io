@@ -11,38 +11,38 @@ Summary: This is the very detailed introduction to getting started with Terrafor
 <!--toc-->
 
 - [Chapter 1: Introduction to IaC](#chapter-1-introduction-to-iac)
-        * [1.1 Begin with a look back](#11-begin-with-a-look-back)
-        * [1.2 Why infrastructure as code?](#12-why-infrastructure-as-code)
-        * [1.3 Terminology](#13-terminology)
-        * [1.4 Explore approaches to IaC](#14-explore-approaches-to-iac)
+    * [1.1 Begin with a look back](#11-begin-with-a-look-back)
+    * [1.2 Why infrastructure as code?](#12-why-infrastructure-as-code)
+    * [1.3 Terminology](#13-terminology)
+    * [1.4 Explore approaches to IaC](#14-explore-approaches-to-iac)
 - [Chapter 2: Terraform](#chapter-2-terraform)
-        * [2.1 What is Terraform?](#21-what-is-terraform)
-        * [2.2 Install Terraform](#22-install-terraform)
-        * [2.3 Terraform Tour](#23-terraform-tour)
-        * [2.4 The very "Basics of Terraform"](#24-the-very-basics-of-terraform)
+    * [2.1 What is Terraform?](#21-what-is-terraform)
+    * [2.2 Install Terraform](#22-install-terraform)
+    * [2.3 Terraform Tour](#23-terraform-tour)
+    * [2.4 The very "Basics of Terraform"](#24-the-very-basics-of-terraform)
 - [Chapter 3: Learning HCL](#chapter-3-learning-hcl)
-        * [3.1 Overview of HCL structure](#31-overview-of-hcl-structure)
-        * [3.2 Terraform data sources and resources](#32-terraform-data-sources-and-resources)
-        * [3.3 Terraform Outputs](#33-terraform-outputs)
-        * [3.4 Interpolation in HCL](#34-interpolation-in-hcl)
-        * [3.5 Dependencies in Terraform](#35-dependencies-in-terraform)
-        * [3.6 Variables and Locals](#36-variables-and-locals)
-        * [3.7 Conditionals and the Count property](#37-conditionals-and-the-count-property)
-        * [3.8 Data types and operators](#38-data-types-and-operators)
-        * [3.9 Functions](#39-functions)
-        * [3.10 Iterations in collections](#310-iterations-in-collections)
-        * [3.11 Directives and heredocs](#311-directives-and-heredocs)
-        * [3.12 Clean up](#312-clean-up)
+    * [3.1 Overview of HCL structure](#31-overview-of-hcl-structure)
+    * [3.2 Terraform data sources and resources](#32-terraform-data-sources-and-resources)
+    * [3.3 Terraform Outputs](#33-terraform-outputs)
+    * [3.4 Interpolation in HCL](#34-interpolation-in-hcl)
+    * [3.5 Dependencies in Terraform](#35-dependencies-in-terraform)
+    * [3.6 Variables and Locals](#36-variables-and-locals)
+    * [3.7 Conditionals and the Count property](#37-conditionals-and-the-count-property)
+    * [3.8 Data types and operators](#38-data-types-and-operators)
+    * [3.9 Functions](#39-functions)
+    * [3.10 Iterations in collections](#310-iterations-in-collections)
+    * [3.11 Directives and heredocs](#311-directives-and-heredocs)
+    * [3.12 Clean up](#312-clean-up)
 - [Chapter 4: Code Re-Use for applying DRY](#chapter-4-code-re-use-for-applying-dry)
-        * [4.1 Understanding Terraform Modules](#41-understanding-terraform-modules)
-        * [4.2 Distributing modules](#42-distributing-modules)
+    * [4.1 Understanding Terraform Modules](#41-understanding-terraform-modules)
+    * [4.2 Distributing modules](#42-distributing-modules)
 - [Chapter 5: Collaboration with Terraform](#chapter-5-collaboration-with-terraform)
-        * [5.1 Terraform backends](#51-terraform-backends)
-        * [5.2 Terraform workspaces](#52-terraform-workspaces)
+    * [5.1 Terraform backends](#51-terraform-backends)
+    * [5.2 Terraform workspaces](#52-terraform-workspaces)
 
 # Chapter 1: Introduction to IaC
 
-### 1.1 Begin with a look back
+## 1.1 Begin with a look back
 
 - [1960-1970] - Mainframe Computers
     - Big machines
@@ -63,7 +63,7 @@ Summary: This is the very detailed introduction to getting started with Terrafor
     - Manage all the infrastructures by the code
 
 
-### 1.2 Why infrastructure as code?
+## 1.2 Why infrastructure as code?
 
 - Repeatability
     - We can deploy the same thing over and over again
@@ -78,7 +78,7 @@ Summary: This is the very detailed introduction to getting started with Terrafor
     - Multiple people can work together on the same code base
     - Example: Use GitHub to propose a change
 
-### 1.3 Terminology
+## 1.3 Terminology
 
 - **IaC** - Infrastructure as Code
 - **CM** - Configuration Management (Example: Ansible, Puppet, etc)
@@ -90,7 +90,7 @@ Summary: This is the very detailed introduction to getting started with Terrafor
 - **Declarative** - Declare what you want
 - **Imperative** - How to get the desired state
 
-### 1.4 Explore approaches to IaC
+## 1.4 Explore approaches to IaC
 
 - Imperative Approach
     - Procedural Approach
@@ -105,7 +105,7 @@ Summary: This is the very detailed introduction to getting started with Terrafor
 
 # Chapter 2: Terraform
 
-### 2.1 What is Terraform?
+## 2.1 What is Terraform?
 
 - Terraform is a cross-platform command line tool
 - Declarative IaC tool
@@ -120,7 +120,7 @@ Summary: This is the very detailed introduction to getting started with Terrafor
         - Terraform looks here instead of cloud provider
         - Terraform compares **Config and State** to create-destroy resource
 
-### 2.2 Install Terraform
+## 2.2 Install Terraform
 
 [https://www.Terraform.io/downloads.html](https://www.Terraform.io/downloads.html)
 
@@ -129,7 +129,7 @@ Summary: This is the very detailed introduction to getting started with Terrafor
 Terraform v0.14.4
 ```
 
-### 2.3 Terraform Tour
+## 2.3 Terraform Tour
 
 Initialize Terraform
 
@@ -240,7 +240,7 @@ Format the Terraform file
 ╰─$ terraform fmt
 ```
 
-### 2.4 The very "Basics of Terraform"
+## 2.4 The very "Basics of Terraform"
 
 Terraform uses HCL ([HashiCorp](https://github.com/hashicorp) Configuration Language)
 
@@ -354,7 +354,7 @@ Specify which output you want
 
 # Chapter 3: Learning HCL
 
-### 3.1 Overview of HCL structure
+## 3.1 Overview of HCL structure
 
 By conventions `main.tf` , `outputs.tf` and `variables.tf` are required files inside a directory
 
@@ -382,7 +382,7 @@ provider "aws" {
 
 ```
 
-### 3.2 Terraform data sources and resources
+## 3.2 Terraform data sources and resources
 
 - Resources
     - Resource is any object that you want to manage with Terraform. For example: S3, AWS EKS, GKE, VM's.
@@ -492,7 +492,7 @@ Bucket is successfully created 🎉
 
 > _Note: In real world, you ought to share the plan with your colleagues and there's an agreement between collegues before applying it._
 
-### 3.3 Terraform Outputs
+## 3.3 Terraform Outputs
 
 When we don't define some value (bucket name for example), Terraform will create the bucket name for us, and we can know the bucket details using Terraform outputs.
 
@@ -612,7 +612,7 @@ aws_availability_zones = {
 ```
 > Note: The output of AZ's can be used later on if we want to provision EC2 instances in multiple regions. We can use this output to do it so.
 
-### 3.4 Interpolation in HCL
+## 3.4 Interpolation in HCL
 
 Interpolation is just the means of concatenating different values to create one value. In case of S3 bucket the value of S3 bucket has to be globally unique. Hence, inorder to create a bucket with unique name, we can use interpolation.
 
@@ -630,7 +630,7 @@ resource "aws_s3_bucket" "bucket2" {
 ```
 Here `data.aws_caller_identity.current.account_id` is interpolated which is `account_id + "-bucket2"` got from the data block `aws_caller_identity`
 
-### 3.5 Dependencies in Terraform
+## 3.5 Dependencies in Terraform
 
 Terraform has the concept of `implicit` and `explicit` dependencies.
 
@@ -666,7 +666,7 @@ And paste the content in online tool [https://dreampuf.github.io/GraphvizOnline/
 
 The `terraform graph` command is only used for debugging purpose.
 
-### 3.6 Variables and Locals
+## 3.6 Variables and Locals
 
 Variables are ways to get input to the Terraform config
 
@@ -755,7 +755,7 @@ resource "aws_s3_bucket" "bucket6" {
 >  is a Terraform function. See more here:
 > [https://www.Terraform.io/docs/configuration/functions.html](https://www.Terraform.io/docs/configuration/functions.html)
 
-### 3.7 Conditionals and the Count property
+## 3.7 Conditionals and the Count property
 
 Count is the meta attribute of Terraform
 
@@ -822,7 +822,7 @@ output "bucketIterator" {
 - `count` is generally used for toggle switch when in development phase
 
 - `for_each` is more powerful, as we can use map in `for_each` hence, better to use `for_each` in prod
-### 3.8 Data types and operators
+## 3.8 Data types and operators
 
 REF: [https://www.Terraform.io/docs/configuration/expressions/types.html](https://www.Terraform.io/docs/configuration/expressions/types.html)
 
@@ -885,7 +885,7 @@ resource "aws_s3_bucket" "buckets" {
 }
 ```
 
-### 3.9 Functions
+## 3.9 Functions
 
 REF: [https[://www.Terraform.io/docs/configuration/functions.html](https://www.Terraform.io/docs/configuration/functions.html)](https://www.Terraform.io/docs/configuration/functions.html)
 
@@ -914,7 +914,7 @@ Outputs:
 
 func = "2021-01-16T15:36:41Z January January LOWERCASE uppercase"
 ```
-### 3.10 Iterations in collections
+## 3.10 Iterations in collections
 
 HCL uses `for` syntax dfor iterating over list values
 
@@ -976,7 +976,7 @@ upper_map = {
   "two" = "TWO"
 }
 ```
-### 3.11 Directives and heredocs
+## 3.11 Directives and heredocs
 
 
 - `heredocs`
@@ -1054,7 +1054,7 @@ EOT
 
 ```
 
-### 3.12 Clean up
+## 3.12 Clean up
 
 Since we created multiple buckets and all, it's time to clean up.
 
@@ -1064,7 +1064,7 @@ First look for states that's tracked by Terraform using `terraform state list` .
 
 # Chapter 4: Code Re-Use for applying DRY
 
-### 4.1 Understanding Terraform Modules
+## 4.1 Understanding Terraform Modules
 
 What is a module in Terraform?
 
@@ -1113,7 +1113,7 @@ module "github-module" {
 ```
 Play with [https://github.com/rojopolis/Terraform-aws-lambda-python-archive/](https://github.com/rojopolis/Terraform-aws-lambda-python-archive/) to know about modules.
 
-### 4.2 Distributing modules
+## 4.2 Distributing modules
 
 
 - Name the module properly `terraform-<PROVIDER>-<NAME>`
@@ -1127,7 +1127,7 @@ Play with [https://github.com/rojopolis/Terraform-aws-lambda-python-archive/](ht
 
 # Chapter 5: Collaboration with Terraform
 
-### 5.1 Terraform backends
+## 5.1 Terraform backends
 
 
 - Backend is a shared storage medium that stores state files
@@ -1169,7 +1169,7 @@ We can also have remote backend
 ```
 If we change the S3 backend to remote backend, we need to do `terraform init` again which will ask us if we'd like to move the state file from S3 to the remote backend.
 
-### 5.2 Terraform workspaces
+## 5.2 Terraform workspaces
 
 
 - Workspace helps us to create different environment with the same sets of Terraform configurations.
