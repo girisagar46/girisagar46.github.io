@@ -8,6 +8,38 @@ Summary: This is the very detailed introduction to getting started with Terrafor
 
 > Terraform is an open-source infrastructure as code software tool that enables you to safely and predictably create, change, and improve infrastructure. - www.Terraform.io
 
+<!--toc-->
+
+- [Chapter 1: Introduction to IaC](#chapter-1-introduction-to-iac)
+        * [1.1 Begin with a look back](#11-begin-with-a-look-back)
+        * [1.2 Why infrastructure as code?](#12-why-infrastructure-as-code)
+        * [1.3 Terminology](#13-terminology)
+        * [1.4 Explore approaches to IaC](#14-explore-approaches-to-iac)
+- [Chapter 2: Terraform](#chapter-2-terraform)
+        * [2.1 What is Terraform?](#21-what-is-terraform)
+        * [2.2 Install Terraform](#22-install-terraform)
+        * [2.3 Terraform Tour](#23-terraform-tour)
+        * [2.4 The very "Basics of Terraform"](#24-the-very-basics-of-terraform)
+- [Chapter 3: Learning HCL](#chapter-3-learning-hcl)
+        * [3.1 Overview of HCL structure](#31-overview-of-hcl-structure)
+        * [3.2 Terraform data sources and resources](#32-terraform-data-sources-and-resources)
+        * [3.3 Terraform Outputs](#33-terraform-outputs)
+        * [3.4 Interpolation in HCL](#34-interpolation-in-hcl)
+        * [3.5 Dependencies in Terraform](#35-dependencies-in-terraform)
+        * [3.6 Variables and Locals](#36-variables-and-locals)
+        * [3.7 Conditionals and the Count property](#37-conditionals-and-the-count-property)
+        * [3.8 Data types and operators](#38-data-types-and-operators)
+        * [3.9 Functions](#39-functions)
+        * [3.10 Iterations in collections](#310-iterations-in-collections)
+        * [3.11 Directives and heredocs](#311-directives-and-heredocs)
+        * [3.12 Clean up](#312-clean-up)
+- [Chapter 4: Code Re-Use for applying DRY](#chapter-4-code-re-use-for-applying-dry)
+        * [4.1 Understanding Terraform Modules](#41-understanding-terraform-modules)
+        * [4.2 Distributing modules](#42-distributing-modules)
+- [Chapter 5: Collaboration with Terraform](#chapter-5-collaboration-with-terraform)
+        * [5.1 Terraform backends](#51-terraform-backends)
+        * [5.2 Terraform workspaces](#52-terraform-workspaces)
+
 # Chapter 1: Introduction to IaC
 
 ### 1.1 Begin with a look back
