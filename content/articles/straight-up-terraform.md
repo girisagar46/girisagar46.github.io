@@ -1,4 +1,4 @@
-Title: Terraform: Getting Started
+Title: Terraform: Getting Started from Zero
 Date: 2021-1-17 21:32
 Modified: 2021-1-17 21:32
 Category:
