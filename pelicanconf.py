@@ -86,8 +86,8 @@ HOME_HIDE_TAGS = True
 USE_LESS = False
 FEED_USE_SUMMARY = True
 
-GOOGLE_ANALYTICS = "UA-73000395-1"
-GOOGLE_TAG_MANAGER = "GTM-5K6D7ZG"
+# GOOGLE_ANALYTICS = "UA-73000395-1"
+# GOOGLE_TAG_MANAGER = "GTM-5K6D7ZG"
 DISQUS_SITENAME = "girisagar46-github-io"
 # GOOGLE_ADSENSE = {
 #     "ca_id" : "ca-pub-6204331251488075",
@@ -102,7 +102,7 @@ DISQUS_SITENAME = "girisagar46-github-io"
 # }
 
 # SHARING
-ADD_THIS_ID = "ra-589c9f9f19d6a715"
+# ADD_THIS_ID = "ra-589c9f9f19d6a715"
 
 # Formatting for URLS
 ARTICLE_URL = "{slug}"
@@ -111,15 +111,6 @@ CATEGORY_URL = "category/{slug}"
 TAG_URL = "tag/{slug}"
 AUTHOR_SAVE_AS = False
 AUTHORS_SAVE_AS = False
-
-# CUSTOM_AD
-
-# AD_IMAGE = "/images/merohostel.jpg"
-# AD_URL = "http://merohostel.com/"
-# AD_ALT = "banner for merohostel ad"
-# AD_TITLE = "www.merohostel.com"
-# AD_HEIGHT = "250px"
-# AD_WIDTH = "200px"
 
 FLAIR = True
 FLAIR_URL = "https://stackexchange.com/users/5684581/sgiri"
