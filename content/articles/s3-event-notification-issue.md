@@ -60,7 +60,8 @@ aws-cli/2.0.12 Python/3.7.4 Darwin/20.3.0 botocore/2.0.0dev16
 ```
 
 *But... It works when I do it from the S3 console...*
-![](https://media.giphy.com/media/xT0GqtpF1NWd9VbstO/giphy.gif)
+
+![cat](https://media.giphy.com/media/xT0GqtpF1NWd9VbstO/giphy.gif)
 
 I tried executing the same `aws s3api` command again now with the `--debug` flag. And in the middle of the long debug
 output, I see this:
