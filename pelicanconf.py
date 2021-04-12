@@ -75,7 +75,6 @@ SITEMAP = {
 }
 
 STATIC_PATHS = ["images", "extras"]
-JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 EXTRA_PATH_METADATA = {
     # "extras/custom.css": {"path": "static/custom.css"},
     # "extra/CNAME": {"path": "CNAME"},
