@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
+from datetime import datetime
 
 from markdown.extensions.codehilite import CodeHiliteExtension
 
 AUTHOR = "Sagar Giri"
 SITEURL = "http://localhost:8000"
-SITENAME = """Sagar Giri"s Blog"""
+SITENAME = """Sagar's Blog"""
 SITETITLE = AUTHOR
 SITESUBTITLE = "<pre>$ cd /pub && more beer</pre>"
-SITEDESCRIPTION = "s programming, pelican, python, computer science, logic, algorithm"
+SITEDESCRIPTION = "programming, python, CS, AWS, Django"
+BROWSER_COLOR = "#333333"
 PATH = "content"
 
 TIMEZONE = "Asia/Tokyo"
@@ -21,14 +23,13 @@ DATE_FORMATS = {
 }
 
 USE_FOLDER_AS_CATEGORY = False
-COPYRIGHT_YEAR = 2020
+COPYRIGHT_YEAR = datetime.now().year
 DEFAULT_PAGINATION = 7
 
 # Theme Settings
 SITELOGO = "/images/title.png"
 FAVICON = "/images/favicon.png"
 THEME = "themes/Flex"
-BROWSER_COLOR = "#333333"
 PYGMENTS_STYLE = "default"
 
 # Feed generation is usually not desired when developing
@@ -50,7 +51,7 @@ LINKS = (("Project", "https://girisagar46.github.io/FYPFruitClassifier/"),)
 SOCIAL = (
     ("linkedin", "https://linkedin.com/in/girisagar46"),
     ("github", "https://github.com/girisagar46"),
-    ("stack-overflow", "http://stackoverflow.com/story/girisagar46.github.io"),
+    ("stack-overflow", "https://stackoverflow.com/story/girisagar46.github.io"),
 )
 
 # Plugins
@@ -74,9 +75,9 @@ SITEMAP = {
 }
 
 STATIC_PATHS = ["images", "extras"]
-
+JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 EXTRA_PATH_METADATA = {
-    "extras/custom.css": {"path": "static/custom.css"},
+    # "extras/custom.css": {"path": "static/custom.css"},
     # "extra/CNAME": {"path": "CNAME"},
     # "extra/robots.txt": {"path": "robots.txt"}
 }
@@ -88,7 +89,6 @@ FEED_USE_SUMMARY = True
 
 GOOGLE_ANALYTICS = "UA-73000395-1"
 # GOOGLE_TAG_MANAGER = "GTM-5K6D7ZG"
-DISQUS_SITENAME = "girisagar46-github-io"
 # GOOGLE_ADSENSE = {
 #     "ca_id" : "ca-pub-6204331251488075",
 #     "ads": {
