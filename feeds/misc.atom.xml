@@ -1,0 +1,1107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sagar's Blog - misc</title><link href="https://girisagar46.github.io/" rel="alternate"></link><link href="https://girisagar46.github.io/feeds/misc.atom.xml" rel="self"></link><id>https://girisagar46.github.io/</id><updated>2021-01-17T21:32:00+09:00</updated><subtitle>&lt;pre&gt;$ cd /pub &amp;&amp; more beer&lt;/pre&gt;</subtitle><entry><title>Terraform: Getting Started from Zero</title><link href="https://girisagar46.github.io/straight-up-Terraform" rel="alternate"></link><published>2021-01-17T21:32:00+09:00</published><updated>2021-01-17T21:32:00+09:00</updated><author><name>Sagar Giri</name></author><id>tag:girisagar46.github.io,2021-01-17:/straight-up-Terraform</id><summary type="html">&lt;p&gt;This is the very detailed introduction to getting started with Terraform&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;Terraform is an open-source infrastructure as code software tool that enables you to safely and predictably create, change, and improve infrastructure. - www.Terraform.io&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!--toc--&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#chapter-1-introduction-to-iac"&gt;Chapter 1: Introduction to IaC&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#11-begin-with-a-look-back"&gt;1.1 Begin with a look back&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#12-why-infrastructure-as-code"&gt;1.2 Why infrastructure as code?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#13-terminology"&gt;1.3 Terminology&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#14-explore-approaches-to-iac"&gt;1.4 Explore approaches to IaC&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#chapter-2-terraform"&gt;Chapter 2: Terraform&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#21-what-is-terraform"&gt;2.1 What is Terraform?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#22-install-terraform"&gt;2.2 Install Terraform&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#23-terraform-tour"&gt;2.3 Terraform Tour&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#24-the-very-basics-of-terraform"&gt;2.4 The very "Basics of Terraform"&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#chapter-3-learning-hcl"&gt;Chapter 3: Learning HCL&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#31-overview-of-hcl-structure"&gt;3.1 Overview of HCL structure&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#32-terraform-data-sources-and-resources"&gt;3.2 Terraform data sources and resources&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#33-terraform-outputs"&gt;3.3 Terraform Outputs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#34-interpolation-in-hcl"&gt;3.4 Interpolation in HCL&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#35-dependencies-in-terraform"&gt;3.5 Dependencies in Terraform&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#36-variables-and-locals"&gt;3.6 Variables and Locals&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#37-conditionals-and-the-count-property"&gt;3.7 Conditionals and the Count property&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#38-data-types-and-operators"&gt;3.8 Data types and operators&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#39-functions"&gt;3.9 Functions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#310-iterations-in-collections"&gt;3.10 Iterations in collections&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#311-directives-and-heredocs"&gt;3.11 Directives and heredocs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#312-clean-up"&gt;3.12 Clean up&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#chapter-4-code-re-use-for-applying-dry"&gt;Chapter 4: Code Re-Use for applying DRY&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#41-understanding-terraform-modules"&gt;4.1 Understanding Terraform Modules&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#42-distributing-modules"&gt;4.2 Distributing modules&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#chapter-5-collaboration-with-terraform"&gt;Chapter 5: Collaboration with Terraform&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#51-terraform-backends"&gt;5.1 Terraform backends&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#52-terraform-workspaces"&gt;5.2 Terraform workspaces&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Chapter 1: Introduction to IaC&lt;/h1&gt;
+&lt;h2&gt;1.1 Begin with a look back&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;[1960-1970] - Mainframe Computers&lt;ul&gt;
+&lt;li&gt;Big machines&lt;/li&gt;
+&lt;li&gt;Big facilities and using fork-lifts to move machines&lt;/li&gt;
+&lt;li&gt;Automation was not that critical in this era&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;[1980-1990] - Client/Server World&lt;ul&gt;
+&lt;li&gt;Things started to get little more complicated&lt;/li&gt;
+&lt;li&gt;UNIX or PC servers running various OS&lt;/li&gt;
+&lt;li&gt;These machines serve users using networking&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;[Mid 90's-2000] - Virtualization&lt;ul&gt;
+&lt;li&gt;Software defines infrastructures&lt;/li&gt;
+&lt;li&gt;Hardware were virtualized&lt;/li&gt;
+&lt;li&gt;Clients do not have any hardware debt&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Cloud Era&lt;ul&gt;
+&lt;li&gt;No hardware to manage&lt;/li&gt;
+&lt;li&gt;It's all software management problem&lt;/li&gt;
+&lt;li&gt;All these things could be managed by API's, Scripts&lt;/li&gt;
+&lt;li&gt;Manage all the infrastructures by the code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;1.2 Why infrastructure as code?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Repeatability&lt;ul&gt;
+&lt;li&gt;We can deploy the same thing over and over again&lt;/li&gt;
+&lt;li&gt;We'll have a backup&lt;/li&gt;
+&lt;li&gt;We can have multiple environments (dev, stage, prod)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Auditability&lt;ul&gt;
+&lt;li&gt;We can see what changed, who changed and impact of change&lt;/li&gt;
+&lt;li&gt;We can detect the problems easily&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Change control&lt;ul&gt;
+&lt;li&gt;Allows us to use VCS to control what to change&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Collaboration&lt;ul&gt;
+&lt;li&gt;Multiple people can work together on the same code base&lt;/li&gt;
+&lt;li&gt;Example: Use GitHub to propose a change&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;1.3 Terminology&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;IaC&lt;/strong&gt; - Infrastructure as Code&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CM&lt;/strong&gt; - Configuration Management (Example: Ansible, Puppet, etc)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;IaaS&lt;/strong&gt; - Infrastructure as a Service (Example: AWS, GoogleCloud, Azure)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PaaS&lt;/strong&gt; - Platform as a Service (Example: Heroku, AWS EBS)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;VCS&lt;/strong&gt; - Version Control System&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CI/CD&lt;/strong&gt; - Continuous Integration/ Continuous Deployment (Delivery)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SDLC&lt;/strong&gt; - Software Development Life Cycle&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Declarative&lt;/strong&gt; - Declare what you want&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Imperative&lt;/strong&gt; - How to get the desired state&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;1.4 Explore approaches to IaC&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Imperative Approach&lt;ul&gt;
+&lt;li&gt;Procedural Approach&lt;/li&gt;
+&lt;li&gt;Answers How?&lt;/li&gt;
+&lt;li&gt;Example Tools: AWS Cli, Python/Boto3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Declarative Approach&lt;ul&gt;
+&lt;li&gt;Answers What?&lt;/li&gt;
+&lt;li&gt;Example Tools: AWS CloudFormation, Terraform&lt;/li&gt;
+&lt;li&gt;We can change things easily for example AWS instance type&lt;/li&gt;
+&lt;li&gt;Tool does everything for us&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Chapter 2: Terraform&lt;/h1&gt;
+&lt;h2&gt;2.1 What is Terraform?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Terraform is a cross-platform command line tool&lt;/li&gt;
+&lt;li&gt;Declarative IaC tool&lt;ul&gt;
+&lt;li&gt;We define what we want and Terraform will create it for us&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Also, an Online Service&lt;ul&gt;
+&lt;li&gt;Provided through Terraform Cloud&lt;/li&gt;
+&lt;li&gt;Remote execution, Secret Storage&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Terraform consists&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Configuration&lt;/strong&gt;: Configuration files to define what we want&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;State&lt;/strong&gt;: Like a Database which stores the current state and can be stored anywhere like in local PC, S3, GCS, Google Drive, etc&lt;ul&gt;
+&lt;li&gt;State is the Terraform view of the world&lt;/li&gt;
+&lt;li&gt;Terraform looks here instead of cloud provider&lt;/li&gt;
+&lt;li&gt;Terraform compares &lt;strong&gt;Config and State&lt;/strong&gt; to create-destroy resource&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2.2 Install Terraform&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://www.Terraform.io/downloads.html"&gt;https://www.Terraform.io/downloads.html&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ terraform -version
+Terraform v0.14.4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;2.3 Terraform Tour&lt;/h2&gt;
+&lt;p&gt;Initialize Terraform&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╭─sagar-giri@PCN-489 ~/IdeaProjects/HelloTerraform
+╰─$ terraform init
+Terraform initialized in an empty directory!
+
+The directory has no Terraform configuration files. You may begin working
+with Terraform immediately by creating Terraform configuration files.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Plan Terraform&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╭─sagar-giri@PCN-489 ~/IdeaProjects/HelloTerraform
+╰─$ terraform plan
+
+Error: No configuration files
+
+Plan requires configuration to be present. Planning without a configuration
+would mark everything &lt;span class="k"&gt;for&lt;/span&gt; destruction, which is normally not what is desired.
+If you would like to destroy everything, run plan with the -destroy option.
+Otherwise, create a Terraform configuration file &lt;span class="o"&gt;(&lt;/span&gt;.tf file&lt;span class="o"&gt;)&lt;/span&gt; and try again.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Apply&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╭─sagar-giri@PCN-489 ~/IdeaProjects/HelloTerraform
+╰─$ terraform apply                                                                                                 &lt;span class="m"&gt;1&lt;/span&gt; ↵
+
+Error: No configuration files
+
+Apply requires configuration to be present. Applying without a configuration
+would mark everything &lt;span class="k"&gt;for&lt;/span&gt; destruction, which is normally not what is desired.
+If you would like to destroy everything, run &lt;span class="s1"&gt;&amp;#39;Terraform destroy&amp;#39;&lt;/span&gt; instead.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Destroy&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╭─sagar-giri@PCN-489 ~/IdeaProjects/HelloTerraform
+╰─$ terraform destroy
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only &lt;span class="s1"&gt;&amp;#39;yes&amp;#39;&lt;/span&gt; will be accepted to confirm.
+
+  Enter a value: no
+
+Destroy cancelled.
+╭─sagar-giri@PCN-489 ~/IdeaProjects/HelloTerraform
+╰─$ terraform destroy                                                                                               &lt;span class="m"&gt;1&lt;/span&gt; ↵
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only &lt;span class="s1"&gt;&amp;#39;yes&amp;#39;&lt;/span&gt; will be accepted to confirm.
+
+  Enter a value: yes
+
+Destroy complete! Resources: &lt;span class="m"&gt;0&lt;/span&gt; destroyed.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Help (Look for the &lt;em&gt;&lt;strong&gt;Main commands&lt;/strong&gt;&lt;/em&gt; section)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ terraform &lt;span class="nb"&gt;help&lt;/span&gt;
+Usage: Terraform &lt;span class="o"&gt;[&lt;/span&gt;global options&lt;span class="o"&gt;]&lt;/span&gt; &amp;lt;subcommand&amp;gt; &lt;span class="o"&gt;[&lt;/span&gt;args&lt;span class="o"&gt;]&lt;/span&gt;
+
+The available commands &lt;span class="k"&gt;for&lt;/span&gt; execution are listed below.
+The primary workflow commands are given first, followed by
+less common or more advanced commands.
+
+Main commands:
+  init          Prepare your working directory &lt;span class="k"&gt;for&lt;/span&gt; other commands
+  validate      Check whether the configuration is valid
+  plan          Show changes required by the current configuration
+  apply         Create or update infrastructure
+  destroy       Destroy previously-created infrastructure
+
+All other commands:
+  console       Try Terraform expressions at an interactive &lt;span class="nb"&gt;command&lt;/span&gt; prompt
+  fmt           Reformat your configuration in the standard style
+  force-unlock  Release a stuck lock on the current workspace
+  get           Install or upgrade remote Terraform modules
+  graph         Generate a Graphviz graph of the steps in an operation
+  import        Associate existing infrastructure with a Terraform resource
+  login         Obtain and save credentials &lt;span class="k"&gt;for&lt;/span&gt; a remote host
+  &lt;span class="nb"&gt;logout&lt;/span&gt;        Remove locally-stored credentials &lt;span class="k"&gt;for&lt;/span&gt; a remote host
+  output        Show output values from your root module
+  providers     Show the providers required &lt;span class="k"&gt;for&lt;/span&gt; this configuration
+  refresh       Update the state to match remote systems
+  show          Show the current state or a saved plan
+  state         Advanced state management
+  taint         Mark a resource instance as not fully functional
+  untaint       Remove the &lt;span class="s1"&gt;&amp;#39;tainted&amp;#39;&lt;/span&gt; state from a resource instance
+  version       Show the current Terraform version
+  workspace     Workspace management
+
+Global options &lt;span class="o"&gt;(&lt;/span&gt;use these before the subcommand, &lt;span class="k"&gt;if&lt;/span&gt; any&lt;span class="o"&gt;)&lt;/span&gt;:
+  -chdir&lt;span class="o"&gt;=&lt;/span&gt;DIR    Switch to a different working directory before executing the
+                given subcommand.
+  -help         Show this &lt;span class="nb"&gt;help&lt;/span&gt; output, or the &lt;span class="nb"&gt;help&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; a specified subcommand.
+  -version      An &lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; the &lt;span class="s2"&gt;&amp;quot;version&amp;quot;&lt;/span&gt; subcommand.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Format the Terraform file&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ terraform fmt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;2.4 The very "Basics of Terraform"&lt;/h2&gt;
+&lt;p&gt;Terraform uses HCL (&lt;a href="https://github.com/hashicorp"&gt;HashiCorp&lt;/a&gt; Configuration Language)&lt;/p&gt;
+&lt;p&gt;The extension of file ends with &lt;code&gt;.tf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Create &lt;code&gt;main.tf&lt;/code&gt; inside a directory&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ss"&gt;&amp;quot;greeting&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+   &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;Hello Terraform.&amp;quot;&lt;/span&gt;
+ &lt;span class="err"&gt;}&lt;/span&gt;
+
+ &lt;span class="n"&gt;provider&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;random&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Initialize Terraform&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ terraform init
+
+Initializing the backend...
+
+Initializing provider plugins...
+- Finding latest version of hashicorp/random...
+- Installing hashicorp/random v3.0.1...
+- Installed hashicorp/random v3.0.1 &lt;span class="o"&gt;(&lt;/span&gt;signed by HashiCorp&lt;span class="o"&gt;)&lt;/span&gt;
+
+Terraform has created a lock file .Terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run &lt;span class="s2"&gt;&amp;quot;Terraform init&amp;quot;&lt;/span&gt; in the future.
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running &lt;span class="s2"&gt;&amp;quot;terraform plan&amp;quot;&lt;/span&gt; to see
+any changes that are required &lt;span class="k"&gt;for&lt;/span&gt; your infrastructure. All Terraform commands
+should now work.
+
+If you ever &lt;span class="nb"&gt;set&lt;/span&gt; or change modules or backend configuration &lt;span class="k"&gt;for&lt;/span&gt; Terraform,
+rerun this &lt;span class="nb"&gt;command&lt;/span&gt; to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to &lt;span class="k"&gt;do&lt;/span&gt; so &lt;span class="k"&gt;if&lt;/span&gt; necessary.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Plan it&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ terraform plan
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+
+Terraform will perform the following actions:
+
+Plan: &lt;span class="m"&gt;0&lt;/span&gt; to add, &lt;span class="m"&gt;0&lt;/span&gt; to change, &lt;span class="m"&gt;0&lt;/span&gt; to destroy.
+
+Changes to Outputs:
+  + &lt;span class="nv"&gt;greeting&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Hello Terraform.&amp;quot;&lt;/span&gt;
+
+------------------------------------------------------------------------
+
+Note: You didn&lt;span class="s1"&gt;&amp;#39;t specify an &amp;quot;-out&amp;quot; parameter to save this plan, so Terraform&lt;/span&gt;
+&lt;span class="s1"&gt;can&amp;#39;&lt;/span&gt;t guarantee that exactly these actions will be performed &lt;span class="k"&gt;if&lt;/span&gt;
+&lt;span class="s2"&gt;&amp;quot;Terraform apply&amp;quot;&lt;/span&gt; is subsequently run.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Apply it. You might have to type &lt;code&gt;yes&lt;/code&gt; in the middle of it.&lt;/p&gt;
+&lt;p&gt;After applying it creates a &lt;code&gt;.tfstate&lt;/code&gt; file, and you should not touch the &lt;code&gt;.tfstate&lt;/code&gt; file.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ terraform apply
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+
+Terraform will perform the following actions:
+
+Plan: &lt;span class="m"&gt;0&lt;/span&gt; to add, &lt;span class="m"&gt;0&lt;/span&gt; to change, &lt;span class="m"&gt;0&lt;/span&gt; to destroy.
+
+Changes to Outputs:
+  + &lt;span class="nv"&gt;greeting&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Hello Terraform.&amp;quot;&lt;/span&gt;
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only &lt;span class="s1"&gt;&amp;#39;yes&amp;#39;&lt;/span&gt; will be accepted to approve.
+
+  Enter a value: yes
+
+
+Apply complete! Resources: &lt;span class="m"&gt;0&lt;/span&gt; added, &lt;span class="m"&gt;0&lt;/span&gt; changed, &lt;span class="m"&gt;0&lt;/span&gt; destroyed.
+
+Outputs:
+
+&lt;span class="nv"&gt;greeting&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Hello Terraform.&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;See the output&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ terraform output
+&lt;span class="nv"&gt;greeting&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Hello Terraform.&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Specify which output you want&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ terraform output greeting
+&lt;span class="s2"&gt;&amp;quot;Hello Terraform.&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1&gt;Chapter 3: Learning HCL&lt;/h1&gt;
+&lt;h2&gt;3.1 Overview of HCL structure&lt;/h2&gt;
+&lt;p&gt;By conventions &lt;code&gt;main.tf&lt;/code&gt; , &lt;code&gt;outputs.tf&lt;/code&gt; and &lt;code&gt;variables.tf&lt;/code&gt; are required files inside a directory&lt;/p&gt;
+&lt;p&gt;Sometimes the &lt;code&gt;main.tf&lt;/code&gt; file gets too big. In this case we use the submodules.&lt;/p&gt;
+&lt;p&gt;Example &lt;code&gt;main.tf&lt;/code&gt; with AWS as a provider:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;#&lt;/span&gt; &lt;span class="n"&gt;Terraform&lt;/span&gt; &lt;span class="n"&gt;block&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;optional&lt;/span&gt; &lt;span class="n"&gt;but&lt;/span&gt; &lt;span class="n"&gt;it&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;best&lt;/span&gt; &lt;span class="n"&gt;practice&lt;/span&gt; &lt;span class="k"&gt;to&lt;/span&gt; &lt;span class="n"&gt;have&lt;/span&gt; &lt;span class="n"&gt;it&lt;/span&gt;
+&lt;span class="n"&gt;terraform&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="o"&gt;#&lt;/span&gt; &lt;span class="n"&gt;required_version&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;Terraform&lt;/span&gt; &lt;span class="k"&gt;version&lt;/span&gt; &lt;span class="n"&gt;which&lt;/span&gt; &lt;span class="n"&gt;we&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="k"&gt;to&lt;/span&gt; &lt;span class="n"&gt;apply&lt;/span&gt;
+  &lt;span class="n"&gt;required_version&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;&amp;gt;=0.14.0&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+
+&lt;span class="o"&gt;#&lt;/span&gt; &lt;span class="n"&gt;Which&lt;/span&gt; &lt;span class="n"&gt;cloud&lt;/span&gt; &lt;span class="n"&gt;provider&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="k"&gt;to&lt;/span&gt; &lt;span class="n"&gt;use&lt;/span&gt;
+&lt;span class="n"&gt;provider&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;aws&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="o"&gt;#&lt;/span&gt; &lt;span class="n"&gt;region&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;required&lt;/span&gt;
+  &lt;span class="n"&gt;region&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;ap-northeast-1&amp;quot;&lt;/span&gt;
+
+  &lt;span class="o"&gt;#&lt;/span&gt; &lt;span class="n"&gt;Since&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;am&lt;/span&gt; &lt;span class="n"&gt;putting&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="n"&gt;GitHub&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="k"&gt;not&lt;/span&gt; &lt;span class="n"&gt;EVER&lt;/span&gt; &lt;span class="n"&gt;put&lt;/span&gt; &lt;span class="n"&gt;my&lt;/span&gt; &lt;span class="n"&gt;AWS&lt;/span&gt; &lt;span class="n"&gt;credentials&lt;/span&gt; &lt;span class="n"&gt;here&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+  &lt;span class="o"&gt;#&lt;/span&gt; &lt;span class="k"&gt;Instead&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;use&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;environment&lt;/span&gt; &lt;span class="k"&gt;variable&lt;/span&gt; &lt;span class="k"&gt;or&lt;/span&gt; &lt;span class="n"&gt;Terraform&lt;/span&gt; &lt;span class="n"&gt;cloud&lt;/span&gt; &lt;span class="k"&gt;or&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aws&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;credentials&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt;
+  &lt;span class="o"&gt;#&lt;/span&gt;&lt;span class="n"&gt;access_keys&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;my-access-key&amp;quot;&lt;/span&gt;
+  &lt;span class="o"&gt;#&lt;/span&gt;&lt;span class="n"&gt;access_secret&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;my-secret-key&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;3.2 Terraform data sources and resources&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Resources&lt;ul&gt;
+&lt;li&gt;Resource is any object that you want to manage with Terraform. For example: S3, AWS EKS, GKE, VM's.&lt;/li&gt;
+&lt;li&gt;Resources are defined in the resource block&lt;/li&gt;
+&lt;li&gt;Declaring a resource tells Terraform that it should CREATE and manage the Resource described.&lt;/li&gt;
+&lt;li&gt;If the resource already exists, it must be imported into Terraform state.&lt;/li&gt;
+&lt;li&gt;Example: &lt;code&gt;resource "aws_s3_bucket" "Terraform-bucket-2021" {}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;REF: &lt;a href="https://www.Terraform.io/docs/configuration/blocks/resources/index.html"&gt;https://www.Terraform.io/docs/configuration/blocks/resources/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Data sources&lt;ul&gt;
+&lt;li&gt;Data sources are resources that Terraform does not manage. For example: &lt;em&gt;Availability Zones, Account ID&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;We can use data source to get the availability zones to place EC2 instances in multiple AZ's&lt;/li&gt;
+&lt;li&gt;REF: &lt;a href="https://www.Terraform.io/docs/configuration/data-sources.html"&gt;https://www.Terraform.io/docs/configuration/data-sources.html&lt;/a&gt;
+Example:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Create a S3 bucket in AWS using resource block.&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;terraform&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;required_version&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;&amp;gt;=0.14.0&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;provider&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;aws&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;region&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;ap-northeast-1&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;resource&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="o"&gt;#&lt;/span&gt; &lt;span class="n"&gt;bucket&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="k"&gt;unique&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+  &lt;span class="o"&gt;#&lt;/span&gt; &lt;span class="k"&gt;If&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;don&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;provide&lt;/span&gt; &lt;span class="k"&gt;any&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Terraform&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="k"&gt;create&lt;/span&gt; &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="k"&gt;and&lt;/span&gt; &lt;span class="n"&gt;saves&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="n"&gt;outputs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tf&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt;
+  &lt;span class="n"&gt;bucket&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Plan and save the output to a file using command: &lt;code&gt;terraform plan -out s3.tfplan&lt;/code&gt; . This will create a file named &lt;code&gt;s3.tfplan&lt;/code&gt; with following output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ terraform plan -out example.tfplan
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  &lt;span class="c1"&gt;# aws_s3_bucket.Terraform-bucket-2021 will be created&lt;/span&gt;
+  + resource &lt;span class="s2"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+      + &lt;span class="nv"&gt;acceleration_status&lt;/span&gt;         &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;acl&lt;/span&gt;                         &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;private&amp;quot;&lt;/span&gt;
+      + &lt;span class="nv"&gt;arn&lt;/span&gt;                         &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;bucket&lt;/span&gt;                      &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt;
+      + &lt;span class="nv"&gt;bucket_domain_name&lt;/span&gt;          &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;bucket_regional_domain_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;force_destroy&lt;/span&gt;               &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;false&lt;/span&gt;
+      + &lt;span class="nv"&gt;hosted_zone_id&lt;/span&gt;              &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;id&lt;/span&gt;                          &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;region&lt;/span&gt;                      &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;request_payer&lt;/span&gt;               &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;website_domain&lt;/span&gt;              &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;website_endpoint&lt;/span&gt;            &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+
+      + versioning &lt;span class="o"&gt;{&lt;/span&gt;
+          + &lt;span class="nv"&gt;enabled&lt;/span&gt;    &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+          + &lt;span class="nv"&gt;mfa_delete&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+        &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+
+Plan: &lt;span class="m"&gt;1&lt;/span&gt; to add, &lt;span class="m"&gt;0&lt;/span&gt; to change, &lt;span class="m"&gt;0&lt;/span&gt; to destroy.
+
+------------------------------------------------------------------------
+
+This plan was saved to: example.tfplan
+
+To perform exactly these actions, run the following &lt;span class="nb"&gt;command&lt;/span&gt; to apply:
+    Terraform apply &lt;span class="s2"&gt;&amp;quot;example.tfplan&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Anything beginning with the &lt;code&gt;+&lt;/code&gt; means Terraform will create this resource for us. In the output above, it's &lt;code&gt;+ create&lt;/code&gt; which means the resource doesn't exist yet and Terraform will perform &lt;code&gt;create&lt;/code&gt; operation on the resource.&lt;/p&gt;
+&lt;p&gt;Now, apply the plan using command: &lt;code&gt;terraform apply s3.tfplan&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Once applied, following output will be seen:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;╰─$&lt;/span&gt; &lt;span class="n"&gt;terraform&lt;/span&gt; &lt;span class="n"&gt;apply&lt;/span&gt; &lt;span class="n"&gt;example&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tfplan&lt;/span&gt;
+&lt;span class="n"&gt;aws_s3_bucket&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Terraform&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;bucket&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2021&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Creating&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;
+&lt;span class="n"&gt;aws_s3_bucket&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Terraform&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;bucket&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2021&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Creation&lt;/span&gt; &lt;span class="n"&gt;complete&lt;/span&gt; &lt;span class="k"&gt;after&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;Terraform&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;bucket&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2021&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+&lt;span class="n"&gt;Apply&lt;/span&gt; &lt;span class="n"&gt;complete&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt; &lt;span class="n"&gt;Resources&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;added&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;changed&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;destroyed&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+
+&lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="k"&gt;state&lt;/span&gt; &lt;span class="k"&gt;of&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;infrastructure&lt;/span&gt; &lt;span class="n"&gt;has&lt;/span&gt; &lt;span class="n"&gt;been&lt;/span&gt; &lt;span class="n"&gt;saved&lt;/span&gt; &lt;span class="k"&gt;to&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;
+&lt;span class="n"&gt;below&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="k"&gt;state&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;required&lt;/span&gt; &lt;span class="k"&gt;to&lt;/span&gt; &lt;span class="k"&gt;modify&lt;/span&gt; &lt;span class="k"&gt;and&lt;/span&gt; &lt;span class="k"&gt;destroy&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt;
+&lt;span class="n"&gt;infrastructure&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;so&lt;/span&gt; &lt;span class="n"&gt;keep&lt;/span&gt; &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="n"&gt;safe&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="k"&gt;To&lt;/span&gt; &lt;span class="n"&gt;inspect&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;complete&lt;/span&gt; &lt;span class="k"&gt;state&lt;/span&gt;
+&lt;span class="n"&gt;use&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;terraform&lt;/span&gt; &lt;span class="k"&gt;show&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="n"&gt;command&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+
+&lt;span class="k"&gt;State&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Terraform&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tfstate&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;It means that the s3 bucket has been created.&lt;/p&gt;
+&lt;p&gt;Verify if the bucket exist using &lt;code&gt;aws s3 ls&lt;/code&gt; command&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ aws s3 ls
+&lt;span class="m"&gt;2021&lt;/span&gt;-01-16 &lt;span class="m"&gt;19&lt;/span&gt;:42:52 Terraform-bucket-2021
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Bucket is successfully created 🎉&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;Note: In real world, you ought to share the plan with your colleagues and there's an agreement between collegues before applying it.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;3.3 Terraform Outputs&lt;/h2&gt;
+&lt;p&gt;When we don't define some value (bucket name for example), Terraform will create the bucket name for us, and we can know the bucket details using Terraform outputs.&lt;/p&gt;
+&lt;p&gt;In above case, let's output the bucket information of &lt;code&gt;terraform-bucket-2021&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To do that we need to create a output block&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;resource&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;bucket&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;output&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;bucket_info&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="o"&gt;#&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;syntax&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;resource_type&lt;/span&gt;&lt;span class="p"&gt;[.]&lt;/span&gt;&lt;span class="n"&gt;label_name&lt;/span&gt;
+  &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;aws_s3_bucket&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Terraform&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;bucket&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2021&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, plan it &lt;code&gt;terraform plan -out s3.tfplan&lt;/code&gt; . Here, the previous filename &lt;code&gt;s3.tfplan&lt;/code&gt; will be replaced with the new fresh file.&lt;/p&gt;
+&lt;p&gt;Not apply the &lt;code&gt;s3.tfplan&lt;/code&gt; using command &lt;code&gt;terraform apply s3.tfplan&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You'll see following output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Apply complete! Resources: &lt;span class="m"&gt;0&lt;/span&gt; added, &lt;span class="m"&gt;0&lt;/span&gt; changed, &lt;span class="m"&gt;0&lt;/span&gt; destroyed.
+
+Outputs:
+
+&lt;span class="nv"&gt;bucket_info&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;acceleration_status&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;acl&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;private&amp;quot;&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;arn&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;arn:aws:s3:::Terraform-bucket-2021&amp;quot;&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;bucket&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;bucket_domain_name&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Terraform-bucket-2021.s3.amazonaws.com&amp;quot;&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;bucket_prefix&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tostring&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;bucket_regional_domain_name&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Terraform-bucket-2021.s3.ap-northeast-1.amazonaws.com&amp;quot;&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;cors_rule&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tolist&lt;span class="o"&gt;([])&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;force_destroy&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;false&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;grant&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; toset&lt;span class="o"&gt;([])&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;hosted_zone_id&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Z2M4EHUR26P7ZW&amp;quot;&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;id&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;lifecycle_rule&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tolist&lt;span class="o"&gt;([])&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;logging&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; toset&lt;span class="o"&gt;([])&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;object_lock_configuration&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tolist&lt;span class="o"&gt;([])&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;policy&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tostring&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;region&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;ap-northeast-1&amp;quot;&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;replication_configuration&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tolist&lt;span class="o"&gt;([])&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;request_payer&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;BucketOwner&amp;quot;&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;server_side_encryption_configuration&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tolist&lt;span class="o"&gt;([])&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;tags&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tomap&lt;span class="o"&gt;({})&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;versioning&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tolist&lt;span class="o"&gt;([&lt;/span&gt;
+    &lt;span class="o"&gt;{&lt;/span&gt;
+      &lt;span class="s2"&gt;&amp;quot;enabled&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;false&lt;/span&gt;
+      &lt;span class="s2"&gt;&amp;quot;mfa_delete&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;false&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;,
+  &lt;span class="o"&gt;])&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;website&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tolist&lt;span class="o"&gt;([])&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;website_domain&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tostring&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;website_endpoint&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tostring&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;As you can see &lt;code&gt;Apply complete! Resources: 0 added, 0 changed, 0 destroyed.&lt;/code&gt; because no resources were created even though our &lt;code&gt;.tf&lt;/code&gt; file has resource block.&lt;/p&gt;
+&lt;p&gt;You can also get the output using &lt;code&gt;terraform output&lt;/code&gt; command like this: &lt;code&gt;terraform output bucket_info&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;List output of availability zones of region configured in your AWS configuration&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;First, create the data block because regions are not managed by Terraform and it's a data. And the output block. Since the output is from the data block, we define value as: &lt;code&gt;data.&amp;lt;type&amp;gt;.&amp;lt;label&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;data&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;aws_availability_zones&amp;quot;&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;available&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;state&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;available&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;output&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;aws_availability_zones&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aws_availability_zones&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;available&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, plan it &lt;code&gt;terraform plan -out s3.tfplan&lt;/code&gt;  and apply &lt;code&gt;terraform apply s3.tfplan&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You'll see following output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Apply complete! Resources: &lt;span class="m"&gt;0&lt;/span&gt; added, &lt;span class="m"&gt;0&lt;/span&gt; changed, &lt;span class="m"&gt;0&lt;/span&gt; destroyed.
+
+Outputs:
+
+&lt;span class="nv"&gt;aws_availability_zones&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;all_availability_zones&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tobool&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;blacklisted_names&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; toset&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt; /* of string */
+  &lt;span class="s2"&gt;&amp;quot;blacklisted_zone_ids&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; toset&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt; /* of string */
+  &lt;span class="s2"&gt;&amp;quot;exclude_names&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; toset&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt; /* of string */
+  &lt;span class="s2"&gt;&amp;quot;exclude_zone_ids&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; toset&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt; /* of string */
+  &lt;span class="s2"&gt;&amp;quot;filter&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; toset&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt; /* of object */
+  &lt;span class="s2"&gt;&amp;quot;group_names&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; toset&lt;span class="o"&gt;([&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;ap-northeast-1&amp;quot;&lt;/span&gt;,
+  &lt;span class="o"&gt;])&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;id&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;2021-01-16 10:53:54.916848 +0000 UTC&amp;quot;&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;names&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tolist&lt;span class="o"&gt;([&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;ap-northeast-1a&amp;quot;&lt;/span&gt;,
+    &lt;span class="s2"&gt;&amp;quot;ap-northeast-1c&amp;quot;&lt;/span&gt;,
+    &lt;span class="s2"&gt;&amp;quot;ap-northeast-1d&amp;quot;&lt;/span&gt;,
+  &lt;span class="o"&gt;])&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;available&amp;quot;&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;zone_ids&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tolist&lt;span class="o"&gt;([&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;apne1-az4&amp;quot;&lt;/span&gt;,
+    &lt;span class="s2"&gt;&amp;quot;apne1-az1&amp;quot;&lt;/span&gt;,
+    &lt;span class="s2"&gt;&amp;quot;apne1-az2&amp;quot;&lt;/span&gt;,
+  &lt;span class="o"&gt;])&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Note: The output of AZ's can be used later on if we want to provision EC2 instances in multiple regions. We can use this output to do it so.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;3.4 Interpolation in HCL&lt;/h2&gt;
+&lt;p&gt;Interpolation is just the means of concatenating different values to create one value. In case of S3 bucket the value of S3 bucket has to be globally unique. Hence, inorder to create a bucket with unique name, we can use interpolation.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Create aws bucket which name has the &lt;/strong&gt;&lt;strong&gt;&lt;code&gt;accountID&lt;/code&gt;&lt;/strong&gt;&lt;strong&gt; in it.&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;data &amp;quot;aws_caller_identity&amp;quot; &amp;quot;current&amp;quot; {}
+
+resource &amp;quot;aws_s3_bucket&amp;quot; &amp;quot;bucket2&amp;quot; {
+  bucket = &amp;quot;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aws_caller_identity&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;account_id&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;-bucket2&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Here &lt;code&gt;data.aws_caller_identity.current.account_id&lt;/code&gt; is interpolated which is &lt;code&gt;account_id + "-bucket2"&lt;/code&gt; got from the data block &lt;code&gt;aws_caller_identity&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;3.5 Dependencies in Terraform&lt;/h2&gt;
+&lt;p&gt;Terraform has the concept of &lt;code&gt;implicit&lt;/code&gt; and &lt;code&gt;explicit&lt;/code&gt; dependencies.&lt;/p&gt;
+&lt;p&gt;Whe Terraform processes the HCL configs, it evaluates the dependency graph, and it'll create dependencies before it creates the dependent resource. If there is not any dependencies, Terraform will create resource in parallel which will give performance boost.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;p&gt;Implicit dependency resolve when the dependent resource already exists.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;resource &amp;quot;aws_s3_bucket&amp;quot; &amp;quot;bucket3&amp;quot; {
+  bucket = &amp;quot;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aws_caller_identity&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;account_id&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;-bucket3&amp;quot;
+  tags = {
+    # I already have bucket2 available so this is implicit
+    dependency = aws_s3_bucket.bucket2.arn
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Explicit dependency when the dependent resource does not exist yet, and we need to wait for it to be created first. (analogy depends&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;resource &amp;quot;aws_s3_bucket&amp;quot; &amp;quot;bucket4&amp;quot; {
+  bucket = &amp;quot;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aws_caller_identity&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;account_id&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;-bucket4&amp;quot;
+  # Explicit
+  depends_on = [
+    aws_s3_bucket.bucket3
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;To see the dependencies, generate the &lt;code&gt;dot&lt;/code&gt; file using &lt;code&gt;terraform graph &amp;gt; graph.dot&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And paste the content in online tool &lt;a href="https://dreampuf.github.io/GraphvizOnline/"&gt;https://dreampuf.github.io/GraphvizOnline/&lt;/a&gt; to see the output.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;terraform graph&lt;/code&gt; command is only used for debugging purpose.&lt;/p&gt;
+&lt;h2&gt;3.6 Variables and Locals&lt;/h2&gt;
+&lt;p&gt;Variables are ways to get input to the Terraform config&lt;/p&gt;
+&lt;p&gt;Ways to provide variables:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Using command line while applying&lt;/li&gt;
+&lt;li&gt;Specify them in files such as &lt;code&gt;.tfvars&lt;/code&gt; or &lt;code&gt;.auto.tfvars&lt;/code&gt; for complex data types&lt;/li&gt;
+&lt;li&gt;Using environment variables but all the environment variable name should have prefix of &lt;code&gt;TF_VAR_&lt;/code&gt;
+In Terraform config, we use &lt;code&gt;variable&lt;/code&gt; block to define expected variables.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Create a S3 bucket, but the bucket name should be provided by the user&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;variable&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;bucket_name&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;string&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# `default` is optional. If default is omitted, then value must be supplied&lt;/span&gt;
+  &lt;span class="c1"&gt;# default = &amp;quot;My_Bucket1234&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;resource&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;bucket5&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;bucket&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;var&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bucket_name&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;And when plan is executed, the bucket name is expected as an input value:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ terraform plan -out var.tfplan
+var.bucket_name
+  Enter a value: MyPiBucket31415
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  &lt;span class="c1"&gt;# aws_s3_bucket.bucket5 will be created&lt;/span&gt;
+  + resource &lt;span class="s2"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;bucket5&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+      + &lt;span class="nv"&gt;acceleration_status&lt;/span&gt;         &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;acl&lt;/span&gt;                         &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;private&amp;quot;&lt;/span&gt;
+      + &lt;span class="nv"&gt;arn&lt;/span&gt;                         &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;bucket&lt;/span&gt;                      &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;MyPiBucket31415&amp;quot;&lt;/span&gt;
+      + &lt;span class="nv"&gt;bucket_domain_name&lt;/span&gt;          &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;bucket_regional_domain_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;force_destroy&lt;/span&gt;               &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;false&lt;/span&gt;
+      + &lt;span class="nv"&gt;hosted_zone_id&lt;/span&gt;              &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;id&lt;/span&gt;                          &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;region&lt;/span&gt;                      &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;request_payer&lt;/span&gt;               &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;website_domain&lt;/span&gt;              &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+      + &lt;span class="nv"&gt;website_endpoint&lt;/span&gt;            &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+
+      + versioning &lt;span class="o"&gt;{&lt;/span&gt;
+          + &lt;span class="nv"&gt;enabled&lt;/span&gt;    &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+          + &lt;span class="nv"&gt;mfa_delete&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;known after apply&lt;span class="o"&gt;)&lt;/span&gt;
+        &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+
+Plan: &lt;span class="m"&gt;1&lt;/span&gt; to add, &lt;span class="m"&gt;0&lt;/span&gt; to change, &lt;span class="m"&gt;0&lt;/span&gt; to destroy.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Local values&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Local values make Terraform configs more readable.&lt;/p&gt;
+&lt;p&gt;If we want to use same value multiple times in the code, it's better to save it as a local value.&lt;/p&gt;
+&lt;p&gt;We can have multiple locals, but the names should be unique because names are global.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;locals {
+  aws_account = &amp;quot;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aws_caller_identity&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;account_id&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;-&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;lower&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aws_caller_identity&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user_id&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;quot;
+}
+
+resource &amp;quot;aws_s3_bucket&amp;quot; &amp;quot;bucket6&amp;quot; {
+  bucket = &amp;quot;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aws_account&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;-bucket6&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Note: Here the
+&lt;code&gt;lower()&lt;/code&gt;
+ is a Terraform function. See more here:
+&lt;a href="https://www.Terraform.io/docs/configuration/functions.html"&gt;https://www.Terraform.io/docs/configuration/functions.html&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;3.7 Conditionals and the Count property&lt;/h2&gt;
+&lt;p&gt;Count is the meta attribute of Terraform&lt;/p&gt;
+&lt;p&gt;Count means instead of creating 1 resource, you can define &lt;code&gt;n&lt;/code&gt; number of count to replicate the same resource.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Create 2 buckets&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;resource &amp;quot;aws_s3_bucket&amp;quot; &amp;quot;bucketX&amp;quot; {
+  count = 2
+  bucket = &amp;quot;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aws_account&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;-bucket&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Q. What happens when &lt;code&gt;count=0&lt;/code&gt; ?&lt;/p&gt;
+&lt;p&gt;Terraform will destroy all resource if created or not create anything if it's not created yet.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;We can also replicate resources using &lt;/strong&gt;&lt;strong&gt;&lt;code&gt;for_each&lt;/code&gt;&lt;/strong&gt;&lt;strong&gt;  &lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;locals {
+  buckets = {
+    bucket101 = &amp;quot;mybucket101&amp;quot;
+    bucket102 = &amp;quot;mybucket102&amp;quot;
+  }
+}
+
+resource &amp;quot;aws_s3_bucket&amp;quot; &amp;quot;bucketIterator&amp;quot; {
+  for_each = local.buckets
+  bucket = &amp;quot;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aws_account&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;-&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;quot;
+}
+
+output &amp;quot;bucketIterator&amp;quot; {
+  value = aws_s3_bucket.bucketIterator
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;We can also define list instead of map:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;locals {
+  buckets = [
+  &amp;quot;mybucket101&amp;quot;,
+  &amp;quot;mybucket102&amp;quot;
+  ]
+}
+
+resource &amp;quot;aws_s3_bucket&amp;quot; &amp;quot;bucketIterator&amp;quot; {
+  # Since buckets is a list, we need to convert to set using toset()
+  for_each = toset(local.buckets)
+  # Here we can use either .key or .value
+  bucket = &amp;quot;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aws_account&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;-&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;quot;
+}
+
+output &amp;quot;bucketIterator&amp;quot; {
+  value = aws_s3_bucket.bucketIterator
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;count&lt;/code&gt; vs &lt;code&gt;for_each&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;count&lt;/code&gt; is generally used for toggle switch when in development phase&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;for_each&lt;/code&gt; is more powerful, as we can use map in &lt;code&gt;for_each&lt;/code&gt; hence, better to use &lt;code&gt;for_each&lt;/code&gt; in prod&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3.8 Data types and operators&lt;/h2&gt;
+&lt;p&gt;REF: &lt;a href="https://www.Terraform.io/docs/configuration/expressions/types.html"&gt;https://www.Terraform.io/docs/configuration/expressions/types.html&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;locals&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;a_string&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;This is a String&amp;quot;&lt;/span&gt;
+  &lt;span class="n"&gt;a_number&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1415&lt;/span&gt;
+  &lt;span class="n"&gt;a_boolean&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt;
+  &lt;span class="n"&gt;a_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="ss"&gt;&amp;quot;element1&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="k"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+  &lt;span class="p"&gt;]&lt;/span&gt;
+  &lt;span class="n"&gt;a_map&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;key&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;value&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;nums&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;is_active&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt;
+    &lt;span class="n"&gt;configs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+      &lt;span class="n"&gt;instance_type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;t2.micro&amp;quot;&lt;/span&gt;
+      &lt;span class="n"&gt;vpc_enabled&lt;/span&gt;  &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt;
+    &lt;span class="err"&gt;}&lt;/span&gt;
+  &lt;span class="err"&gt;}&lt;/span&gt;
+
+  &lt;span class="o"&gt;#&lt;/span&gt; &lt;span class="n"&gt;Operators&lt;/span&gt;
+  &lt;span class="n"&gt;operators&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="o"&gt;#&lt;/span&gt; &lt;span class="n"&gt;Logical&lt;/span&gt;
+  &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt;
+  &lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="k"&gt;false&lt;/span&gt;
+
+  &lt;span class="o"&gt;#&lt;/span&gt; &lt;span class="n"&gt;Comparison&lt;/span&gt;
+  &lt;span class="n"&gt;gt&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+  &lt;span class="n"&gt;lt&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;
+  &lt;span class="n"&gt;eq&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;
+  &lt;span class="n"&gt;neq&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Terraform config to create &lt;/strong&gt;&lt;strong&gt;&lt;code&gt;n&lt;/code&gt;&lt;/strong&gt;&lt;strong&gt; number of buckets where &lt;/strong&gt;&lt;strong&gt;&lt;code&gt;n&lt;/code&gt;&lt;/strong&gt;&lt;strong&gt; not more than &lt;/strong&gt;&lt;strong&gt;&lt;code&gt;5&lt;/code&gt;&lt;/strong&gt;&lt;strong&gt; &lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;variable &amp;quot;bucket_count&amp;quot; {
+  type = number
+}
+
+data &amp;quot;aws_caller_identity&amp;quot; &amp;quot;current&amp;quot; {}
+
+locals {
+  min_bucket_count = 5
+  # Conditional operators similar to ternary operator
+  num_buckets = var.bucket_count &amp;gt; 5 ? local.min_bucket_count: var.bucket_count
+  aws_account = &amp;quot;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aws_caller_identity&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;account_id&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;-&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;lower&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aws_caller_identity&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;current&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user_id&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;quot;
+}
+
+resource &amp;quot;aws_s3_bucket&amp;quot; &amp;quot;buckets&amp;quot; {
+  count = local.num_buckets
+  bucket = &amp;quot;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aws_account&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;-buckets&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;3.9 Functions&lt;/h2&gt;
+&lt;p&gt;REF: &lt;a href="https://www.Terraform.io/docs/configuration/functions.html"&gt;https[://www.Terraform.io/docs/configuration/functions.html](https://www.Terraform.io/docs/configuration/functions.html)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;locals {
+  ts = timestamp()
+  current_month = formatdate(&amp;quot;MMMM&amp;quot;, local.ts)
+  tomorrow = formatdate(&amp;quot;MMMM&amp;quot;, timeadd(local.ts, &amp;quot;24h&amp;quot;))
+  upper = upper(&amp;quot;lowercase&amp;quot;)
+  lower = lower(&amp;quot;UPPERCASE&amp;quot;)
+}
+
+output &amp;quot;func&amp;quot; {
+  value = &amp;quot;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ts&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;current_month&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tomorrow&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;upper&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lower&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Apply complete! Resources: &lt;span class="m"&gt;0&lt;/span&gt; added, &lt;span class="m"&gt;0&lt;/span&gt; changed, &lt;span class="m"&gt;0&lt;/span&gt; destroyed.
+
+Outputs:
+
+&lt;span class="nv"&gt;func&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;2021-01-16T15:36:41Z January January LOWERCASE uppercase&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;3.10 Iterations in collections&lt;/h2&gt;
+&lt;p&gt;HCL uses &lt;code&gt;for&lt;/code&gt; syntax dfor iterating over list values&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;locals&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;my_list&lt;/span&gt;    &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;&amp;quot;one&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;two&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;three&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+  &lt;span class="n"&gt;upper_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;item&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="k"&gt;local&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;my_list&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="k"&gt;upper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+  &lt;span class="n"&gt;upper_map&lt;/span&gt;  &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;item&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="k"&gt;local&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;my_list&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;item&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;upper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;}&lt;/span&gt;
+
+  &lt;span class="o"&gt;#&lt;/span&gt; &lt;span class="n"&gt;Filtering&lt;/span&gt;
+  &lt;span class="n"&gt;n&lt;/span&gt;     &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+  &lt;span class="n"&gt;evens&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="k"&gt;local&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;output&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;my_list&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;local&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;my_list&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;output&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;upper_list&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;local&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;upper_list&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;output&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;upper_map&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;local&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;upper_map&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;output&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;evens&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;local&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;evens&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Output after apply:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Apply complete! Resources: &lt;span class="m"&gt;0&lt;/span&gt; added, &lt;span class="m"&gt;0&lt;/span&gt; changed, &lt;span class="m"&gt;0&lt;/span&gt; destroyed.
+
+Outputs:
+
+&lt;span class="nv"&gt;evens&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;
+  &lt;span class="m"&gt;2&lt;/span&gt;,
+  &lt;span class="m"&gt;4&lt;/span&gt;,
+  &lt;span class="m"&gt;6&lt;/span&gt;,
+  &lt;span class="m"&gt;8&lt;/span&gt;,
+&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;my_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;one&amp;quot;&lt;/span&gt;,
+  &lt;span class="s2"&gt;&amp;quot;two&amp;quot;&lt;/span&gt;,
+  &lt;span class="s2"&gt;&amp;quot;three&amp;quot;&lt;/span&gt;,
+&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;upper_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;ONE&amp;quot;&lt;/span&gt;,
+  &lt;span class="s2"&gt;&amp;quot;TWO&amp;quot;&lt;/span&gt;,
+  &lt;span class="s2"&gt;&amp;quot;THREE&amp;quot;&lt;/span&gt;,
+&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;upper_map&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;one&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;ONE&amp;quot;&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;three&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;THREE&amp;quot;&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;two&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;TWO&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;3.11 Directives and heredocs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;heredocs&lt;/code&gt;&lt;ul&gt;
+&lt;li&gt;is a multiline string that is used to create an inline JSON documents&lt;/li&gt;
+&lt;li&gt;They are used in outputs, variables description and inline documents
+Example:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;locals&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+  &lt;span class="n"&gt;nums&lt;/span&gt;  &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;span class="n"&gt;output&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;heredocs&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="c1"&gt;# EOT means EOF&lt;/span&gt;
+  &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;-&lt;/span&gt;&lt;span class="n"&gt;EOT&lt;/span&gt;
+    &lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="ss"&gt;`heredoc`&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+    &lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;multiline&lt;/span&gt; &lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+    &lt;span class="n"&gt;Used&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;writing&lt;/span&gt; &lt;span class="n"&gt;documentations&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+  &lt;span class="n"&gt;EOT&lt;/span&gt;
+  &lt;span class="c1"&gt;# Dont forget EOT at the end&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;output&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;directive&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;-&lt;/span&gt;&lt;span class="n"&gt;EOT&lt;/span&gt;
+    &lt;span class="n"&gt;We&lt;/span&gt; &lt;span class="n"&gt;can&lt;/span&gt; &lt;span class="k"&gt;use&lt;/span&gt; &lt;span class="n"&gt;directive&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="n"&gt;heredoc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;destroying&lt;/span&gt; &lt;span class="n"&gt;everything&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;
+    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="err"&gt;${&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="n"&gt;endif&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+  &lt;span class="n"&gt;EOT&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;output&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;iterated-directive&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;-&lt;/span&gt;&lt;span class="n"&gt;EOT&lt;/span&gt;
+    &lt;span class="n"&gt;Directive&lt;/span&gt; &lt;span class="n"&gt;can&lt;/span&gt; &lt;span class="n"&gt;also&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;iterated&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+    &lt;span class="err"&gt;${&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="n"&gt;endfor&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+  &lt;span class="n"&gt;EOT&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Output after apply:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Apply complete! Resources: &lt;span class="m"&gt;0&lt;/span&gt; added, &lt;span class="m"&gt;0&lt;/span&gt; changed, &lt;span class="m"&gt;0&lt;/span&gt; destroyed.
+
+Outputs:
+
+&lt;span class="nv"&gt;directive&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;lt;&amp;lt;EOT&lt;/span&gt;
+&lt;span class="s"&gt;We can use directive in heredoc.&lt;/span&gt;
+
+&lt;span class="s"&gt;The count is 0, destroying everything...&lt;/span&gt;
+
+
+&lt;span class="s"&gt;EOT&lt;/span&gt;
+&lt;span class="nv"&gt;heredocs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;lt;&amp;lt;EOT&lt;/span&gt;
+&lt;span class="s"&gt;This is the `heredoc`.&lt;/span&gt;
+&lt;span class="s"&gt;This is multiline String.&lt;/span&gt;
+&lt;span class="s"&gt;Used for writing documentations.&lt;/span&gt;
+
+&lt;span class="s"&gt;EOT&lt;/span&gt;
+iterated-directive &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;lt;&amp;lt;EOT&lt;/span&gt;
+&lt;span class="s"&gt;Directive can also be iterated.&lt;/span&gt;
+
+&lt;span class="s"&gt;1&lt;/span&gt;
+
+&lt;span class="s"&gt;2&lt;/span&gt;
+
+&lt;span class="s"&gt;3&lt;/span&gt;
+
+
+&lt;span class="s"&gt;EOT&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;3.12 Clean up&lt;/h2&gt;
+&lt;p&gt;Since we created multiple buckets and all, it's time to clean up.&lt;/p&gt;
+&lt;p&gt;Even though the buckets don't cost any, it's wise to clean up since we're just playing with Terraform in development mode.&lt;/p&gt;
+&lt;p&gt;First look for states that's tracked by Terraform using &lt;code&gt;terraform state list&lt;/code&gt; . If it shows bunch of outputs of your bucket, execute &lt;code&gt;terraform destroy&lt;/code&gt; which will destroy all resources that were created.&lt;/p&gt;
+&lt;h1&gt;Chapter 4: Code Re-Use for applying DRY&lt;/h1&gt;
+&lt;h2&gt;4.1 Understanding Terraform Modules&lt;/h2&gt;
+&lt;p&gt;What is a module in Terraform?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;All Terraform is in a module. The top level module is called the Root module&lt;/li&gt;
+&lt;li&gt;Modules are just a directory that contains Terraform file, and they can be nested&lt;/li&gt;
+&lt;li&gt;Modules can be imported which are already available&lt;/li&gt;
+&lt;li&gt;Modules written by others can be get here &lt;a href="https://registry.Terraform.io"&gt;https://registry.Terraform.io&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Module helps in implementing DRY principle&lt;/li&gt;
+&lt;li&gt;Module naming convention (if you want to publish to Terraform registry)&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;terraform-&amp;lt;PROVIDER&amp;gt;-&amp;lt;NAME&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;NAME&amp;gt;&lt;/code&gt; can contain hyphens
+Module layout&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;├── Terraform-aws-s3
+│   ├── README.md
+│   ├── datas.tf
+│   ├── locals.tf
+│   ├── main.tf
+│   ├── outputs.tf
+│   ├── variables.tf
+│   └── versions.tf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You can use &lt;a href="https://github.com/QuiNovas/cookiecutter-Terraform-module"&gt;https://github.com/QuiNovas/cookiecutter-Terraform-module&lt;/a&gt; to automate the process of creating these files&lt;/p&gt;
+&lt;p&gt;To use module&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# Module located in local filesystem&lt;/span&gt;
+&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;local-module&amp;quot;&lt;/span&gt; {
+    &lt;span class="nb"&gt;source&lt;/span&gt; = &lt;span class="s"&gt;&amp;quot;/path/to/module&amp;quot;&lt;/span&gt;
+}
+
+&lt;span class="c1"&gt;# Module which is published&lt;/span&gt;
+&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;published-module&amp;quot;&lt;/span&gt; {
+    &lt;span class="nb"&gt;source&lt;/span&gt; = &lt;span class="s"&gt;&amp;quot;rojopolis/Terraform-aws-lambda-python-archive&amp;quot;&lt;/span&gt;
+    &lt;span class="nb"&gt;version&lt;/span&gt; = &lt;span class="s"&gt;&amp;quot;1.2.3&amp;quot;&lt;/span&gt;
+}
+
+&lt;span class="c1"&gt;# Module which is in GitHub&lt;/span&gt;
+&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;github-module&amp;quot;&lt;/span&gt; {
+    &lt;span class="nb"&gt;source&lt;/span&gt; = &lt;span class="s"&gt;&amp;quot;https://github.com/rojopolis/Terraform-aws-lambda-python-archive&amp;quot;&lt;/span&gt;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Play with &lt;a href="https://github.com/rojopolis/Terraform-aws-lambda-python-archive/"&gt;https://github.com/rojopolis/Terraform-aws-lambda-python-archive/&lt;/a&gt; to know about modules.&lt;/p&gt;
+&lt;h2&gt;4.2 Distributing modules&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Name the module properly &lt;code&gt;terraform-&amp;lt;PROVIDER&amp;gt;-&amp;lt;NAME&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Should be in public repository in GitHub.&lt;/li&gt;
+&lt;li&gt;Should have license and examples&lt;/li&gt;
+&lt;li&gt;Repo should be released with a tag&lt;/li&gt;
+&lt;li&gt;Sign-in to &lt;a href="https://registry.Terraform.io"&gt;https://registry.Terraform.io&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Select the repo which is named correctly&lt;/li&gt;
+&lt;li&gt;Done 🎉&lt;/li&gt;
+&lt;li&gt;Profit 🏦&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Chapter 5: Collaboration with Terraform&lt;/h1&gt;
+&lt;h2&gt;5.1 Terraform backends&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Backend is a shared storage medium that stores state files&lt;/li&gt;
+&lt;li&gt;Backends officially supports blocking&lt;/li&gt;
+&lt;li&gt;Blocking is required inorder to prevent multiple user's updating resources at the same time&lt;/li&gt;
+&lt;li&gt;Most of the providers support blocking&lt;/li&gt;
+&lt;li&gt;We can use S3 as a backend provider&lt;/li&gt;
+&lt;li&gt;Backend provider is not in Terraform
+Example:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;terraform {&lt;/span&gt;
+&lt;span class="err"&gt;  required_version = &amp;quot;&amp;gt;=0.14.0&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;  backend &amp;quot;s3&amp;quot; {&lt;/span&gt;
+&lt;span class="err"&gt;    # bucket should already exist&lt;/span&gt;
+&lt;span class="err"&gt;    bucket = &amp;quot;my-Terraform-backend&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;    key = &amp;quot;sagar-Terraform-resources&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;    region = &amp;quot;ap-northeast-1&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;    # dynamo db table also should already exist&lt;/span&gt;
+&lt;span class="err"&gt;    dynamodb_table = &amp;quot;sagar-Terraform-lock&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;  }&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You must &lt;code&gt;init&lt;/code&gt; again inorder to change the backend.&lt;/p&gt;
+&lt;p&gt;Locks are stored in dynamodb table. Whoever acquires the lock first has the precedence of getting the resource.&lt;/p&gt;
+&lt;p&gt;We can also have remote backend&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;  backend &amp;quot;remote&amp;quot; {&lt;/span&gt;
+&lt;span class="err"&gt;    hostname = &amp;quot;app.Terraform.io&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;    organization = &amp;quot;beBit&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;    workspace = {&lt;/span&gt;
+&lt;span class="err"&gt;      name = &amp;quot;hello-Terraform&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;    }&lt;/span&gt;
+&lt;span class="err"&gt;  }&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;If we change the S3 backend to remote backend, we need to do &lt;code&gt;terraform init&lt;/code&gt; again which will ask us if we'd like to move the state file from S3 to the remote backend.&lt;/p&gt;
+&lt;h2&gt;5.2 Terraform workspaces&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Workspace helps us to create different environment with the same sets of Terraform configurations.&lt;/li&gt;
+&lt;li&gt;You can view the list of your Terraform workspaces using the command &lt;code&gt;terraform workspace list&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;The default workspace name is called &lt;code&gt;default&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;You can not delete the default workspace&lt;/li&gt;
+&lt;li&gt;Execute &lt;code&gt;terraform workspace --help&lt;/code&gt; to view the workspaces sub-commands&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Create a new workspace:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ terraform workspace new staging
+Created and switched to workspace &lt;span class="s2"&gt;&amp;quot;staging&amp;quot;&lt;/span&gt;!
+
+You&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;re now on a new, empty workspace. Workspaces isolate their state,
+so &lt;span class="k"&gt;if&lt;/span&gt; you run &lt;span class="s2"&gt;&amp;quot;terraform plan&amp;quot;&lt;/span&gt; Terraform will not see any existing state
+&lt;span class="k"&gt;for&lt;/span&gt; this configuration.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;List the workspaces:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ terraform workspace list
+  default
+* staging
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Where the &lt;code&gt;*&lt;/code&gt; is the current one, and we can also use &lt;code&gt;terraform workspace show&lt;/code&gt; to get the current workspace.&lt;/p&gt;
+&lt;p&gt;Switch the workspace back to &lt;code&gt;default&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ terraform workspace &lt;span class="k"&gt;select&lt;/span&gt; default                                                                                                                                                                                              &lt;span class="m"&gt;1&lt;/span&gt; ↵
+Switched to workspace &lt;span class="s2"&gt;&amp;quot;default&amp;quot;&lt;/span&gt;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Deleting the workspace:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ terraform workspace delete staging
+Deleted workspace &lt;span class="s2"&gt;&amp;quot;staging&amp;quot;&lt;/span&gt;!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Note: The workspace should be clean i.e. destroyed before deleting it.
+Learn more here: &lt;a href="https://www.Terraform.io/docs/state/workspaces.html"&gt;https://www.Terraform.io/docs/state/workspaces.html&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</content><category term="misc"></category><category term="Terraform"></category><category term="IAC"></category><category term="Terraform Cloud"></category></entry></feed>

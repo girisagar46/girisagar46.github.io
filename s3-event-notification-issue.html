@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://girisagar46.github.io/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://girisagar46.github.io/theme/pygments/default.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="https://girisagar46.github.io/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://girisagar46.github.io/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://girisagar46.github.io/theme/font-awesome/css/solid.css">
+
+    <link href="https://girisagar46.github.io/static/custom.css" rel="stylesheet">
+
+    <link href="https://girisagar46.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Sagar's Blog Atom">
+
+
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-73000395-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->  
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">
+
+<meta name="author" content="Sagar Giri" />
+<meta name="description" content="In this small article, I&#39;ll demonstrate how I" />
+<meta name="keywords" content="S3, AWS, lambda, awscli">
+
+
+<meta property="og:site_name" content="Sagar's Blog"/>
+<meta property="og:title" content="How to resolve &#34;Unable to validate the following destination configurations&#34; while adding event notification to your S3 bucket?"/>
+<meta property="og:description" content="In this small article, I&#39;ll demonstrate how I"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://girisagar46.github.io/s3-event-notification-issue"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2021-02-25 22:11:00+09:00"/>
+<meta property="article:modified_time" content="2021-02-25 22:11:00+09:00"/>
+<meta property="article:author" content="https://girisagar46.github.io/author/sagar-giri.html">
+<meta property="article:section" content="tutorial fixes"/>
+<meta property="article:tag" content="S3"/>
+<meta property="article:tag" content="AWS"/>
+<meta property="article:tag" content="lambda"/>
+<meta property="article:tag" content="awscli"/>
+<meta property="og:image" content="/images/title.png">
+
+  <title>Sagar's Blog &ndash; How to resolve &#34;Unable to validate the following destination configurations&#34; while adding event notification to your S3 bucket?</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://girisagar46.github.io">
+        <img src="/images/title.png" alt="Sagar Giri" title="Sagar Giri">
+      </a>
+
+      <h1>
+        <a href="https://girisagar46.github.io">Sagar Giri</a>
+      </h1>
+
+<p><pre>$ cd /pub && more beer</pre></p>
+
+      <nav>
+        <ul class="list">
+
+
+              <li>
+                <a target="_self"
+                   href="https://girisagar46.github.io/pages/about-me#about-me">
+                  About
+                </a>
+              </li>
+
+            <li>
+              <a target="_self" href="https://girisagar46.github.io/FYPFruitClassifier/" >Project</a>
+            </li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+          <li>
+            <a  class="sc-linkedin" href="https://linkedin.com/in/girisagar46" target="_blank">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/girisagar46" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-stack-overflow" href="https://stackoverflow.com/story/girisagar46.github.io" target="_blank">
+              <i class="fab fa-stack-overflow"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://girisagar46.github.io">Home</a>
+
+      <a href="/archives">Archives</a>
+      <a href="/categories">Categories</a>
+      <a href="/tags">Tags</a>
+
+      <a href="https://girisagar46.github.io/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="s3-event-notification-issue">How to resolve "Unable to validate the following destination configurations" while adding event notification to your S3 bucket?</h1>
+    <p>
+      Posted on February 25, 2021 in <a href="https://girisagar46.github.io/category/tutorial-fixes">tutorial fixes</a>
+
+        &#8226; 2 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>resolved the lambda issue while adding S3 event notification.</p>
+<h1>Problem</h1>
+<p>I have an existing S3 bucket and I wanted to add an S3 event notification to invoke my lambda function's dev alias. I
+read
+the <code>s3api</code> <a href="https://docs.aws.amazon.com/cli/latest/reference/s3api/put-bucket-notification-configuration.html">put-bucket-notification-configuration</a>
+documentation and prepare the <code>notification.json</code> file like this:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;LambdaFunctionConfigurations&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;ToInvokeMyLambdaFunction&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;LambdaFunctionArn&quot;</span><span class="p">:</span> <span class="s2">&quot;arn:aws:lambda:ap-northeast-1:123456789101:function:TestFunc:dev&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;Events&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;s3:ObjectCreated:Put&quot;</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;Filter&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;Key&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;FilterRules&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;suffix&quot;</span><span class="p">,</span>
+                            <span class="nt">&quot;Value&quot;</span><span class="p">:</span> <span class="s2">&quot;awesome_data.csv&quot;</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Then I execute the <code>s3api</code> command:</p>
+<div class="highlight"><pre><span></span><code>$ aws s3api put-bucket-notification-configuration <span class="se">\</span>
+ --bucket MyAwesomeBucket <span class="se">\</span>
+ --notification-configuration file://notification.json
+</code></pre></div>
+
+<p>I got an error that said:</p>
+<div class="highlight"><pre><span></span><code>An error occurred <span class="o">(</span>InvalidArgument<span class="o">)</span> when calling the PutBucketNotificationConfiguration operation: Unable to validate the following destination configurations
+</code></pre></div>
+
+<p>I checked my <code>aws-cli</code> version, it was the recommended one:</p>
+<div class="highlight"><pre><span></span><code>╰─$ aws --version
+aws-cli/2.0.12 Python/3.7.4 Darwin/20.3.0 botocore/2.0.0dev16
+</code></pre></div>
+
+<p><em>But... It works when I do it from the S3 console...</em></p>
+<p><img alt="cat" src="https://media.giphy.com/media/xT0GqtpF1NWd9VbstO/giphy.gif"></p>
+<p>I tried executing the same <code>aws s3api</code> command again now with the <code>--debug</code> flag. And in the middle of the long debug
+output, I see this:</p>
+<div class="highlight"><pre><span></span><code>$ aws s3api put-bucket-notification-configuration \
+ --bucket MyAwesomeBucket \
+ --notification-configuration file://notification.json \
+ --debug
+
+...
+2021-02-25 21:39:13,902 - MainThread - botocore.parsers - DEBUG - Response body:
+b&#39;<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>\n<span class="nt">&lt;Error&gt;&lt;Code&gt;</span>InvalidArgument<span class="nt">&lt;/Code&gt;&lt;Message&gt;</span>Unable to validate the following destination configurations<span class="nt">&lt;/Message&gt;&lt;ArgumentName1&gt;</span>arn:aws:lambda:ap-northeast-1:123456789101:function:TestFunc:dev, null<span class="nt">&lt;/ArgumentName1&gt;&lt;ArgumentValue1&gt;</span>Not authorized to invoke function [arn:aws:lambda:ap-northeast-1:123456789101:function:TestFunc:dev]<span class="nt">&lt;/ArgumentValue1&gt;&lt;RequestId&gt;</span>2B8705F2FD8848F2<span class="nt">&lt;/RequestId&gt;&lt;HostId&gt;</span>bj9ahrqPxN3emWnZ008dtkVmVR9VVxfFjAJAw9hKvhoa4vtdHXaGi/x4a4Okki3oJhbaeHe0Ppk=<span class="nt">&lt;/HostId&gt;&lt;/Error&gt;</span>&#39;
+...
+</code></pre></div>
+
+<p>The gist of it is <code>Not authorized to invoke function [arn:aws:lambda:ap-northeast-1:123456789101:function:TestFunc:dev]</code></p>
+<p>So the problem was with the lambda permission. :thinking:</p>
+<h1>Solution</h1>
+<p>Digging around the internet I find <a href="https://forums.aws.amazon.com/thread.jspa?threadID=182758">this</a>
+And the solution is to give your lambda a permission to being invoked by S3 first. Which can be done like this:</p>
+<div class="highlight"><pre><span></span><code>$ aws lambda add-permission <span class="se">\</span>
+ --function-name TestFunc:dev <span class="se">\</span>
+ --profile default <span class="se">\</span>
+ --statement-id AllowToBeInvoked <span class="se">\</span>
+ --action <span class="s2">&quot;lambda:InvokeFunction&quot;</span> <span class="se">\</span>
+ --principal s3.amazonaws.com <span class="se">\</span>
+ --source-arn <span class="s2">&quot;arn:aws:s3:::MyAwesomeBucket&quot;</span> <span class="se">\</span>
+ --source-account <span class="m">123456789101</span>
+</code></pre></div>
+
+<p>I got the output like this:</p>
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+ <span class="s2">&quot;Statement&quot;</span>: <span class="s2">&quot;{\&quot;Sid\&quot;:\&quot;AllowToBeInvoked\&quot;,\&quot;Effect\&quot;:\&quot;Allow\&quot;,\&quot;Principal\&quot;:{\&quot;Service\&quot;:\&quot;s3.amazonaws.com\&quot;},\&quot;Action\&quot;:\&quot;lambda:InvokeFunction\&quot;,\&quot;Resource\&quot;:\&quot;arn:aws:lambda:ap-northeast-1:123456789101:function:TestFunc:dev\&quot;,\&quot;Condition\&quot;:{\&quot;StringEquals\&quot;:{\&quot;AWS:SourceAccount\&quot;:\&quot;123456789101\&quot;},\&quot;ArnLike\&quot;:{\&quot;AWS:SourceArn\&quot;:\&quot;arn:aws:s3:::MyAwesomeBucket\&quot;}}}&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>Finally, executing the <code>aws s3api</code> command, I was able to put S3 event notification on <code>MyAwesomeBucket</code></p>
+<div class="highlight"><pre><span></span><code>$ aws s3api put-bucket-notification-configuration <span class="se">\</span>
+ --bucket MyAwesomeBucket <span class="se">\</span>
+ --notification-configuration file://notification.json
+</code></pre></div>
+
+<p>I checked my lambda console and I can verify the S3 trigger is applied. :confetti_ball:
+<img alt="image.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1104077/1013252b-7ede-d418-a023-4a7052031a4d.png"></p>
+<p>References:</p>
+<ol>
+<li>https://forums.aws.amazon.com/thread.jspa?threadID=182758</li>
+<li>https://docs.aws.amazon.com/lambda/latest/dg/with-s3.html</li>
+<li>https://docs.aws.amazon.com/cli/latest/reference/s3api/put-bucket-notification-configuration.html</li>
+</ol>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://girisagar46.github.io/tag/s3">S3</a>
+      <a href="https://girisagar46.github.io/tag/aws">AWS</a>
+      <a href="https://girisagar46.github.io/tag/lambda">lambda</a>
+      <a href="https://girisagar46.github.io/tag/awscli">awscli</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy; 2021 </p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Sagar's Blog ",
+  "url" : "https://girisagar46.github.io",
+  "image": "/images/title.png",
+  "description": "programming, python, CS, AWS, Django"
+}
+</script>
+
+</body>
+</html>
