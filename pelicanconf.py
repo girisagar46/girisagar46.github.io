@@ -87,21 +87,8 @@ USE_LESS = False
 FEED_USE_SUMMARY = True
 
 GOOGLE_ANALYTICS = "UA-73000395-1"
-# GOOGLE_TAG_MANAGER = "GTM-5K6D7ZG"
-# GOOGLE_ADSENSE = {
-#     "ca_id" : "ca-pub-6204331251488075",
-#     "ads": {
-#         "aside": "1234561",          # Side bar banner (all pages)
-#         # "main_men": "1234562",      # Banner before main menu (all pages)
-#         # "index_top": "1234563",      # Banner after main menu (index ofabnly)
-#         # "index_bottom": "1234564",   # Banner before footer (index only)
-#         # "article_top": "1234565",    # Banner after article title (article only)
-#         # "article_bottom": "1234566", # Banner after article content (article only)
-#     }
-# }
-
-# SHARING
-# ADD_THIS_ID = "ra-589c9f9f19d6a715"
+GOOGLE_TAG_MANAGER = "GTM-5K6D7ZG"
+MICROSOFT_CLARITY = "7cfbr3w8ss"
 
 # Formatting for URLS
 ARTICLE_URL = "{slug}"
