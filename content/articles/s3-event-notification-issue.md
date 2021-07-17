@@ -4,8 +4,7 @@ Modified: 2021-2-25 22:11
 Category: tutorial fixes
 Tags: S3, AWS, lambda, awscli
 Slug: s3-event-notification-issue
-Summary: In this small article, I'll demonstrate how I
-resolved the lambda issue while adding S3 event notification.
+Summary: In this small article, I'll demonstrate how I resolved the lambda issue while adding S3 event notification.
 
 # Problem
 
