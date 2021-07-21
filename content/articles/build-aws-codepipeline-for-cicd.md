@@ -15,7 +15,7 @@ In [previous tutorial](https://girisagar46.github.io/from-bitbucket-pipeline-to-
 
 This tutorial will be a little bit long and I will guide you to setup AWS CodePipeline for your Django application step by step with no step skipped. 
 
-Okay, Let's begin!
+Okay, Let's begin!!
 
 ## Step 0 (True programmer starts counting from zero ;) )
 
