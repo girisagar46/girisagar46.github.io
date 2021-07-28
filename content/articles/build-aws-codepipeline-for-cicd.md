@@ -7,15 +7,15 @@ Tags: devops, cicd, aws, aws codepipeline, codecommit, django, continuous integr
 Slug: build-aws-codepipeline-for-cicd
 Summary: In this article, you'll learn how to setup AWS CodePipeline for Continuous Integration and Continuous Delivery (CI/CD) pipeline for your Django Application.
 
-> Assumption: For this tutorial, I am assuming you already have an EC2 instance where you've configured and deploy a Django application. 
+> Assumption: For this tutorial, I am assuming you already have an EC2 instance where you've configured and deploy a Django application.
 
-In [previous tutorial](https://girisagar46.github.io/from-bitbucket-pipeline-to-aws-codecommit), you learnt about syncing your BitBucket repository to AWS CodeCommit. Now, since your source code is already into AWS CodeCommit, you can now setup AWS CodePipeline for CI/CD. 
+In [previous tutorial](https://girisagar46.github.io/from-bitbucket-pipeline-to-aws-codecommit), you learnt about syncing your BitBucket repository to AWS CodeCommit. Now, since your source code is already into AWS CodeCommit, you can now setup AWS CodePipeline for CI/CD.
 
 ![Cover](../images/codepipeline/cover.png)
 
-This tutorial will be a little bit long and I will guide you to setup AWS CodePipeline for your Django application step by step with no step skipped. 
+This tutorial will be a little bit long and I will guide you to setup AWS CodePipeline for your Django application step by step with no step skipped.
 
-Okay, Let's begin!!
+Okay, Let's begin!
 
 ## Step 0 (True programmer starts counting from zero ;) )
 
@@ -29,13 +29,13 @@ Okay, Let's begin!!
 
 - Once you are in AWS CodePipeline click on **Create pipeline** button. You'll be then redirected to **Choose pipeline settings**
 
-![Choose pipeline settings](../images/codepipeline/Step-1.png) 
+![Choose pipeline settings](../images/codepipeline/Step-1.png)
 
 - Give yor pipeline a name under the **Pipeline name** input field.
 - Select **New service role** under the **Service role** section.
-- Under **Role name** section, you'll be provided a default role name. But, you may wish to give a proper name which you can remember. In that case, provide your own **Role name**. 
+- Under **Role name** section, you'll be provided a default role name. But, you may wish to give a proper name which you can remember. In that case, provide your own **Role name**.
 - Check the checkbox that says *Allow AWS CodePipeline to create a service role so it can be used with this new pipeline*
-- Under **Artifact store**, select **Custom location**. And here's a tricky part. Artifacts are files that is generated after the CI part is completed. These artifacts need to be stored somewhere. In CodePipeline's case, it's the S3 bucket. If you choose **Default location**, your artifacts will be stored in the S3 location defined by the CodePipeline itself. In my case, I choose to store my artifacts in my own S3 bucket. Here's a [tutorial](#) if you don't know how to create a S3 bucket. 
+- Under **Artifact store**, select **Custom location**. And here's a tricky part. Artifacts are files that is generated after the CI part is completed. These artifacts need to be stored somewhere. In CodePipeline's case, it's the S3 bucket. If you choose **Default location**, your artifacts will be stored in the S3 location defined by the CodePipeline itself. In my case, I choose to store my artifacts in my own S3 bucket. Here's a [tutorial](#) if you don't know how to create a S3 bucket.
 - After filling up this form, click the **Next** button.
 
 ## Step 2
@@ -44,7 +44,7 @@ Okay, Let's begin!!
 
 ![Add Source stage](../images/codepipeline/Step-2.png)
 
-- Select **Source provider**. In this case, I am selecting **AWS CodeCommit** because I've already [synced my BitBucket repository to AWS CodeCommit](https://girisagar46.github.io/from-bitbucket-pipeline-to-aws-codecommit). 
+- Select **Source provider**. In this case, I am selecting **AWS CodeCommit** because I've already [synced my BitBucket repository to AWS CodeCommit](https://girisagar46.github.io/from-bitbucket-pipeline-to-aws-codecommit).
 - Select your **Repository name** from the drop down option.
 - Select the **Branch name** from the dropdown option. This **Branch name** indicates triggering of CI when a commit is made to this branch.
 - On **Change detection options** select the recommended option **Amazon CloudWatch Events**
@@ -55,18 +55,18 @@ Okay, Let's begin!!
 ![Add build stage](../images/codepipeline/Step-3.png)
 
 - Select **Build provider** as **AWS CodeBuild**
-- Now, you need to setup a **Project** for AWS CodeBuild. Click on **Create project** button as shown in the picture. 
+- Now, you need to setup a **Project** for AWS CodeBuild. Click on **Create project** button as shown in the picture.
 - When you click that **Create project**, a new window will open where you will setup a CodeBuild project. Let's call it **Step 4** for now. Now, let's jump to **Step 4**
 
 ## Step 4
 
-I'll be breaking down this step into small chunks. 
+I'll be breaking down this step into small chunks.
 
 ### Step 4-1 (Create build project)
 ![Create build project](../images/codepipeline/Step-4-1.png)
 
 - Give your project a name under **Project name** input field.
-- Give a project **Description** if you like. It's totally optional but it's a good practice to describe what it does. 
+- Give a project **Description** if you like. It's totally optional but it's a good practice to describe what it does.
 - You can add tags to your project but, I am leaving it blank for now.
 
 ### Step 4-2 (Environment)
@@ -166,7 +166,7 @@ I'll be breaking down this step into small chunks.
 
 ## Step 11
 
-- This is probably the last step of our code pipeline setup. After clicking the **Next** button from **Step 10**, you'll see a **CodePipeline Review** page. 
+- This is probably the last step of our code pipeline setup. After clicking the **Next** button from **Step 10**, you'll see a **CodePipeline Review** page.
 
 ![CodePipeline review](../images/codepipeline/Step-16.png)
 
