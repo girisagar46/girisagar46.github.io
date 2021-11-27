@@ -1,9 +1,9 @@
-Title: How to set up custom domain for github.io pages?
+Title: Three-step guide to set up custom domain for your github.io pages
 Date: 2021-11-27 23:8
 Modified: 2021-11-27 23:8
 Category: how-to, tutorial
 Tags: domain, dns, github, hosting, how-to, setup, website
-Slug: how-to-setup-custom-domain-for-github-pages
+Slug: custom-domain-for-github-pages
 Summary: In this blog post , I will show you how to set up custom domain for any github.io pages.
 
 > Assumption: For this tutorial, I am assuming you already have bought a domain name from any domain name provider and you already have a github.io pages setup like this [girisagar46.github.io](https://girisagar46.github.io).
