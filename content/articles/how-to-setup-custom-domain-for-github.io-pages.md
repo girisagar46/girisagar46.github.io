@@ -1,4 +1,4 @@
-Title: How to setup custom domain for github.io pages?
+Title: How to set up custom domain for github.io pages?
 Date: 2021-11-27 23:8
 Modified: 2021-11-27 23:8
 Category: how-to, tutorial
