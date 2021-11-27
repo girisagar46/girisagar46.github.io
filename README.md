@@ -1,4 +1,4 @@
-# girisagar46.github.io ![Update Blog](https://github.com/girisagar46/girisagar46.github.io/workflows/Update%20Blog/badge.svg)
+# [girisagar46.github.io] OR [sagargiri.com] ![Update Blog](https://github.com/girisagar46/girisagar46.github.io/workflows/Update%20Blog/badge.svg)
 
 The source code for my personal blog *[girisagar46.github.io](https://girisagar46.github.io)*
 
@@ -10,19 +10,9 @@ If you want to view the HTML rendered, then checkout [master branch](https://git
 
 ## Build and run locally
 
-### Clone master branch
-
-```
-$ git clone -b master https://github.com/girisagar46/girisagar46.github.io.git
-```
-
-### Serve HTML
-
-```
-    $ cd girisagar46.github.io
-    $ python -m SimpleHTTPServer
-```
-### Browse to `http://localhost:8000`
+1. Activate virtual env and install dependencies
+2. Run `invoke serve`
+3. Visit [http://localhost:8000](http://localhost:8000)
 
 ## Contact
 
