@@ -74,7 +74,7 @@ SITEMAP = {
     }
 }
 
-STATIC_PATHS = ["images", "extras/CNAME"]
+STATIC_PATHS = ["images", "extras/CNAME", "extras/robots.txt"]
 EXTRA_PATH_METADATA = {
     # "extras/custom.css": {"path": "static/custom.css"},
     "extras/CNAME": {"path": "CNAME"},
