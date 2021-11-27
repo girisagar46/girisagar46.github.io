@@ -9,9 +9,11 @@ Summary: In this blog post , I will show you how to set up custom domain for any
 > Assumption: For this tutorial, I am assuming you already have bought a domain name from any domain name provider and you already have a github.io pages setup like this [girisagar46.github.io](https://girisagar46.github.io).
 > Also in this post, I'm using [namecheap](https://www.namecheap.com) and setting up Apex domain name.
 
-This blog is hosted in github pages. When you visit [sagargiri.com](https://sagargiri.com), the web pages that you see are actually hosted in github.io, and you can see the source code of this blog [here](https://github.com/girisagar46/girisagar46.github.io/). But, how my domain `sagargiri.com` is pointing to `girisagar46.github.io` ? How do we configure such settings? All of these questions are answered in this blog post.
+This blog is hosted in [GitHub pages][1]. When you visit [sagargiri.com](https://sagargiri.com), the web pages that you see are actually hosted in github.io, and you can see the source code of this blog [here](https://github.com/girisagar46/girisagar46.github.io/).
+But, how does my domain `sagargiri.com` is pointing to `girisagar46.github.io` ? How do we configure such settings?
+All of these questions are answered in this blog post.
 
-## Step-by-step guide
+## Step-by-step guide to use custom domain for github.io pages
 
 ### Step 1: Buy the domain name.
 
@@ -81,6 +83,11 @@ sagargiri.com.		1799	IN	A	185.199.108.153
 
 Here you can see that my domain is pointing to the A records that we have set up in the Step 2.
 
+
 References:
-https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages
-https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site
+
+[https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages)
+[https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
+
+
+[1]: https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages
