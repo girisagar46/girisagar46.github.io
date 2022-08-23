@@ -18,21 +18,11 @@ SETTINGS.update(DEFAULT_CONFIG)
 LOCAL_SETTINGS = get_settings_from_file(SETTINGS_FILE_BASE)
 SETTINGS.update(LOCAL_SETTINGS)
 
-CONFIG = {
-    'settings_base': SETTINGS_FILE_BASE,
-    'settings_publish': 'publishconf.py',
-    # Output path. Can be absolute or relative to tasks.py. Default: 'output'
-    'deploy_path': SETTINGS['OUTPUT_PATH'],
-    # Github Pages configuration
-    'github_pages_branch': 'master',
-    'username': 'girisagar46',
-    'blog_repo': 'girisagar46.github.io.git',
-    'commit_message': "'Publish site on {}'".format(datetime.date.today().isoformat()),
-    # Host and port for `serve`
-    'host': 'localhost',
-    'port': 8000,
-    'GH_TOKEN': os.getenv('GH_TOKEN')
-}
+CONFIG = {'settings_base': SETTINGS_FILE_BASE, 'settings_publish': 'publishconf.py',
+          'deploy_path': SETTINGS['OUTPUT_PATH'], 'github_pages_branch': 'master', 'username': 'girisagar46',
+          'blog_repo': 'girisagar46.github.io.git',
+          'commit_message': f"'Publish site on {datetime.date.today().isoformat()}'", 'host': 'localhost',
+          'port': 8000, 'GH_TOKEN': os.getenv('GH_TOKEN')}
 
 TEMPLATE = """
 Title: {title}
@@ -116,7 +106,7 @@ def livereload(c):
         server.watch(content_blob, lambda: build(c))
     # Watch the theme's templates and static assets
     theme_path = SETTINGS['THEME']
-    server.watch('{}/templates/*.html'.format(theme_path), lambda: build(c))
+    server.watch(f'{theme_path}/templates/*.html', lambda: build(c))
     static_file_extensions = ['.css', '.js']
     for extension in static_file_extensions:
         static_file = '{0}/static/**/*{1}'.format(theme_path, extension)
@@ -155,7 +145,7 @@ def gh_pages(c):
 
 
 def pelican_run(cmd):
-    cmd += ' ' + program.core.remainder  # allows to pass-through args to pelican
+    cmd += f' {program.core.remainder}'
     pelican_main(shlex.split(cmd))
 
 
@@ -167,16 +157,12 @@ def new_post(c, title, *args, **kwargs):
     :param title: Title of the blog post
     :return:
     """
-    today = datetime.datetime.today()
+    today = datetime.datetime.now()
     post_title = title.split("=")[1]
     slug = post_title.lower().strip().replace(' ', '-')
-    file_location = "content/articles/{}.md".format(slug)
-    template = TEMPLATE.strip().format(title=post_title,
-                                       year=today.year,
-                                       month=today.month,
-                                       day=today.day,
-                                       hour=today.hour,
-                                       minute=today.minute,
-                                       slug=slug)
+    file_location = f"content/articles/{slug}.md"
+    template = TEMPLATE.strip().format(title=post_title, year=today.year, month=today.month, day=today.day,
+                                       hour=today.hour, minute=today.minute, slug=slug)
+
     with open(file_location, 'w') as output_article:
         output_article.write(template)
