@@ -5,7 +5,7 @@ from datetime import datetime
 from markdown.extensions.codehilite import CodeHiliteExtension
 
 AUTHOR = "Sagar Giri"
-SITEURL = "https://sagargiri.com"
+# SITEURL = "https://sagargiri.com"
 SITENAME = """Sagar's Blog"""
 SITETITLE = AUTHOR
 SITESUBTITLE = "<pre>$ cd /pub && more beer</pre>"
@@ -33,7 +33,7 @@ THEME = "themes/Flex"
 PYGMENTS_STYLE = "default"
 
 # Feed generation is usually not desired when developing
-FEED_DOMAIN = SITEURL
+# FEED_DOMAIN = SITEURL
 FEED_ALL_ATOM = "feeds/all.atom.xml"
 CATEGORY_FEED_ATOM = "feeds/{slug}.atom.xml"
 TRANSLATION_FEED_ATOM = None
