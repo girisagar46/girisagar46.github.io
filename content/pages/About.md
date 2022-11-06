@@ -15,4 +15,4 @@ Sagar Giri
 Shoot me an email
 ----------
 
-> *girisagar46@gmail.com*
+> *author@sagargiri.com*

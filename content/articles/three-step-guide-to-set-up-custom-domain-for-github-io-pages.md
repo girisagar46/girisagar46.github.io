@@ -26,15 +26,15 @@ Now that you have bought the domain name, you need to set up the DNS records. Wh
 
 In your domain name provider page you'll have an option to set up DNS records. In the case of namecheap, you'll first have to click the `MANAGE` button in the `Domain List` page as shown in screenshot below.
 
-![](../images/setup-domain-github-pages/manage.png)
+![image](../images/setup-domain-github-pages/manage.png)
 
 Then click the `Advanced DNS` button as shown in screenshot below.
 
-![](../images/setup-domain-github-pages/advanced-dns.png)
+![image](../images/setup-domain-github-pages/advanced-dns.png)
 
 In the `HOST RECORDS` section, you need to add the following DNS records as shown in screenshot below.
 
-![](../images/setup-domain-github-pages/host-record.png)
+![image](../images/setup-domain-github-pages/host-record.png)
 
 Here are the IP addresses list for `A` record for you to copy and paste.
 
@@ -54,13 +54,13 @@ Once you have added the DNS records, you can now go to your GitHub page settings
 
 Go to your github.io repository settings and click on the `Settings` button and then click on the `Pages` button as shown in screenshot below.
 
-![](../images/setup-domain-github-pages/github-settings.png)
+![image](../images/setup-domain-github-pages/github-settings.png)
 
 This will lead you to the GitHub.io settings for GitHub pages.
 
 In the `Pages` section, you need to add the following domain name as shown in screenshot below.
 
-![](../images/setup-domain-github-pages/custom-domain.png)
+![image](../images/setup-domain-github-pages/custom-domain.png)
 
 This will commit a new file called `CNAME` to your github.io repository. You can verify that later on. Also do not forget to check the `Enforce HTTPS ` checkbox. This will provide you SSL certificate for your domain name. Once you see the green tick mark in your domain name in the `Pages` section, you're good tpo go.
 
