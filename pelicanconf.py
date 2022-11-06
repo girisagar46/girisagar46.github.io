@@ -52,6 +52,7 @@ SOCIAL = (
     ("linkedin", "https://linkedin.com/in/girisagar46"),
     ("github", "https://github.com/girisagar46"),
     ("stack-overflow", "https://stackoverflow.com/story/girisagar46.github.io"),
+    ("mastodon", "https://fosstodon.org/@girisagar46"),
 )
 
 # Plugins
