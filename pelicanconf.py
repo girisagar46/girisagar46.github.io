@@ -5,7 +5,7 @@ from datetime import datetime
 from markdown.extensions.codehilite import CodeHiliteExtension
 
 AUTHOR = "Sagar Giri"
-SITEURL = "http://localhost:8000"
+SITEURL = "https://sagargiri.com/"
 SITENAME = """Sagar's Blog"""
 SITETITLE = AUTHOR
 SITESUBTITLE = "<pre>$ cd /pub && more beer</pre>"
@@ -24,7 +24,7 @@ DATE_FORMATS = {
 
 USE_FOLDER_AS_CATEGORY = False
 COPYRIGHT_YEAR = datetime.now().year
-DEFAULT_PAGINATION = 7
+DEFAULT_PAGINATION = 5
 
 # Theme Settings
 SITELOGO = "/images/title.png"
