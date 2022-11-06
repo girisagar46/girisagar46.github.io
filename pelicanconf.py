@@ -5,7 +5,7 @@ from datetime import datetime
 from markdown.extensions.codehilite import CodeHiliteExtension
 
 AUTHOR = "Sagar Giri"
-SITEURL = "https://sagargiri.com/"
+SITEURL = "https://sagargiri.com"
 SITENAME = """Sagar's Blog"""
 SITETITLE = AUTHOR
 SITESUBTITLE = "<pre>$ cd /pub && more beer</pre>"
