@@ -9,7 +9,7 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import * #noq
 
-SITEURL = 'https://girisagar46.github.io'
+SITEURL = 'https://sagargiri.com'
 RELATIVE_URLS = False
 
 FEED_DOMAIN = SITEURL
