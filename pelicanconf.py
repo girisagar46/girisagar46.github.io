@@ -42,7 +42,11 @@ AUTHOR_FEED_RSS = None
 
 # Main Menu
 MAIN_MENU = True
-MENUITEMS = (("Archives", "/archives"), ("Categories", "/categories"), ("Tags", "/tags"),)
+MENUITEMS = (
+    ("Archives", "/archives"),
+    ("Categories", "/categories"),
+    ("Tags", "/tags"),
+)
 
 # Blogroll
 LINKS = (("Project", "https://girisagar46.github.io/FYPFruitClassifier/"),)
@@ -57,8 +61,7 @@ SOCIAL = (
 
 # Plugins
 # See: http://docs.getpelican.com/en/latest/plugins.html
-PLUGIN_PATHS = ["./pelican-plugins"]
-PLUGINS = ["sitemap", "post_stats", "feed_summary"]
+PLUGINS = ["pelican.plugins.sitemap"]
 
 # Sitemap Settings
 SITEMAP = {
@@ -72,16 +75,15 @@ SITEMAP = {
         "articles": "monthly",
         "indexes": "daily",
         "pages": "monthly",
-    }
+    },
 }
 
-STATIC_PATHS = ["images", "extras/CNAME", "extras/robots.txt", "extras/keybase.txt", "extras/.htaccess"]
+STATIC_PATHS = ["images", "extras/CNAME", "extras/robots.txt", "extras/keybase.txt"]
 EXTRA_PATH_METADATA = {
     # "extras/custom.css": {"path": "static/custom.css"},
     "extras/CNAME": {"path": "CNAME"},
     "extras/robots.txt": {"path": "robots.txt"},
     "extras/keybase.txt": {"path": "keybase.txt"},
-    "extras/.htaccess": {"path": ".htaccess"},
 }
 
 CUSTOM_CSS = "static/custom.css"

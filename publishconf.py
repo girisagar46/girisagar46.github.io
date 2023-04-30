@@ -6,10 +6,11 @@
 
 import os
 import sys
-sys.path.append(os.curdir)
-from pelicanconf import * #noq
 
-SITEURL = 'https://sagargiri.com'
+sys.path.append(os.curdir)
+from pelicanconf import *  # noqa
+
+SITEURL = "https://sagargiri.com"
 RELATIVE_URLS = False
 
 FEED_DOMAIN = SITEURL
@@ -20,5 +21,5 @@ DELETE_OUTPUT_DIRECTORY = True
 
 # Following items are often useful when publishing
 
-#DISQUS_SITENAME = ""
-#GOOGLE_ANALYTICS = ""
+# DISQUS_SITENAME = ""
+# GOOGLE_ANALYTICS = ""

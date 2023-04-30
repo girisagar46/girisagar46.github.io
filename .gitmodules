@@ -1,0 +1,3 @@
+[submodule "Flex"]
+	path = themes/Flex
+	url = https://github.com/girisagar46/Flex.git
