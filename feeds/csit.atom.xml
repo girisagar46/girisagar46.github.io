@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sagar's Blog - CSIT</title><link href="https://sagargiri.com/" rel="alternate"></link><link href="https://sagargiri.com/feeds/csit.atom.xml" rel="self"></link><id>https://sagargiri.com/</id><updated>2017-02-06T18:44:00+09:00</updated><subtitle>&lt;pre&gt;$ cd /pub &amp;&amp; more beer&lt;/pre&gt;</subtitle><entry><title>The One Stop CSIT Guide</title><link href="https://sagargiri.com/the-csit-guide" rel="alternate"></link><published>2017-02-06T18:44:00+09:00</published><updated>2017-02-06T18:44:00+09:00</updated><author><name>Sagar Giri</name></author><id>tag:sagargiri.com,2017-02-06:/the-csit-guide</id><summary type="html">&lt;p&gt;The one-stop bundle for all the resources for 4 years B.Sc. CSIT study.&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;Warning: This is a challenging task. DMCA might take down some repo. Let's see.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The main problem I faced while studying CSIT was that I had to stumble upon networks of hyperlinks to find the exact resource or course material that I needed to do my assignments/reports. Whenever I find something interesting or something that I need, I immediately downloaded that. And that resulted a vast collection of the resource that might be helpful for the students who are studying B.Sc. CSIT.&lt;/p&gt;
+&lt;p&gt;To distribute these resources, I tried zipping the folder and uploading to GitHub, but GitHub didn't accept files more than 100MiB. Hence, I had to upload each folder separately. In Order to do that I created a GitHub organization called &lt;a href="https://github.com/CSIT-GUIDE"&gt;CSIT-GUIDE&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;All these repositories inside &lt;a href="https://github.com/CSIT-GUIDE"&gt;CSIT-GUIDE&lt;/a&gt; has subject wise notes, books, guides, question papers, lab works and other resources. All these were collected by me on 4 years of studying B.Sc. CSIT. I'm just trying to help all other students who are studying CSIT course.&lt;/p&gt;
+&lt;p&gt;The organization &lt;a href="https://github.com/CSIT-GUIDE"&gt;CSIT-GUIDE&lt;/a&gt; has eight repositories which are (semester wise) .&lt;/p&gt;
+&lt;p&gt;** NOTE: These repositories has the subjects that I was taught. The elective courses I was taught might not be taught to you. **&lt;/p&gt;
+&lt;p&gt;If you find anything missing, or you have some extra notes, you can always contribute.&lt;/p&gt;
+&lt;p&gt;You can contribute by:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Forking the repo you want to contribute.&lt;/li&gt;
+&lt;li&gt;Adding your resource and pushing to your forked repo.&lt;/li&gt;
+&lt;li&gt;Sending a new pull request.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;DIRECT LINKS:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/CSIT-GUIDE/FIRST_SEMESTER"&gt;FIRST SEMESTER&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/CSIT-GUIDE/SECOND_SEMESTER"&gt;SECOND SEMESTER&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/CSIT-GUIDE/THIRD_SEMESTER"&gt;THIRD SEMESTER&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/CSIT-GUIDE/FOURTH_SEMESTER"&gt;FOURTH SEMESTER&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/CSIT-GUIDE/FIFTH_SEMESTER"&gt;FIFTH SEMESTER&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/CSIT-GUIDE/SIXTH_SEMESTER"&gt;SIXTH SEMESTER&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/CSIT-GUIDE/SEVENTH_SEMESTER"&gt;SEVENTH SEMESTER&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/CSIT-GUIDE/EIGHTH_SEMESTER"&gt;EIGHTH SEMESTER&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;If you want to be a part of &lt;a href="https://github.com/CSIT-GUIDE"&gt;CSIT-GUIDE&lt;/a&gt;, just email me your GitHub username at &lt;code&gt;author@sagargiri.com&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;P.S. The DMCA laws might block these repos. This is just an experiment. If it goes haywire, I'll be sharing these via Google Drive. :-)&lt;/p&gt;</content><category term="CSIT"></category><category term="csit"></category><category term="computer science"></category><category term="iost"></category><category term="bsc csit"></category></entry></feed>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sagar's Blog - tutorial, python, pip</title><link href="https://sagargiri.com/" rel="alternate"></link><link href="https://sagargiri.com/feeds/tutorial-python-pip.atom.xml" rel="self"></link><id>https://sagargiri.com/</id><updated>2017-01-31T19:21:00+09:00</updated><subtitle>&lt;pre&gt;$ cd /pub &amp;&amp; more beer&lt;/pre&gt;</subtitle><entry><title>Install Python pip package management system in Ubuntu</title><link href="https://sagargiri.com/install-python-pip-package-management-system-in-ubuntu" rel="alternate"></link><published>2017-01-31T19:21:00+09:00</published><updated>2017-01-31T19:21:00+09:00</updated><author><name>Sagar Giri</name></author><id>tag:sagargiri.com,2017-01-31:/install-python-pip-package-management-system-in-ubuntu</id><summary type="html">&lt;p&gt;pip is a package management system used to install and manage software packages written in Python.&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;code&gt;pip&lt;/code&gt; is the replacement for the &lt;code&gt;easy_install&lt;/code&gt; python package management tool. &lt;/p&gt;
+&lt;p&gt;If you're running Python 2.7.9+ or Python 3.4+ pip is already installed in the bundle.&lt;/p&gt;
+&lt;p&gt;If you are below Python 2.7.9 then these are the steps you need to follow to install PIP.&lt;/p&gt;
+&lt;h1&gt;For Ubuntu&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;update
+$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;-y&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;python-pip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;But, even if you are running python 3.4+ version, and pip is not available in the sytem, you can install by:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;python3-pip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1&gt;For Mac OS&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;easy_install&lt;span class="w"&gt; &lt;/span&gt;pip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;brew&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;python
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1&gt;For Windows&lt;/h1&gt;
+&lt;p&gt;You can install pip via installer. &lt;/p&gt;
+&lt;p&gt;Download, &lt;a href="http://download.sjsoft.com/opensource/pip-1.1.win32.exe"&gt;pip-1.1.win32.exe&lt;/a&gt; and run setup.&lt;/p&gt;
+&lt;h1&gt;Verify the pip setup&lt;/h1&gt;
+&lt;p&gt;Check version of the pip via from command line.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pip&lt;span class="w"&gt; &lt;/span&gt;-V
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1&gt;pip usage&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;some-package-name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Users can also easily remove the package:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;uninstall&lt;span class="w"&gt; &lt;/span&gt;some-package-name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;pip has a feature to manage full lists of packages and corresponding version numbers, possible through a "requirements" file. And is mainly used for &lt;code&gt;virtual enviromnent&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;-r&lt;span class="w"&gt; &lt;/span&gt;requirements.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Sources:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/17271319/how-to-install-pip-on-mac-os-x"&gt;http://stackoverflow.com/questions/17271319/how-to-install-pip-on-mac-os-x&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/4750806/how-do-i-install-pip-on-windows"&gt;http://stackoverflow.com/questions/4750806/how-do-i-install-pip-on-windows&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.liquidweb.com/kb/how-to-install-pip-on-ubuntu-14-04-lts/"&gt;https://www.liquidweb.com/kb/how-to-install-pip-on-ubuntu-14-04-lts/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Pip_(package_manager)"&gt;https://en.wikipedia.org/wiki/Pip_(package_manager)&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content><category term="tutorial, python, pip"></category><category term="tutorial"></category><category term="python"></category><category term="pip"></category></entry></feed>

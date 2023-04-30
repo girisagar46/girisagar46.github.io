@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/girisagar46
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://sagargiri.com
+  * I am girisagar46 (https://keybase.io/girisagar46) on keybase.
+  * I have a public key ASAXDY2lMWih2NH_ogLgmAeSgeQohFYDIC1vSXzMqWeJHAo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120f242bae8bdc335d497e4456b949e70562c5b04ee1849f7e403de4155c102d5ca0a",
+      "host": "keybase.io",
+      "kid": "0120170d8da53168a1d8d1ffa202e098079281e428845603202d6f497ccca967891c0a",
+      "uid": "3ed3659f08e375af1f58b3145d453a19",
+      "username": "girisagar46"
+    },
+    "merkle_root": {
+      "ctime": 1644049799,
+      "hash": "af55244b6937cb76a472c6f34f1e7e691b4da236b8e1b3ddc94abc7618fe7024aa22a180e86cfd963cf903b517b76da71eef23629ce03e1ded5bf0a9d24a6074",
+      "hash_meta": "3ca8f129a4eda7daa832667aad903b802497306c4b614823c32a617629358f1f",
+      "seqno": 21801702
+    },
+    "service": {
+      "entropy": "ncgPDBgs3aCgxw2cJI20osOf",
+      "hostname": "sagargiri.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.9.2"
+  },
+  "ctime": 1644049814,
+  "expire_in": 504576000,
+  "prev": "b2506c1834ba7d9ebc3380b5db919bc5dda4f3b87261289ff7aa562e393423a5",
+  "seqno": 30,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgFw2NpTFoodjR/6IC4JgHkoHkKIRWAyAtb0l8zKlniRwKp3BheWxvYWTESpcCHsQgslBsGDS6fZ68M4C125Gbxd2k87hyYSif96pWLjk0I6XEIPofuW1RSmG4hcLewLf2gxwDgbbYC8hPIdX2LRDaqZ0sAgHCo3NpZ8RAK51SlG7V/fX/00447AN7cHr5ty83UXCLyVhg1f1xGQrzlGvocgSWxLLNsmXi97AbWRIGg+2pXuANh4ipxysdCahzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIB2XB6ENq0vl3hMFfj8f04nUM5lJ+EUhU/0OZrFGEYLOo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/girisagar46
+
+==================================================================

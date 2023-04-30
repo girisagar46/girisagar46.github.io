@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sagar's Blog - tutorial fixes</title><link href="https://sagargiri.com/" rel="alternate"></link><link href="https://sagargiri.com/feeds/tutorial-fixes.atom.xml" rel="self"></link><id>https://sagargiri.com/</id><updated>2021-02-25T22:11:00+09:00</updated><subtitle>&lt;pre&gt;$ cd /pub &amp;&amp; more beer&lt;/pre&gt;</subtitle><entry><title>How to resolve "Unable to validate the following destination configurations" while adding event notification to your S3 bucket?</title><link href="https://sagargiri.com/s3-event-notification-issue" rel="alternate"></link><published>2021-02-25T22:11:00+09:00</published><updated>2021-02-25T22:11:00+09:00</updated><author><name>Sagar Giri</name></author><id>tag:sagargiri.com,2021-02-25:/s3-event-notification-issue</id><summary type="html">&lt;p&gt;In this small article, I'll demonstrate how I resolved the lambda issue while adding S3 event notification.&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Problem&lt;/h1&gt;
+&lt;p&gt;I have an existing S3 bucket and I wanted to add an S3 event notification to invoke my lambda function's dev alias. I
+read
+the &lt;code&gt;s3api&lt;/code&gt; &lt;a href="https://docs.aws.amazon.com/cli/latest/reference/s3api/put-bucket-notification-configuration.html"&gt;put-bucket-notification-configuration&lt;/a&gt;
+documentation and prepare the &lt;code&gt;notification.json&lt;/code&gt; file like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;LambdaFunctionConfigurations&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;Id&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ToInvokeMyLambdaFunction&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;LambdaFunctionArn&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;arn:aws:lambda:ap-northeast-1:123456789101:function:TestFunc:dev&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;Events&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;s3:ObjectCreated:Put&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;Filter&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;Key&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;                    &lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;FilterRules&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;                        &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;                            &lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;Name&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;suffix&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;                            &lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;Value&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;awesome_data.csv&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                        &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;                    &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Then I execute the &lt;code&gt;s3api&lt;/code&gt; command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;aws&lt;span class="w"&gt; &lt;/span&gt;s3api&lt;span class="w"&gt; &lt;/span&gt;put-bucket-notification-configuration&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;--bucket&lt;span class="w"&gt; &lt;/span&gt;MyAwesomeBucket&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;--notification-configuration&lt;span class="w"&gt; &lt;/span&gt;file://notification.json
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;I got an error that said:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;An&lt;span class="w"&gt; &lt;/span&gt;error&lt;span class="w"&gt; &lt;/span&gt;occurred&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;InvalidArgument&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;when&lt;span class="w"&gt; &lt;/span&gt;calling&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;PutBucketNotificationConfiguration&lt;span class="w"&gt; &lt;/span&gt;operation:&lt;span class="w"&gt; &lt;/span&gt;Unable&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;validate&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;following&lt;span class="w"&gt; &lt;/span&gt;destination&lt;span class="w"&gt; &lt;/span&gt;configurations
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;I checked my &lt;code&gt;aws-cli&lt;/code&gt; version, it was the recommended one:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$&lt;span class="w"&gt; &lt;/span&gt;aws&lt;span class="w"&gt; &lt;/span&gt;--version
+aws-cli/2.0.12&lt;span class="w"&gt; &lt;/span&gt;Python/3.7.4&lt;span class="w"&gt; &lt;/span&gt;Darwin/20.3.0&lt;span class="w"&gt; &lt;/span&gt;botocore/2.0.0dev16
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;But... It works when I do it from the S3 console...&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="cat" src="https://media.giphy.com/media/xT0GqtpF1NWd9VbstO/giphy.gif"&gt;&lt;/p&gt;
+&lt;p&gt;I tried executing the same &lt;code&gt;aws s3api&lt;/code&gt; command again now with the &lt;code&gt;--debug&lt;/code&gt; flag. And in the middle of the long debug
+output, I see this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;aws&lt;span class="w"&gt; &lt;/span&gt;s3api&lt;span class="w"&gt; &lt;/span&gt;put-bucket-notification-configuration&lt;span class="w"&gt; &lt;/span&gt;\
+&lt;span class="w"&gt; &lt;/span&gt;--bucket&lt;span class="w"&gt; &lt;/span&gt;MyAwesomeBucket&lt;span class="w"&gt; &lt;/span&gt;\
+&lt;span class="w"&gt; &lt;/span&gt;--notification-configuration&lt;span class="w"&gt; &lt;/span&gt;file://notification.json&lt;span class="w"&gt; &lt;/span&gt;\
+&lt;span class="w"&gt; &lt;/span&gt;--debug
+
+...
+2021-02-25&lt;span class="w"&gt; &lt;/span&gt;21:39:13,902&lt;span class="w"&gt; &lt;/span&gt;-&lt;span class="w"&gt; &lt;/span&gt;MainThread&lt;span class="w"&gt; &lt;/span&gt;-&lt;span class="w"&gt; &lt;/span&gt;botocore.parsers&lt;span class="w"&gt; &lt;/span&gt;-&lt;span class="w"&gt; &lt;/span&gt;DEBUG&lt;span class="w"&gt; &lt;/span&gt;-&lt;span class="w"&gt; &lt;/span&gt;Response&lt;span class="w"&gt; &lt;/span&gt;body:
+b&amp;#39;&lt;span class="cp"&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&lt;/span&gt;\n&lt;span class="nt"&gt;&amp;lt;Error&amp;gt;&amp;lt;Code&amp;gt;&lt;/span&gt;InvalidArgument&lt;span class="nt"&gt;&amp;lt;/Code&amp;gt;&amp;lt;Message&amp;gt;&lt;/span&gt;Unable&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;validate&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;following&lt;span class="w"&gt; &lt;/span&gt;destination&lt;span class="w"&gt; &lt;/span&gt;configurations&lt;span class="nt"&gt;&amp;lt;/Message&amp;gt;&amp;lt;ArgumentName1&amp;gt;&lt;/span&gt;arn:aws:lambda:ap-northeast-1:123456789101:function:TestFunc:dev,&lt;span class="w"&gt; &lt;/span&gt;null&lt;span class="nt"&gt;&amp;lt;/ArgumentName1&amp;gt;&amp;lt;ArgumentValue1&amp;gt;&lt;/span&gt;Not&lt;span class="w"&gt; &lt;/span&gt;authorized&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;invoke&lt;span class="w"&gt; &lt;/span&gt;function&lt;span class="w"&gt; &lt;/span&gt;[arn:aws:lambda:ap-northeast-1:123456789101:function:TestFunc:dev]&lt;span class="nt"&gt;&amp;lt;/ArgumentValue1&amp;gt;&amp;lt;RequestId&amp;gt;&lt;/span&gt;2B8705F2FD8848F2&lt;span class="nt"&gt;&amp;lt;/RequestId&amp;gt;&amp;lt;HostId&amp;gt;&lt;/span&gt;bj9ahrqPxN3emWnZ008dtkVmVR9VVxfFjAJAw9hKvhoa4vtdHXaGi/x4a4Okki3oJhbaeHe0Ppk=&lt;span class="nt"&gt;&amp;lt;/HostId&amp;gt;&amp;lt;/Error&amp;gt;&lt;/span&gt;&amp;#39;
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The gist of it is &lt;code&gt;Not authorized to invoke function [arn:aws:lambda:ap-northeast-1:123456789101:function:TestFunc:dev]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;So the problem was with the lambda permission. :thinking:&lt;/p&gt;
+&lt;h1&gt;Solution&lt;/h1&gt;
+&lt;p&gt;Digging around the internet I find &lt;a href="https://forums.aws.amazon.com/thread.jspa?threadID=182758"&gt;this&lt;/a&gt;
+And the solution is to give your lambda a permission to being invoked by S3 first. Which can be done like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;aws&lt;span class="w"&gt; &lt;/span&gt;lambda&lt;span class="w"&gt; &lt;/span&gt;add-permission&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;--function-name&lt;span class="w"&gt; &lt;/span&gt;TestFunc:dev&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;--profile&lt;span class="w"&gt; &lt;/span&gt;default&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;--statement-id&lt;span class="w"&gt; &lt;/span&gt;AllowToBeInvoked&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;--action&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;lambda:InvokeFunction&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;--principal&lt;span class="w"&gt; &lt;/span&gt;s3.amazonaws.com&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;--source-arn&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;arn:aws:s3:::MyAwesomeBucket&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;--source-account&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;123456789101&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;I got the output like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Statement&amp;quot;&lt;/span&gt;:&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;{\&amp;quot;Sid\&amp;quot;:\&amp;quot;AllowToBeInvoked\&amp;quot;,\&amp;quot;Effect\&amp;quot;:\&amp;quot;Allow\&amp;quot;,\&amp;quot;Principal\&amp;quot;:{\&amp;quot;Service\&amp;quot;:\&amp;quot;s3.amazonaws.com\&amp;quot;},\&amp;quot;Action\&amp;quot;:\&amp;quot;lambda:InvokeFunction\&amp;quot;,\&amp;quot;Resource\&amp;quot;:\&amp;quot;arn:aws:lambda:ap-northeast-1:123456789101:function:TestFunc:dev\&amp;quot;,\&amp;quot;Condition\&amp;quot;:{\&amp;quot;StringEquals\&amp;quot;:{\&amp;quot;AWS:SourceAccount\&amp;quot;:\&amp;quot;123456789101\&amp;quot;},\&amp;quot;ArnLike\&amp;quot;:{\&amp;quot;AWS:SourceArn\&amp;quot;:\&amp;quot;arn:aws:s3:::MyAwesomeBucket\&amp;quot;}}}&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Finally, executing the &lt;code&gt;aws s3api&lt;/code&gt; command, I was able to put S3 event notification on &lt;code&gt;MyAwesomeBucket&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;aws&lt;span class="w"&gt; &lt;/span&gt;s3api&lt;span class="w"&gt; &lt;/span&gt;put-bucket-notification-configuration&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;--bucket&lt;span class="w"&gt; &lt;/span&gt;MyAwesomeBucket&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;--notification-configuration&lt;span class="w"&gt; &lt;/span&gt;file://notification.json
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;I checked my lambda console and I can verify the S3 trigger is applied. :confetti_ball:
+&lt;img alt="image.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1104077/1013252b-7ede-d418-a023-4a7052031a4d.png"&gt;&lt;/p&gt;
+&lt;p&gt;References:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;https://forums.aws.amazon.com/thread.jspa?threadID=182758&lt;/li&gt;
+&lt;li&gt;https://docs.aws.amazon.com/lambda/latest/dg/with-s3.html&lt;/li&gt;
+&lt;li&gt;https://docs.aws.amazon.com/cli/latest/reference/s3api/put-bucket-notification-configuration.html&lt;/li&gt;
+&lt;/ol&gt;</content><category term="tutorial fixes"></category><category term="S3"></category><category term="AWS"></category><category term="lambda"></category><category term="awscli"></category></entry></feed>

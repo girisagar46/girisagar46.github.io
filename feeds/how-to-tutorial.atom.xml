@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sagar's Blog - how-to, tutorial</title><link href="https://sagargiri.com/" rel="alternate"></link><link href="https://sagargiri.com/feeds/how-to-tutorial.atom.xml" rel="self"></link><id>https://sagargiri.com/</id><updated>2021-11-27T23:08:00+09:00</updated><subtitle>&lt;pre&gt;$ cd /pub &amp;&amp; more beer&lt;/pre&gt;</subtitle><entry><title>Three-step guide to set up custom domain for your github.io pages</title><link href="https://sagargiri.com/custom-domain-for-github-pages" rel="alternate"></link><published>2021-11-27T23:08:00+09:00</published><updated>2021-11-27T23:08:00+09:00</updated><author><name>Sagar Giri</name></author><id>tag:sagargiri.com,2021-11-27:/custom-domain-for-github-pages</id><summary type="html">&lt;p&gt;In this blog post , I will show you how to set up custom domain for any github.io pages.&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;Assumption: For this tutorial, I am assuming you already have bought a domain name from any domain name provider and you already have a github.io pages setup like this &lt;a href="https://girisagar46.github.io"&gt;girisagar46.github.io&lt;/a&gt;.
+Also in this post, I'm using &lt;a href="https://www.namecheap.com"&gt;namecheap&lt;/a&gt; and setting up Apex domain name.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This blog is hosted in &lt;a href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages"&gt;GitHub pages&lt;/a&gt;. When you visit &lt;a href="https://sagargiri.com"&gt;sagargiri.com&lt;/a&gt;, the web pages that you see are actually hosted in github.io, and you can see the source code of this blog &lt;a href="https://github.com/girisagar46/girisagar46.github.io/"&gt;here&lt;/a&gt;.
+But, how does my domain &lt;code&gt;sagargiri.com&lt;/code&gt; is pointing to &lt;code&gt;girisagar46.github.io&lt;/code&gt; ? How do we configure such settings?
+All of these questions are answered in this blog post.&lt;/p&gt;
+&lt;h2&gt;Step-by-step guide to use custom domain for github.io pages&lt;/h2&gt;
+&lt;h3&gt;Step 1: Buy the domain name.&lt;/h3&gt;
+&lt;p&gt;If you do not have a domain name yet, you can use any of the domain name providers. For example, you can use &lt;a href="https://www.namecheap.com"&gt;namecheap&lt;/a&gt;, &lt;a href="https://www.godaddy.com"&gt;godaddy&lt;/a&gt; or &lt;a href="https://domains.google"&gt;domains.google&lt;/a&gt;.
+I bought mine from &lt;a href="https://www.namecheap.com"&gt;namecheap&lt;/a&gt; during black friday sale.&lt;/p&gt;
+&lt;p&gt;Now that you have bought the domain name, you need to set up the DNS records. Which we'll do in second step.&lt;/p&gt;
+&lt;h3&gt;Step 2: Set up DNS records.&lt;/h3&gt;
+&lt;p&gt;In your domain name provider page you'll have an option to set up DNS records. In the case of namecheap, you'll first have to click the &lt;code&gt;MANAGE&lt;/code&gt; button in the &lt;code&gt;Domain List&lt;/code&gt; page as shown in screenshot below.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image" src="../images/setup-domain-github-pages/manage.png"&gt;&lt;/p&gt;
+&lt;p&gt;Then click the &lt;code&gt;Advanced DNS&lt;/code&gt; button as shown in screenshot below.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image" src="../images/setup-domain-github-pages/advanced-dns.png"&gt;&lt;/p&gt;
+&lt;p&gt;In the &lt;code&gt;HOST RECORDS&lt;/code&gt; section, you need to add the following DNS records as shown in screenshot below.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image" src="../images/setup-domain-github-pages/host-record.png"&gt;&lt;/p&gt;
+&lt;p&gt;Here are the IP addresses list for &lt;code&gt;A&lt;/code&gt; record for you to copy and paste.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="mf"&gt;185.199.108.153&lt;/span&gt;
+&lt;span class="mf"&gt;185.199.109.153&lt;/span&gt;
+&lt;span class="mf"&gt;185.199.110.153&lt;/span&gt;
+&lt;span class="mf"&gt;185.199.111.153&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Also DO NOT forget to add the &lt;code&gt;CNAME&lt;/code&gt; record as shown in screenshot.
+You need to add your own github.io domain name.&lt;/p&gt;
+&lt;p&gt;Once you have added the DNS records, you can now go to your GitHub page settings to actually map the CNAME.&lt;/p&gt;
+&lt;h3&gt;Step 3. Configure your USERNAME.github.io page settings&lt;/h3&gt;
+&lt;p&gt;Go to your github.io repository settings and click on the &lt;code&gt;Settings&lt;/code&gt; button and then click on the &lt;code&gt;Pages&lt;/code&gt; button as shown in screenshot below.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image" src="../images/setup-domain-github-pages/github-settings.png"&gt;&lt;/p&gt;
+&lt;p&gt;This will lead you to the GitHub.io settings for GitHub pages.&lt;/p&gt;
+&lt;p&gt;In the &lt;code&gt;Pages&lt;/code&gt; section, you need to add the following domain name as shown in screenshot below.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image" src="../images/setup-domain-github-pages/custom-domain.png"&gt;&lt;/p&gt;
+&lt;p&gt;This will commit a new file called &lt;code&gt;CNAME&lt;/code&gt; to your github.io repository. You can verify that later on. Also do not forget to check the &lt;code&gt;Enforce HTTPS&lt;/code&gt; checkbox. This will provide you SSL certificate for your domain name. Once you see the green tick mark in your domain name in the &lt;code&gt;Pages&lt;/code&gt; section, you're good tpo go.&lt;/p&gt;
+&lt;p&gt;But, be aware that the DNS propagation takes some time. Take rest, drink a cup of coffee, browse other articles in this website and wait for a while.&lt;/p&gt;
+&lt;p&gt;After some time, you can visit your domain name, and you will see the github.io pages are mapped to your domain name.&lt;/p&gt;
+&lt;p&gt;You can also verify all this is working using the &lt;code&gt;dig&lt;/code&gt; command&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ dig sagargiri.com +noall +answer -t A
+
+; &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.10.6 &amp;lt;&amp;lt;&amp;gt;&amp;gt; sagargiri.com +noall +answer -t A
+;; global options: +cmd
+sagargiri.com.      1799    IN  A   185.199.109.153
+sagargiri.com.      1799    IN  A   185.199.110.153
+sagargiri.com.      1799    IN  A   185.199.111.153
+sagargiri.com.      1799    IN  A   185.199.108.153
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Here you can see that my domain is pointing to the A records that we have set up in the Step 2.&lt;/p&gt;
+&lt;p&gt;References:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages"&gt;https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages&lt;/a&gt;
+&lt;a href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site"&gt;https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site&lt;/a&gt;&lt;/p&gt;</content><category term="how-to, tutorial"></category><category term="domain"></category><category term="dns"></category><category term="github"></category><category term="hosting"></category><category term="how-to"></category><category term="setup"></category><category term="website"></category></entry></feed>
