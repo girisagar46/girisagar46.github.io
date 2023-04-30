@@ -80,10 +80,10 @@ SITEMAP = {
 
 STATIC_PATHS = ["images", "extras/CNAME", "extras/robots.txt", "extras/keybase.txt"]
 EXTRA_PATH_METADATA = {
-    "extras/custom.css": {"path": "static/custom.css"},
-    "extras/CNAME": {"path": "CNAME"},
-    "extras/robots.txt": {"path": "robots.txt"},
-    "extras/keybase.txt": {"path": "keybase.txt"},
+    "extra/custom.css": {"path": "static/custom.css"},
+    "extra/CNAME": {"path": "CNAME"},
+    "extra/robots.txt": {"path": "robots.txt"},
+    "extra/keybase.txt": {"path": "keybase.txt"},
 }
 
 CUSTOM_CSS = "static/custom.css"
