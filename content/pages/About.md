@@ -1,4 +1,4 @@
-Title: About
+Title: About Me
 Date: 2017-01-26
 Modified: 2020-12-07
 Slug: about-me
@@ -6,13 +6,14 @@ Slug: about-me
 Sagar Giri
 ------------
 
-*I am Sagar, born and bred in Nepal. Currently, in Japan working as a Software Engineer for [beBit Inc](https://www.bebit.co.jp/) on a product called [USERGRAM](https://www.bebit.co.jp/usergram/english/)*
+*I am Sagar, born and bred in Nepal. Currently, in Japan working as a Software Engineer for 
+[https://octopusenergy.co.jp](https://octopusenergy.co.jp) part of [Octopus Energy Group](https://octopusenergy.group/)*
 
-**[Download my resume](https://raw.githubusercontent.com/girisagar46/girisagar46/master/Resume_Sagar_Giri_2020_September.pdf)**
+**[Download my resume](https://github.com/girisagar46/girisagar46)**
 
 ----
 
 Shoot me an email
 ----------
 
-> *author@sagargiri.com*
+> *372g3ce6s@mozmail.com*
