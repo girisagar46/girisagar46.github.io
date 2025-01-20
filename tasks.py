@@ -102,7 +102,7 @@ def pelican_run(cmd):
 
 
 @task
-def new_post(c, title, *args, **kwargs):
+def new_post(c, title):
     """
     creates new post
     Usage: $ invoke new-post title="My Brand New Awesome Post"
