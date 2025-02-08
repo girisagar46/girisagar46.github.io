@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sagar's Blog - tech, docker</title><link href="https://sagargiri.com/" rel="alternate"></link><link href="https://sagargiri.com/feeds/tech-docker.atom.xml" rel="self"></link><id>https://sagargiri.com/</id><updated>2018-12-02T00:01:00+09:00</updated><subtitle>&lt;pre&gt;$ cd /pub &amp;&amp; more beer&lt;/pre&gt;</subtitle><entry><title>Docker 101 (Part 1)</title><link href="https://sagargiri.com/docker-101" rel="alternate"></link><published>2018-12-02T00:01:00+09:00</published><updated>2018-12-02T00:01:00+09:00</updated><author><name>Sagar Giri</name></author><id>tag:sagargiri.com,2018-12-02:/docker-101</id><summary type="html">&lt;p&gt;I don't have any prior experience with docker. To everyone who is reading, this post is just my experience and as well as a kind of personal note for me for future reference. :)&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Step 1: Install Docker&lt;/h2&gt;
+&lt;p&gt;Docker can be installed in pretty much any OS platform, be it Windows, Mac or Linux. Since I use a Linux machine this whole article is based on the Linux system. For installing docker in Windows and Mac, refer the official documentation.&lt;/p&gt;
+&lt;p&gt;Ok, enough talk. Let's get started.&lt;/p&gt;
+&lt;p&gt;Docker is a company as well as a software. And docker is released every month which is called edge release. And every quarter, a stable version of docker is released. &lt;/p&gt;
+&lt;p&gt;One of the ways to install docker on a Linux machine is by using the apt package manager but, the problem with this is approach is that you'll not get the current release of docker which sucks IMO because in every new release new features are baked in. So, I advise you to not install via the apt package manager (if you are in Debian ubuntu variant of Linux) or any other package manager for other Linux distributions.&lt;/p&gt;
+&lt;p&gt;There are two versions of docker available to download and install. One being free aka Community Edition and another paid version Enterprise Edition. For learning purpose, we'll install Community Edition docker. Hey! who does not like free software? ;)&lt;/p&gt;
+&lt;p&gt;Okay, to install the latest and greatest version of community edition docker, fire up your terminal and execute the following command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;wget&lt;span class="w"&gt; &lt;/span&gt;-qO-&lt;span class="w"&gt; &lt;/span&gt;https://get.docker.io/&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;What this command does is that it pulls the installation script from the &lt;a href="https://get.docker.io/"&gt;https://get.docker.io/&lt;/a&gt; and execute as a shell command. After the installation is complete, check the version of docker that is installed in your system by:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;--version
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You'll see that the current stable release of the docker has been installed.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Docker&lt;span class="w"&gt; &lt;/span&gt;version&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;18&lt;/span&gt;.09.0,&lt;span class="w"&gt; &lt;/span&gt;build&lt;span class="w"&gt; &lt;/span&gt;4d60db4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Step 2: Configure Docker&lt;/h2&gt;
+&lt;p&gt;Couple of things you need to configure after installing Docker. At the time of installation, docker is attached to the root user and every time you need to execute a docker command, you have to pass the sudo command. This situation is not idle for many cases. To fix this, we should bind docker to another user. Execute the following command to attach docker to another user:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;usermod&lt;span class="w"&gt; &lt;/span&gt;-aG&lt;span class="w"&gt; &lt;/span&gt;docker&lt;span class="w"&gt; &lt;/span&gt;ubuntu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;Note: Replace ubuntu with your username&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;After this, install docker machine. Docker machine should also be the latest version. For Windows and Mac user, docker machine is already installed while installing Docker. To install docker machine, head over to this link &lt;a href="https://github.com/docker/machine/release"&gt;https://github.com/docker/machine/release&lt;/a&gt;. You'll see the command which is like this...&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;curl&lt;span class="w"&gt; &lt;/span&gt;-L&lt;span class="w"&gt; &lt;/span&gt;https://github.com/docker/machine/releases/download/v0.16.0/docker-machine-&lt;span class="sb"&gt;`&lt;/span&gt;uname&lt;span class="w"&gt; &lt;/span&gt;-s&lt;span class="sb"&gt;`&lt;/span&gt;-&lt;span class="sb"&gt;`&lt;/span&gt;uname&lt;span class="w"&gt; &lt;/span&gt;-m&lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;/tmp/docker-machine&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;chmod&lt;span class="w"&gt; &lt;/span&gt;+x&lt;span class="w"&gt; &lt;/span&gt;/tmp/docker-machine&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;/tmp/docker-machine&lt;span class="w"&gt; &lt;/span&gt;/usr/local/bin/docker-machine
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Execute the above command and check if docker machine is installed or not by executing&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;docker-machine&lt;span class="w"&gt; &lt;/span&gt;version
+docker-machine&lt;span class="w"&gt; &lt;/span&gt;version&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.16.0,&lt;span class="w"&gt; &lt;/span&gt;build&lt;span class="w"&gt; &lt;/span&gt;702c267f
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, install docker compose.&lt;/p&gt;
+&lt;p&gt;Head over to this link &lt;a href="https://github.com/docker/compose/release"&gt;https://github.com/docker/compose/release&lt;/a&gt;. You'll see the command which is like this...&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;curl&lt;span class="w"&gt; &lt;/span&gt;-L&lt;span class="w"&gt; &lt;/span&gt;https://github.com/docker/compose/releases/download/1.23.2/docker-compose-&lt;span class="sb"&gt;`&lt;/span&gt;uname&lt;span class="w"&gt; &lt;/span&gt;-s&lt;span class="sb"&gt;`&lt;/span&gt;-&lt;span class="sb"&gt;`&lt;/span&gt;uname&lt;span class="w"&gt; &lt;/span&gt;-m&lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-o&lt;span class="w"&gt; &lt;/span&gt;/usr/local/bin/docker-compose
+$&lt;span class="w"&gt; &lt;/span&gt;chmod&lt;span class="w"&gt; &lt;/span&gt;+x&lt;span class="w"&gt; &lt;/span&gt;/usr/local/bin/docker-compose
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Grab that command and execute it. Once complete, check if docker machine is installed or not by executing&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;docker-compose&lt;span class="w"&gt; &lt;/span&gt;version
+docker-compose&lt;span class="w"&gt; &lt;/span&gt;version&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;.23.2,&lt;span class="w"&gt; &lt;/span&gt;build&lt;span class="w"&gt; &lt;/span&gt;1110ad01
+docker-py&lt;span class="w"&gt; &lt;/span&gt;version:&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.6.0
+CPython&lt;span class="w"&gt; &lt;/span&gt;version:&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.6.7
+OpenSSL&lt;span class="w"&gt; &lt;/span&gt;version:&lt;span class="w"&gt; &lt;/span&gt;OpenSSL&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;.1.0f&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="m"&gt;25&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;May&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;2017&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;That's pretty much it. Now you have docker installed in your Linux machine.&lt;/p&gt;
+&lt;p&gt;PS. If you are using windows or MAC, visit the official docker website &lt;a href="https://docs.docker.com/docker-for-windows/install/"&gt;https://docs.docker.com/docker-for-windows/install/&lt;/a&gt; to get more details.&lt;/p&gt;
+&lt;p&gt;In the next part, well dive deeper into the Docker world. &lt;/p&gt;</content><category term="tech, docker"></category><category term="docker"></category></entry></feed>

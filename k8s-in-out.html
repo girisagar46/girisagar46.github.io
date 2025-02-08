@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://sagargiri.com/theme/pygments/default.min.css">
+
+
+
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/solid.css">
+
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/static/custom.css">
+
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333333">
+
+  <link href="https://sagargiri.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Sagar's Blog Atom">
+
+
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-73000395-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+ 
+
+<meta name="author" content="Sagar Giri" />
+<meta name="description" content="In this article, you&#39;ll learn about the REST objects in kubernetes (pods, replication controller, deployments, service)" />
+<meta name="keywords" content="devops, kubernetes, container, orchestration">
+
+
+  <meta property="og:site_name" content="Sagar's Blog"/>
+  <meta property="og:title" content="The Insides of Kubernetes and how it actually works."/>
+  <meta property="og:description" content="In this article, you&#39;ll learn about the REST objects in kubernetes (pods, replication controller, deployments, service)"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://sagargiri.com/k8s-in-out"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2019-09-06 14:30:00+09:00"/>
+  <meta property="article:modified_time" content="2019-09-06 14:30:00+09:00"/>
+  <meta property="article:author" content="https://sagargiri.com/author/sagar-giri.html">
+  <meta property="article:section" content="tutorial, blog, information"/>
+  <meta property="article:tag" content="devops"/>
+  <meta property="article:tag" content="kubernetes"/>
+  <meta property="article:tag" content="container"/>
+  <meta property="article:tag" content="orchestration"/>
+  <meta property="og:image" content="https://sagargiri.com/images/k8s/k8s.png">
+
+  <title>Sagar's Blog &ndash; The Insides of Kubernetes and how it actually works.</title>
+
+
+<script>
+  (function(w,d,s,l,i){
+    w[l]=w[l]||[];
+    w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+    j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+    f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5K6D7ZG');
+</script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "7cfbr3w8ss");
+</script>
+</head>
+<body class="light-theme">
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5K6D7ZG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+<aside>
+  <div>
+    <a href="https://sagargiri.com/">
+      <img src="/images/title.png" alt="Sagar Giri" title="Sagar Giri">
+    </a>
+
+    <h1>
+      <a href="https://sagargiri.com/">Sagar Giri</a>
+    </h1>
+
+    <p><pre>$ cd /pub && more beer</pre></p>
+
+
+    <nav>
+      <ul class="list">
+
+
+            <li>
+              <a target="_self"
+                 href="https://sagargiri.com/pages/about-me#about-me">
+                About Me
+              </a>
+            </li>
+
+          <li>
+            <a target="_self" href="https://girisagar46.github.io/FYPFruitClassifier/" >Project</a>
+          </li>
+      </ul>
+    </nav>
+
+    <ul class="social">
+      <li>
+        <a class="sc-linkedin"
+           href="https://linkedin.com/in/girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-github"
+           href="https://github.com/girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-github"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-stack-overflow"
+           href="https://stackoverflow.com/story/girisagar46.github.io"
+           target="_blank">
+          <i class="fa-brands fa-stack-overflow"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-mastodon"
+rel="me"           href="https://fosstodon.org/@girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-mastodon"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</aside>
+  <main>
+
+<nav>
+  <a href="https://sagargiri.com/">Home</a>
+
+  <a href="/archives">Archives</a>
+  <a href="/categories">Categories</a>
+  <a href="/tags">Tags</a>
+
+  <a href="https://sagargiri.com/feeds/all.atom.xml">Atom</a>
+
+</nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="k8s-in-out">The Insides of Kubernetes and how it actually works.</h1>
+    <p>
+      Posted on September 06, 2019 in <a href="https://sagargiri.com/category/tutorial-blog-information">tutorial, blog, information</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <blockquote>
+<p>"It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon 15 years of experience of running production workloads at Google, combined with best-of-breed ideas and practices from the community." — Kubernetes, Production-Grade Container Orchestration</p>
+</blockquote>
+<h3>What is Kubernetes?</h3>
+<p>In a typical micro service architecture using k8s, we have these things:</p>
+<p><img alt="Cover" src="../images/k8s/architecture.jpg"></p>
+<ul>
+<li>In a simple term, k8s is composed of Nodes and Pods.</li>
+<li>Combination of nodes creates a cluster aka kubernetes cluster.</li>
+<li>You can consider nodes as a physical or virtual server.</li>
+<li>There are two kinds of nodes:<ol>
+<li>Master node (Controls what's going on)</li>
+<li>Node aka Minions (That does the actual work)</li>
+</ol>
+</li>
+<li>Each node has pods.</li>
+<li>Each pods have one or more container running inside it.</li>
+</ul>
+<p><strong>In the birds eye view, Kubernetes architecture can be viewed as:</strong></p>
+<p><img alt="Birds-eye" src="../images/k8s/birds-eye.jpg"></p>
+<h3>Nodes:</h3>
+<p>A node is a worker machine in Kubernetes. Learn more <a href="https://lmgtfy.com/?q=kubernetes+nodes">here</a></p>
+<p>There are two types of nodes:</p>
+<ol>
+<li>Master node</li>
+<li>Worker node</li>
+</ol>
+<h4>Master Node</h4>
+<ul>
+<li>There can be one or more master node in a k8s cluster.</li>
+<li>Best practice is to make master node free of workloads so that master node can only look after cluster.</li>
+<li>You can think master node as a shepherd who who tends and rears sheep. (worker nodes)</li>
+</ul>
+<p><strong>What's inside a master node?</strong></p>
+<p><img alt="Master Node" src="../images/k8s/master-node.jpg"></p>
+<ul>
+<li>Remember a Node is a machine. So the base layer is the hardware layer. It can be bare metal, a virtual server, EC2 instance or even your personal laptop (if you are in local environment)</li>
+<li>Then the layer after that is OS layer. And remember, K8s only works in Linux OS. Kubernetes is platform agnostic in terms of hardware lever, but it needs Linux OS to operate.</li>
+</ul>
+<p><strong>Components of Master node:</strong></p>
+<ol>
+<li>
+<p>Scheduler:
+Watches for new pods and assign work to that pod.</p>
+</li>
+<li>
+<p>Controller:
+This watches for changes in the cluster</p>
+</li>
+<li>
+<p>Key Value Store:
+This is the persistent storage service. It uses <a href="https://etcd.io/">etcd</a> to maintain it's state. So in a master node, only this component is stateful.</p>
+</li>
+<li>
+<p>API server: This exposes the REST API for developers and clients to interact with k8s cluster. Developers deal directly with api server via command line tool provided by kubernetes called <code>kubectl</code>. API server can also be linked with authentication service to provide extra layer of security for k8s cluster.</p>
+</li>
+</ol>
+<h4>Worker Node</h4>
+<p>Worker node (also used to be called as minion) are also a machine that does the actual work. For example, updating a shopping cart or authenticating a user in your web application.</p>
+<p><strong>What's inside a worker node?</strong></p>
+<p><img alt="Worker Node" src="../images/k8s/worker-node.jpg"></p>
+<ol>
+<li>
+<p>Kubelet:
+They are main k8s agent
+They instantiate pod, register node with a cluster and operate on port 10255
+Kubelet just report back to master node if a container dies.
+The endpoint provied by kubelet are: <code>/spec</code>, <code>/healtz</code> , <code>/pods</code></p>
+</li>
+<li>
+<p>Container Engine:
+They do container management (pulling image, running container)</p>
+</li>
+<li>
+<p>Kube Proxy
+Responsible for K8s networking
+This makes sure that each pod get unique IP address for network communication
+If more than 1 container is running inside a pod, then all pod share the same IP address but the port is different
+This also does load balancing across all pods in a service (#service section)</p>
+</li>
+</ol>
+<h3>Declarative model and Desired state</h3>
+<p>Kubernetes work in declarative model. Which basically means that we provide the APIServer (which is inside the master node) some specification to describe the desired state. The specification is written in JSON or YAML format.
+Once we provide the specification <strong>declaration</strong>, then it's the responsibility of Kubernetes to maintain the <em>desired</em> state.</p>
+<h4>Declarative Model</h4>
+<p>We give manifest to do something. For example: At each time, there must be 5 containers running.</p>
+<h4>Desired State</h4>
+<p>This is done by k8s internally. For example: Since we declared to run 5 replicas, but at a particular instant of time, if only 4 are running (which don't match with declaration), then k8s kicks in and tries to maintain the desired state from the declaration manifest (written in YAML or JSON which is provided to master node)</p>
+<h3>Pods</h3>
+<ul>
+<li>Pods are atomic unit of deployment in k8s world and they exists inside a node</li>
+<li>Containers always runs inside a pod</li>
+<li>Pods can have multiple containers (only in advanced cases, but ideally one)</li>
+<li>If two containers are running inside a same pod, then they share same memory space and volumes. This running more than one containers are useful if we want tightly coupled architecture.</li>
+</ul>
+<p><img alt="Pod Multi" src="../images/k8s/pod-multi.jpg"></p>
+<p>Here in above figure, these two containers share the same DB and also same file system and also the same IP address.</p>
+<p>In detail:</p>
+<p><img alt="Pod Multi" src="../images/k8s/pod-multi-detail.jpg"></p>
+<p>Containers inside the pod share the same IP address of the pod, but the port of each container is different. Intra container communication happens inside the pods by localhost.</p>
+<p>For loosely coupled system, the containers from two different pods can talk to each other through network communication.</p>
+<p><img alt="Pod Multi Container multi" src="../images/k8s/pod-multi-container-multi.jpg"></p>
+<ul>
+<li>Pods are also the unit of scaling in kubernetes world. We scale pods up and down (add or remove pods) while scaling.</li>
+<li>Pods are <em>atomic</em>. Which means we just create replicas of pods. We don't wait for the containers to be up before creating a pod. We just create create replicas of already up and running pods.</li>
+<li>Pod lifecycle is:
+    <strong>pending -&gt; running -&gt; success or failed -&gt; die</strong></li>
+<li>There is no half (partially up) pod. Either it's up or not.</li>
+<li>Ideally 1 pod gets scheduled to one node</li>
+</ul>
+<p>Pod Lifecycle:</p>
+<p><img alt="Pod lifecycle" src="../images/k8s/pod-lifecycle.png"></p>
+<ol>
+<li>First we provide the manifest file to API server in k8s master node</li>
+<li>API server receives manifest file and tries to run container and pod goes to pending mode</li>
+<li>In pending mode, image is downloaded</li>
+<li>Then container inside the pods are run</li>
+<li>Then it goes to running mode</li>
+<li>And if the purpose of pod is full filled, then when pod is gracefully stopped, it goes to succeed state</li>
+</ol>
+<p>Note: If for some whatever reason, if some problem arises in pending mode, then the pod goes to failed mode.</p>
+<h3>Replication Controller</h3>
+<p>But, in real world, we really don't work with pods directly. We use ReplicationController to work with pods.
+ReplicationController sits on top of pod and it instantiating the pod(s)</p>
+<p><img alt="Replication Controller" src="../images/k8s/rc.png"></p>
+<h3>Services</h3>
+<ul>
+<li>Pods are volatile. They are not persistent.</li>
+<li>Pods go alive and die rapidly. When they die and generate their IP address changes rapidly. If pods die or new pods are added it's very difficult to manage the IP address and connection between these pods. To address this issue, we make use of service.</li>
+<li>Service sits between pods layer and manages the network connection between the pods</li>
+<li>They also do load balancing tasks</li>
+<li>It's the job of service to send traffic to healthy pods and it uses TCP protocol by default</li>
+<li>When our app is deployed in Kubernetes, we want it to be used by public. Hence, Service also helps to expose our application to public world (in the internet)</li>
+<li>Service gets single DNS, static IP, and never changing port.</li>
+<li>Services are stateful and they never change once defined.</li>
+<li>Services and pods are tied together by label</li>
+<li>Our client can talk to service in-order to get access to the application hosted in the pods</li>
+</ul>
+<p><img alt="Service" src="../images/k8s/service.png"></p>
+<h3>Deployments</h3>
+<p><img alt="Deployments" src="../images/k8s/deployment.png"></p>
+<ul>
+<li>These are the one which we interact the most</li>
+<li>They sit above the replication controller. And in the world of k8s deployment, replication sets are called replica set</li>
+<li>Deployments are:</li>
+<li>Self documenting</li>
+<li>Write spec once, deploy many</li>
+<li>Versioned</li>
+<li>Simple rolling updates and rollbacks</li>
+<li>Proper first class REST objects in k8s api</li>
+<li>Defined in standard manifest file</li>
+<li>Deployed via API server (in master node)</li>
+<li>Add features to replication controller</li>
+</ul>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://sagargiri.com/tag/devops">devops</a>
+      <a href="https://sagargiri.com/tag/kubernetes">kubernetes</a>
+      <a href="https://sagargiri.com/tag/container">container</a>
+      <a href="https://sagargiri.com/tag/orchestration">orchestration</a>
+    </p>
+  </div>
+
+
+
+
+
+
+</article>
+
+<footer>
+<p>&copy; 2025 </p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p></footer>  </main>
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Sagar's Blog ",
+  "url" : "https://sagargiri.com",
+  "image": "/images/title.png",
+  "description": "programming, python, CS, AWS, Django"
+}
+</script>
+</body>
+</html>

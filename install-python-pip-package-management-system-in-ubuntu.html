@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://sagargiri.com/theme/pygments/default.min.css">
+
+
+
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/solid.css">
+
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/static/custom.css">
+
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333333">
+
+  <link href="https://sagargiri.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Sagar's Blog Atom">
+
+
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-73000395-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+ 
+
+<meta name="author" content="Sagar Giri" />
+<meta name="description" content="pip is a package management system used to install and manage software packages written in Python." />
+<meta name="keywords" content="tutorial, python, pip">
+
+
+  <meta property="og:site_name" content="Sagar's Blog"/>
+  <meta property="og:title" content="Install Python pip package management system in Ubuntu"/>
+  <meta property="og:description" content="pip is a package management system used to install and manage software packages written in Python."/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://sagargiri.com/install-python-pip-package-management-system-in-ubuntu"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2017-01-31 19:21:00+09:00"/>
+  <meta property="article:modified_time" content="2017-01-31 19:21:00+09:00"/>
+  <meta property="article:author" content="https://sagargiri.com/author/sagar-giri.html">
+  <meta property="article:section" content="tutorial, python, pip"/>
+  <meta property="article:tag" content="tutorial"/>
+  <meta property="article:tag" content="python"/>
+  <meta property="article:tag" content="pip"/>
+  <meta property="og:image" content="/images/title.png">
+
+  <title>Sagar's Blog &ndash; Install Python pip package management system in Ubuntu</title>
+
+
+<script>
+  (function(w,d,s,l,i){
+    w[l]=w[l]||[];
+    w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+    j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+    f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5K6D7ZG');
+</script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "7cfbr3w8ss");
+</script>
+</head>
+<body class="light-theme">
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5K6D7ZG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+<aside>
+  <div>
+    <a href="https://sagargiri.com/">
+      <img src="/images/title.png" alt="Sagar Giri" title="Sagar Giri">
+    </a>
+
+    <h1>
+      <a href="https://sagargiri.com/">Sagar Giri</a>
+    </h1>
+
+    <p><pre>$ cd /pub && more beer</pre></p>
+
+
+    <nav>
+      <ul class="list">
+
+
+            <li>
+              <a target="_self"
+                 href="https://sagargiri.com/pages/about-me#about-me">
+                About Me
+              </a>
+            </li>
+
+          <li>
+            <a target="_self" href="https://girisagar46.github.io/FYPFruitClassifier/" >Project</a>
+          </li>
+      </ul>
+    </nav>
+
+    <ul class="social">
+      <li>
+        <a class="sc-linkedin"
+           href="https://linkedin.com/in/girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-github"
+           href="https://github.com/girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-github"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-stack-overflow"
+           href="https://stackoverflow.com/story/girisagar46.github.io"
+           target="_blank">
+          <i class="fa-brands fa-stack-overflow"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-mastodon"
+rel="me"           href="https://fosstodon.org/@girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-mastodon"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</aside>
+  <main>
+
+<nav>
+  <a href="https://sagargiri.com/">Home</a>
+
+  <a href="/archives">Archives</a>
+  <a href="/categories">Categories</a>
+  <a href="/tags">Tags</a>
+
+  <a href="https://sagargiri.com/feeds/all.atom.xml">Atom</a>
+
+</nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="install-python-pip-package-management-system-in-ubuntu">Install Python pip package management system in Ubuntu</h1>
+    <p>
+      Posted on January 31, 2017 in <a href="https://sagargiri.com/category/tutorial-python-pip">tutorial, python, pip</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <p><code>pip</code> is the replacement for the <code>easy_install</code> python package management tool. </p>
+<p>If you're running Python 2.7.9+ or Python 3.4+ pip is already installed in the bundle.</p>
+<p>If you are below Python 2.7.9 then these are the steps you need to follow to install PIP.</p>
+<h1>For Ubuntu</h1>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>python-pip
+</code></pre></div>
+
+<p>But, even if you are running python 3.4+ version, and pip is not available in the sytem, you can install by:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>python3-pip
+</code></pre></div>
+
+<h1>For Mac OS</h1>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>easy_install<span class="w"> </span>pip
+</code></pre></div>
+
+<p>or</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>brew<span class="w"> </span>install<span class="w"> </span>python
+</code></pre></div>
+
+<h1>For Windows</h1>
+<p>You can install pip via installer. </p>
+<p>Download, <a href="http://download.sjsoft.com/opensource/pip-1.1.win32.exe">pip-1.1.win32.exe</a> and run setup.</p>
+<h1>Verify the pip setup</h1>
+<p>Check version of the pip via from command line.</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>-V
+</code></pre></div>
+
+<h1>pip usage</h1>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>some-package-name
+</code></pre></div>
+
+<p>Users can also easily remove the package:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>pip<span class="w"> </span>uninstall<span class="w"> </span>some-package-name
+</code></pre></div>
+
+<p>pip has a feature to manage full lists of packages and corresponding version numbers, possible through a "requirements" file. And is mainly used for <code>virtual enviromnent</code></p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</code></pre></div>
+
+<p>Sources:</p>
+<ol>
+<li><a href="http://stackoverflow.com/questions/17271319/how-to-install-pip-on-mac-os-x">http://stackoverflow.com/questions/17271319/how-to-install-pip-on-mac-os-x</a></li>
+<li><a href="http://stackoverflow.com/questions/4750806/how-do-i-install-pip-on-windows">http://stackoverflow.com/questions/4750806/how-do-i-install-pip-on-windows</a></li>
+<li><a href="https://www.liquidweb.com/kb/how-to-install-pip-on-ubuntu-14-04-lts/">https://www.liquidweb.com/kb/how-to-install-pip-on-ubuntu-14-04-lts/</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Pip_(package_manager)">https://en.wikipedia.org/wiki/Pip_(package_manager)</a></li>
+</ol>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://sagargiri.com/tag/tutorial">tutorial</a>
+      <a href="https://sagargiri.com/tag/python">python</a>
+      <a href="https://sagargiri.com/tag/pip">pip</a>
+    </p>
+  </div>
+
+
+
+
+
+
+</article>
+
+<footer>
+<p>&copy; 2025 </p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p></footer>  </main>
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Sagar's Blog ",
+  "url" : "https://sagargiri.com",
+  "image": "/images/title.png",
+  "description": "programming, python, CS, AWS, Django"
+}
+</script>
+</body>
+</html>

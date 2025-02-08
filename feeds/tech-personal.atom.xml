@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sagar's Blog - tech, personal</title><link href="https://sagargiri.com/" rel="alternate"></link><link href="https://sagargiri.com/feeds/tech-personal.atom.xml" rel="self"></link><id>https://sagargiri.com/</id><updated>2021-07-17T13:17:00+09:00</updated><subtitle>&lt;pre&gt;$ cd /pub &amp;&amp; more beer&lt;/pre&gt;</subtitle><entry><title>Tools and technology I use for my day-to-day work</title><link href="https://sagargiri.com/tools-and-technology-i-use-for-my-day-to-day-work" rel="alternate"></link><published>2021-07-17T13:17:00+09:00</published><updated>2021-07-17T13:17:00+09:00</updated><author><name>Sagar Giri</name></author><id>tag:sagargiri.com,2021-07-17:/tools-and-technology-i-use-for-my-day-to-day-work</id><summary type="html">&lt;p&gt;In this blog post, I'll be sharing some tools that I use in my day-to-day work.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I am a professional software engineer working for a Japan-based company &lt;a href="http://www.bebit.co.jp/"&gt;beBit.inc&lt;/a&gt; building a flagship SAAS application called &lt;a href="http://www.bebit.co.jp/usergram/"&gt;USERGRAM&lt;/a&gt;. In my day-to-day work, I use lots of tools and technologies to get my job done and to make me productive. Here's the list of it:&lt;/p&gt;
+&lt;h3&gt;1. PyCharm and Intellij IDEA&lt;/h3&gt;
+&lt;p&gt;I mostly code in Python and Java and the above two are my go-to IDE if I have to work on any of these languages. I use the Kubernetes plugin in my IntelliJ IDEA to validate YAML configurations for k8s and it's such a handy tool.&lt;/p&gt;
+&lt;h3&gt;2. github.com&lt;/h3&gt;
+&lt;p&gt;GitHub is where we host all our source code for USERGRAM, and I use it for my personal pet projects as well. GitHub action amazing CI/CD integration in GitHub and my company and personally I love it. The PR review system is fantastic. Besides, all that, I also follow many developers' and programmers' profiles to see what they are working on, technology trends and also star some cool projects on GitHub. There isn't a single day (except some weekends) when I do not visit github.com&lt;/p&gt;
+&lt;h3&gt;3. 1password&lt;/h3&gt;
+&lt;p&gt;I can't emphasize enough about 1password. This is my de-facto password management tool. My company uses it and I use it. I have to say, this is the best investment I made. 100% worth it.&lt;/p&gt;
+&lt;h3&gt;4. Firefox and Brave&lt;/h3&gt;
+&lt;p&gt;Firefox and Brave browsers are my browser choices. I use Brave for official work and use Firefox for personal stuff such as social media. This is because I do not want to mix up my personal and official work.&lt;/p&gt;
+&lt;h3&gt;5. Docker&lt;/h3&gt;
+&lt;p&gt;Everything is dockerized at work and having Docker is absolutely necessary. But, while running a heavy stack, it sometimes slows down my laptop. &lt;/p&gt;
+&lt;h3&gt;6. CleanMyMac X&lt;/h3&gt;
+&lt;p&gt;I purchased this software to make my laptop faster by cleaning up junk files and freeing my RAM. It does more than that like finding large files, malware protection, etc. &lt;/p&gt;
+&lt;h3&gt;7. iTerm2&lt;/h3&gt;
+&lt;p&gt;This is my default terminal emulator for my mac. I installed ZSH shell as a default shell and I have to say iTerm2 and ZSH go hand in hand, no doubt.&lt;/p&gt;
+&lt;h3&gt;8. Slack, Zoom, Around&lt;/h3&gt;
+&lt;p&gt;These are the communication tools we use in our company to communicate. After the pandemic hit, we've been connected more with Slack, Zoom, and Around. We recently started to use Around in our team and it's really nice. &lt;/p&gt;
+&lt;h3&gt;9. Skitch&lt;/h3&gt;
+&lt;p&gt;In my day-to-day work, I have to screenshot and annotate screenshots a lot. I used to use mac's default screenshot tool in combination with some other 3rd party tools to screenshot stuff. That all got replaced when I found about Skitch. Now it's been my default and go-to tool for screenshots and annotations.&lt;/p&gt;
+&lt;h3&gt;Honorable mentions&lt;/h3&gt;
+&lt;p&gt;WebStorm (IDE for FrontEnd)&lt;/p&gt;
+&lt;p&gt;ExpressVPN (My Favourite VPN service)&lt;/p&gt;
+&lt;p&gt;Keybase&lt;/p&gt;
+&lt;p&gt;Spectacle &lt;/p&gt;
+&lt;p&gt;Atlassian JIRA and Confluence&lt;/p&gt;
+&lt;p&gt;Archbee (The app I use to write this blog)&lt;/p&gt;
+&lt;p&gt;Dropbox and Google Drive&lt;/p&gt;
+&lt;p&gt;G-suit&lt;/p&gt;
+&lt;p&gt;AWS&lt;/p&gt;
+&lt;p&gt;k8s&lt;/p&gt;
+&lt;p&gt;Terraform&lt;/p&gt;
+&lt;p&gt;Visual Studio Code&lt;/p&gt;
+&lt;p&gt;Draw.io&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;PS. I'll be adding more to this list later on.&lt;/p&gt;
+&lt;/blockquote&gt;</content><category term="tech, personal"></category><category term="tech"></category><category term="personal"></category><category term="work"></category></entry></feed>

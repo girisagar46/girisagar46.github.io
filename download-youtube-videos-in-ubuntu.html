@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://sagargiri.com/theme/pygments/default.min.css">
+
+
+
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/solid.css">
+
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/static/custom.css">
+
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333333">
+
+  <link href="https://sagargiri.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Sagar's Blog Atom">
+
+
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-73000395-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+ 
+
+<meta name="author" content="Sagar Giri" />
+<meta name="description" content="There are some free as well as paid online tool for downloading Youtube videos but youtube-dl is free, opensource, geeky and awesome command line tool to download videos from Youtube." />
+<meta name="keywords" content="tutorial">
+
+
+  <meta property="og:site_name" content="Sagar's Blog"/>
+  <meta property="og:title" content="Download Youtube Videos in Ubuntu for FREE!"/>
+  <meta property="og:description" content="There are some free as well as paid online tool for downloading Youtube videos but youtube-dl is free, opensource, geeky and awesome command line tool to download videos from Youtube."/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://sagargiri.com/download-youtube-videos-in-ubuntu"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2017-02-22 22:21:00+09:00"/>
+  <meta property="article:modified_time" content="2017-02-22 22:21:00+09:00"/>
+  <meta property="article:author" content="https://sagargiri.com/author/sagar-giri.html">
+  <meta property="article:section" content="tutorial"/>
+  <meta property="article:tag" content="tutorial"/>
+  <meta property="og:image" content="https://sagargiri.com/images/ubuntu_youtube.png">
+
+  <title>Sagar's Blog &ndash; Download Youtube Videos in Ubuntu for FREE!</title>
+
+
+<script>
+  (function(w,d,s,l,i){
+    w[l]=w[l]||[];
+    w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+    j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+    f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5K6D7ZG');
+</script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "7cfbr3w8ss");
+</script>
+</head>
+<body class="light-theme">
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5K6D7ZG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+<aside>
+  <div>
+    <a href="https://sagargiri.com/">
+      <img src="/images/title.png" alt="Sagar Giri" title="Sagar Giri">
+    </a>
+
+    <h1>
+      <a href="https://sagargiri.com/">Sagar Giri</a>
+    </h1>
+
+    <p><pre>$ cd /pub && more beer</pre></p>
+
+
+    <nav>
+      <ul class="list">
+
+
+            <li>
+              <a target="_self"
+                 href="https://sagargiri.com/pages/about-me#about-me">
+                About Me
+              </a>
+            </li>
+
+          <li>
+            <a target="_self" href="https://girisagar46.github.io/FYPFruitClassifier/" >Project</a>
+          </li>
+      </ul>
+    </nav>
+
+    <ul class="social">
+      <li>
+        <a class="sc-linkedin"
+           href="https://linkedin.com/in/girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-github"
+           href="https://github.com/girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-github"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-stack-overflow"
+           href="https://stackoverflow.com/story/girisagar46.github.io"
+           target="_blank">
+          <i class="fa-brands fa-stack-overflow"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-mastodon"
+rel="me"           href="https://fosstodon.org/@girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-mastodon"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</aside>
+  <main>
+
+<nav>
+  <a href="https://sagargiri.com/">Home</a>
+
+  <a href="/archives">Archives</a>
+  <a href="/categories">Categories</a>
+  <a href="/tags">Tags</a>
+
+  <a href="https://sagargiri.com/feeds/all.atom.xml">Atom</a>
+
+</nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="download-youtube-videos-in-ubuntu">Download Youtube Videos in Ubuntu for FREE!</h1>
+    <p>
+      Posted on February 22, 2017 in <a href="https://sagargiri.com/category/tutorial">tutorial</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <p><a href="https://rg3.github.io/youtube-dl/">youtube-dl</a> is a command-line program to download videos from YouTube.com and a few more sites like vimeo, 9gag, Dailymotion, <a href="https://rg3.github.io/youtube-dl/supportedsites.html">etc</a>. </p>
+<p>It is purely build in Python and requires the Python interpreter (2.6, 2.7, or 3.2+) to use it and it is not platform specific. There's also a <a href="https://yt-dl.org/latest/youtube-dl.exe">Windows executable</a> for Windows user. And the most cool thing about youtube-dl is that it's opensource and released to the public domain.</p>
+<p>This tutorial illustrates how to install and use it in Ubuntu. But to use this free software you need Python installed in your system.</p>
+<h2>Step 1: Install youtube-dl</h2>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>youtube-dl
+</code></pre></div>
+
+<p>or, install via <a href="https://girisagar46.github.io/install-python-pip-package-management-system-in-ubuntu">PIP</a></p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>youtube-dl
+</code></pre></div>
+
+<h2>Step 2 : Use it for free</h2>
+<p>Fire up your terminal. And type</p>
+<p><code>$ youtube-dl [URL for video]</code></p>
+<p>eg. <code>$ youtube-dl https://www.youtube.com/watch?v=KWZGAExj-es</code></p>
+<h3>Choosing the quality:</h3>
+<p>youtube-dl gives option to download videos of different quality. 
+To download videos of high quality, type the commands provided below:</p>
+<p><code>$ youtube-dl -F https://www.youtube.com/watch?v=KWZGAExj-es</code></p>
+<p>This command gives the information of the video. </p>
+<div class="highlight"><pre><span></span><code>linuxsagar@ubuntu:~<span class="w"> </span>$<span class="w"> </span>youtube-dl<span class="w"> </span>-F<span class="w"> </span>https://www.youtube.com/watch?v<span class="o">=</span>KWZGAExj-es
+<span class="o">[</span>youtube<span class="o">]</span><span class="w"> </span>KWZGAExj-es:<span class="w"> </span>Downloading<span class="w"> </span>webpage
+<span class="o">[</span>youtube<span class="o">]</span><span class="w"> </span>KWZGAExj-es:<span class="w"> </span>Downloading<span class="w"> </span>video<span class="w"> </span>info<span class="w"> </span>webpage
+<span class="o">[</span>youtube<span class="o">]</span><span class="w"> </span>KWZGAExj-es:<span class="w"> </span>Extracting<span class="w"> </span>video<span class="w"> </span>information
+<span class="o">[</span>info<span class="o">]</span><span class="w"> </span>Available<span class="w"> </span>formats<span class="w"> </span><span class="k">for</span><span class="w"> </span>KWZGAExj-es:
+format<span class="w"> </span>code<span class="w">  </span>extension<span class="w">  </span>resolution<span class="w"> </span>note
+<span class="m">249</span><span class="w">          </span>webm<span class="w">       </span>audio<span class="w"> </span>only<span class="w"> </span>DASH<span class="w"> </span>audio<span class="w">   </span>53k<span class="w"> </span>,<span class="w"> </span>opus<span class="w"> </span>@<span class="w"> </span>50k,<span class="w"> </span><span class="m">1</span>.81MiB
+<span class="m">250</span><span class="w">          </span>webm<span class="w">       </span>audio<span class="w"> </span>only<span class="w"> </span>DASH<span class="w"> </span>audio<span class="w">   </span>73k<span class="w"> </span>,<span class="w"> </span>opus<span class="w"> </span>@<span class="w"> </span>70k,<span class="w"> </span><span class="m">2</span>.35MiB
+<span class="m">140</span><span class="w">          </span>m4a<span class="w">        </span>audio<span class="w"> </span>only<span class="w"> </span>DASH<span class="w"> </span>audio<span class="w">  </span>128k<span class="w"> </span>,<span class="w"> </span>m4a_dash<span class="w"> </span>container,<span class="w"> </span>mp4a.40.2@128k,<span class="w"> </span><span class="m">4</span>.65MiB
+<span class="m">171</span><span class="w">          </span>webm<span class="w">       </span>audio<span class="w"> </span>only<span class="w"> </span>DASH<span class="w"> </span>audio<span class="w">  </span>137k<span class="w"> </span>,<span class="w"> </span>vorbis@128k,<span class="w"> </span><span class="m">4</span>.44MiB
+<span class="m">251</span><span class="w">          </span>webm<span class="w">       </span>audio<span class="w"> </span>only<span class="w"> </span>DASH<span class="w"> </span>audio<span class="w">  </span>174k<span class="w"> </span>,<span class="w"> </span>opus<span class="w"> </span>@160k,<span class="w"> </span><span class="m">5</span>.84MiB
+<span class="m">278</span><span class="w">          </span>webm<span class="w">       </span>256x144<span class="w">    </span>144p<span class="w">   </span>92k<span class="w"> </span>,<span class="w"> </span>webm<span class="w"> </span>container,<span class="w"> </span>vp9,<span class="w"> </span>12fps,<span class="w"> </span>video<span class="w"> </span>only,<span class="w"> </span><span class="m">2</span>.60MiB
+<span class="m">160</span><span class="w">          </span>mp4<span class="w">        </span>256x144<span class="w">    </span>144p<span class="w">  </span>111k<span class="w"> </span>,<span class="w"> </span>avc1.4d400c,<span class="w"> </span>24fps,<span class="w"> </span>video<span class="w"> </span>only,<span class="w"> </span><span class="m">3</span>.86MiB
+<span class="m">242</span><span class="w">          </span>webm<span class="w">       </span>426x240<span class="w">    </span>240p<span class="w">  </span>223k<span class="w"> </span>,<span class="w"> </span>vp9,<span class="w"> </span>24fps,<span class="w"> </span>video<span class="w"> </span>only,<span class="w"> </span><span class="m">6</span>.27MiB
+<span class="m">133</span><span class="w">          </span>mp4<span class="w">        </span>426x240<span class="w">    </span>240p<span class="w">  </span>243k<span class="w"> </span>,<span class="w"> </span>avc1.4d4015,<span class="w"> </span>24fps,<span class="w"> </span>video<span class="w"> </span>only,<span class="w"> </span><span class="m">8</span>.57MiB
+<span class="m">243</span><span class="w">          </span>webm<span class="w">       </span>640x360<span class="w">    </span>360p<span class="w">  </span>420k<span class="w"> </span>,<span class="w"> </span>vp9,<span class="w"> </span>24fps,<span class="w"> </span>video<span class="w"> </span>only,<span class="w"> </span><span class="m">11</span>.11MiB
+<span class="m">134</span><span class="w">          </span>mp4<span class="w">        </span>640x360<span class="w">    </span>360p<span class="w">  </span>517k<span class="w"> </span>,<span class="w"> </span>avc1.4d401e,<span class="w"> </span>24fps,<span class="w"> </span>video<span class="w"> </span>only,<span class="w"> </span><span class="m">11</span>.36MiB
+<span class="m">244</span><span class="w">          </span>webm<span class="w">       </span>854x480<span class="w">    </span>480p<span class="w">  </span>715k<span class="w"> </span>,<span class="w"> </span>vp9,<span class="w"> </span>24fps,<span class="w"> </span>video<span class="w"> </span>only,<span class="w"> </span><span class="m">17</span>.63MiB
+<span class="m">135</span><span class="w">          </span>mp4<span class="w">        </span>854x480<span class="w">    </span>480p<span class="w">  </span>970k<span class="w"> </span>,<span class="w"> </span>avc1.4d401e,<span class="w"> </span>24fps,<span class="w"> </span>video<span class="w"> </span>only,<span class="w"> </span><span class="m">21</span>.71MiB
+<span class="m">247</span><span class="w">          </span>webm<span class="w">       </span>1280x720<span class="w">   </span>720p<span class="w"> </span>1499k<span class="w"> </span>,<span class="w"> </span>vp9,<span class="w"> </span>24fps,<span class="w"> </span>video<span class="w"> </span>only,<span class="w"> </span><span class="m">32</span>.43MiB
+<span class="m">136</span><span class="w">          </span>mp4<span class="w">        </span>1280x720<span class="w">   </span>720p<span class="w"> </span>1666k<span class="w"> </span>,<span class="w"> </span>avc1.4d401f,<span class="w"> </span>24fps,<span class="w"> </span>video<span class="w"> </span>only,<span class="w"> </span><span class="m">39</span>.95MiB
+<span class="m">248</span><span class="w">          </span>webm<span class="w">       </span>1920x1080<span class="w">  </span>1080p<span class="w"> </span>2744k<span class="w"> </span>,<span class="w"> </span>vp9,<span class="w"> </span>24fps,<span class="w"> </span>video<span class="w"> </span>only,<span class="w"> </span><span class="m">55</span>.46MiB
+<span class="m">137</span><span class="w">          </span>mp4<span class="w">        </span>1920x1080<span class="w">  </span>1080p<span class="w"> </span>2752k<span class="w"> </span>,<span class="w"> </span>avc1.640028,<span class="w"> </span>24fps,<span class="w"> </span>video<span class="w"> </span>only,<span class="w"> </span><span class="m">71</span>.87MiB
+<span class="m">17</span><span class="w">           </span>3gp<span class="w">        </span>176x144<span class="w">    </span>small<span class="w"> </span>,<span class="w"> </span>mp4v.20.3,<span class="w"> </span>mp4a.40.2@<span class="w"> </span>24k
+<span class="m">36</span><span class="w">           </span>3gp<span class="w">        </span>320x180<span class="w">    </span>small<span class="w"> </span>,<span class="w"> </span>mp4v.20.3,<span class="w"> </span>mp4a.40.2
+<span class="m">43</span><span class="w">           </span>webm<span class="w">       </span>640x360<span class="w">    </span>medium<span class="w"> </span>,<span class="w"> </span>vp8.0,<span class="w"> </span>vorbis@128k
+<span class="m">18</span><span class="w">           </span>mp4<span class="w">        </span>640x360<span class="w">    </span>medium<span class="w"> </span>,<span class="w"> </span>avc1.42001E,<span class="w"> </span>mp4a.40.2@<span class="w"> </span>96k
+<span class="m">22</span><span class="w">           </span>mp4<span class="w">        </span>1280x720<span class="w">   </span>hd720<span class="w"> </span>,<span class="w"> </span>avc1.64001F,<span class="w"> </span>mp4a.40.2@192k<span class="w"> </span><span class="o">(</span>best<span class="o">)</span>
+</code></pre></div>
+
+<p>Notice the format column in the output above? Yes, that's what you need. Also, remember capital F in the above command (-F) gives the format information.</p>
+<p>Now, lets download a 720p mp4 file with format code <em>136</em>.</p>
+<p><code>$ youtube-dl -f 136 https://www.youtube.com/watch?v=KWZGAExj-es</code></p>
+<h2>You only want the audio of a file? No problem, youtube-dl got your back</h2>
+<p><code>youtube-dl --extract-audio --audio-format mp3 https://www.youtube.com/watch?v=5dKGK81z4js</code></p>
+<p>That's it. Similarly, you will be able to download videos/ audio from any site using youtube-dl tool from command line interface.</p>
+<p>This opensource project has been hosted in GitHub. You can checkout the source code from here: <a href="https://github.com/rg3/youtube-dl">https://github.com/rg3/youtube-dl</a></p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://sagargiri.com/tag/tutorial">tutorial</a>
+    </p>
+  </div>
+
+
+
+
+
+
+</article>
+
+<footer>
+<p>&copy; 2025 </p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p></footer>  </main>
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Sagar's Blog ",
+  "url" : "https://sagargiri.com",
+  "image": "/images/title.png",
+  "description": "programming, python, CS, AWS, Django"
+}
+</script>
+</body>
+</html>

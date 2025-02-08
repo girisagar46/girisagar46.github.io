@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://sagargiri.com/theme/pygments/default.min.css">
+
+
+
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/solid.css">
+
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/static/custom.css">
+
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333333">
+
+  <link href="https://sagargiri.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Sagar's Blog Atom">
+
+
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-73000395-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+ 
+
+<meta name="author" content="Sagar Giri" />
+<meta name="description" content="In this article, you&#39;ll learn how to setup AWS CodePipeline for Continuous Integration and Continuous Delivery (CI/CD) pipeline for your Django Application." />
+<meta name="keywords" content="devops, cicd, aws, aws codepipeline, codecommit, django, continuous integration, continuous deployment">
+
+
+  <meta property="og:site_name" content="Sagar's Blog"/>
+  <meta property="og:title" content="Build AWS CodePipeline CI/CD for your Django Application"/>
+  <meta property="og:description" content="In this article, you&#39;ll learn how to setup AWS CodePipeline for Continuous Integration and Continuous Delivery (CI/CD) pipeline for your Django Application."/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://sagargiri.com/build-aws-codepipeline-for-cicd"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2019-02-15 22:50:00+09:00"/>
+  <meta property="article:modified_time" content="2019-02-15 22:50:00+09:00"/>
+  <meta property="article:author" content="https://sagargiri.com/author/sagar-giri.html">
+  <meta property="article:section" content="tutorial"/>
+  <meta property="article:tag" content="devops"/>
+  <meta property="article:tag" content="cicd"/>
+  <meta property="article:tag" content="aws"/>
+  <meta property="article:tag" content="aws codepipeline"/>
+  <meta property="article:tag" content="codecommit"/>
+  <meta property="article:tag" content="django"/>
+  <meta property="article:tag" content="continuous integration"/>
+  <meta property="article:tag" content="continuous deployment"/>
+  <meta property="og:image" content="https://sagargiri.com/images/codepipeline/cover.png">
+
+  <title>Sagar's Blog &ndash; Build AWS CodePipeline CI/CD for your Django Application</title>
+
+
+<script>
+  (function(w,d,s,l,i){
+    w[l]=w[l]||[];
+    w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+    j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+    f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5K6D7ZG');
+</script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "7cfbr3w8ss");
+</script>
+</head>
+<body class="light-theme">
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5K6D7ZG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+<aside>
+  <div>
+    <a href="https://sagargiri.com/">
+      <img src="/images/title.png" alt="Sagar Giri" title="Sagar Giri">
+    </a>
+
+    <h1>
+      <a href="https://sagargiri.com/">Sagar Giri</a>
+    </h1>
+
+    <p><pre>$ cd /pub && more beer</pre></p>
+
+
+    <nav>
+      <ul class="list">
+
+
+            <li>
+              <a target="_self"
+                 href="https://sagargiri.com/pages/about-me#about-me">
+                About Me
+              </a>
+            </li>
+
+          <li>
+            <a target="_self" href="https://girisagar46.github.io/FYPFruitClassifier/" >Project</a>
+          </li>
+      </ul>
+    </nav>
+
+    <ul class="social">
+      <li>
+        <a class="sc-linkedin"
+           href="https://linkedin.com/in/girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-github"
+           href="https://github.com/girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-github"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-stack-overflow"
+           href="https://stackoverflow.com/story/girisagar46.github.io"
+           target="_blank">
+          <i class="fa-brands fa-stack-overflow"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-mastodon"
+rel="me"           href="https://fosstodon.org/@girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-mastodon"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</aside>
+  <main>
+
+<nav>
+  <a href="https://sagargiri.com/">Home</a>
+
+  <a href="/archives">Archives</a>
+  <a href="/categories">Categories</a>
+  <a href="/tags">Tags</a>
+
+  <a href="https://sagargiri.com/feeds/all.atom.xml">Atom</a>
+
+</nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="build-aws-codepipeline-for-cicd">Build AWS CodePipeline CI/CD for your Django Application</h1>
+    <p>
+      Posted on February 15, 2019 in <a href="https://sagargiri.com/category/tutorial">tutorial</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <blockquote>
+<p>Assumption: For this tutorial, I am assuming you already have an EC2 instance where you've configured and deploy a Django application.</p>
+</blockquote>
+<p>In <a href="https://girisagar46.github.io/from-bitbucket-pipeline-to-aws-codecommit">previous tutorial</a>, you learnt about syncing your BitBucket repository to AWS CodeCommit. Now, since your source code is already into AWS CodeCommit, you can now setup AWS CodePipeline for CI/CD.</p>
+<p><img alt="Cover" src="../images/codepipeline/cover.png"></p>
+<p>This tutorial will be a little bit long and I will guide you to setup AWS CodePipeline for your Django application step by step with no step skipped.</p>
+<p>Okay, Let's begin!</p>
+<h2>Step 0 (True programmer starts counting from zero ;) )</h2>
+<ul>
+<li>Go to AWS Console and select AWS CodePipeline which is under the <strong>Developer Tools</strong> section. Or you can also search for AWS CodePipeline by typing the name under <strong>Find Services</strong></li>
+</ul>
+<p><img alt="AWS Console" src="../images/codepipeline/console.png"></p>
+<p><em>AWS Console</em></p>
+<h2>Step 1</h2>
+<ul>
+<li>Once you are in AWS CodePipeline click on <strong>Create pipeline</strong> button. You'll be then redirected to <strong>Choose pipeline settings</strong></li>
+</ul>
+<p><img alt="Choose pipeline settings" src="../images/codepipeline/Step-1.png"></p>
+<ul>
+<li>Give yor pipeline a name under the <strong>Pipeline name</strong> input field.</li>
+<li>Select <strong>New service role</strong> under the <strong>Service role</strong> section.</li>
+<li>Under <strong>Role name</strong> section, you'll be provided a default role name. But, you may wish to give a proper name which you can remember. In that case, provide your own <strong>Role name</strong>.</li>
+<li>Check the checkbox that says <em>Allow AWS CodePipeline to create a service role so it can be used with this new pipeline</em></li>
+<li>Under <strong>Artifact store</strong>, select <strong>Custom location</strong>. And here's a tricky part. Artifacts are files that is generated after the CI part is completed. These artifacts need to be stored somewhere. In CodePipeline's case, it's the S3 bucket. If you choose <strong>Default location</strong>, your artifacts will be stored in the S3 location defined by the CodePipeline itself. In my case, I choose to store my artifacts in my own S3 bucket. Here's a <a href="#">tutorial</a> if you don't know how to create a S3 bucket.</li>
+<li>After filling up this form, click the <strong>Next</strong> button.</li>
+</ul>
+<h2>Step 2</h2>
+<ul>
+<li>After clicking <strong>Next</strong> at the end of <strong>Step 1</strong>, you'll see another form where you'll <strong>Add source</strong></li>
+</ul>
+<p><img alt="Add Source stage" src="../images/codepipeline/Step-2.png"></p>
+<ul>
+<li>Select <strong>Source provider</strong>. In this case, I am selecting <strong>AWS CodeCommit</strong> because I've already <a href="https://girisagar46.github.io/from-bitbucket-pipeline-to-aws-codecommit">synced my BitBucket repository to AWS CodeCommit</a>.</li>
+<li>Select your <strong>Repository name</strong> from the drop down option.</li>
+<li>Select the <strong>Branch name</strong> from the dropdown option. This <strong>Branch name</strong> indicates triggering of CI when a commit is made to this branch.</li>
+<li>On <strong>Change detection options</strong> select the recommended option <strong>Amazon CloudWatch Events</strong></li>
+<li>Click <strong>Next</strong> and start <strong>Step 3</strong></li>
+</ul>
+<h2>Step 3</h2>
+<p><img alt="Add build stage" src="../images/codepipeline/Step-3.png"></p>
+<ul>
+<li>Select <strong>Build provider</strong> as <strong>AWS CodeBuild</strong></li>
+<li>Now, you need to setup a <strong>Project</strong> for AWS CodeBuild. Click on <strong>Create project</strong> button as shown in the picture.</li>
+<li>When you click that <strong>Create project</strong>, a new window will open where you will setup a CodeBuild project. Let's call it <strong>Step 4</strong> for now. Now, let's jump to <strong>Step 4</strong></li>
+</ul>
+<h2>Step 4</h2>
+<p>I'll be breaking down this step into small chunks.</p>
+<h3>Step 4-1 (Create build project)</h3>
+<p><img alt="Create build project" src="../images/codepipeline/Step-4-1.png"></p>
+<ul>
+<li>Give your project a name under <strong>Project name</strong> input field.</li>
+<li>Give a project <strong>Description</strong> if you like. It's totally optional but it's a good practice to describe what it does.</li>
+<li>You can add tags to your project but, I am leaving it blank for now.</li>
+</ul>
+<h3>Step 4-2 (Environment)</h3>
+<p><img alt="Environment" src="../images/codepipeline/Step-4-2.png"></p>
+<ul>
+<li>Just below <strong>Create build project</strong>, you'll see <strong>Environment</strong> configuration</li>
+<li>Select <strong>Managed image</strong> under <strong>Environment image</strong> section</li>
+<li>Select <strong>Operating system</strong> as <strong>Ubuntu</strong></li>
+<li>Runtime <strong>Python</strong> (Remember, we are doing CI for Django application)</li>
+<li><strong>aws/codebuild/python:3.6.5</strong> as <strong>Runtime version</strong></li>
+<li>Select <strong>Always use the latest image for this runtime version</strong> under the <strong>Image version</strong> section</li>
+<li>I am not selecting <strong>Privileged</strong> option. It's description is self explanatory. If you want more details, see the AWS CodeBuild official documentation</li>
+<li>Choose <strong>New service role</strong> under the <strong>Service role</strong> section. We are selecting <strong>New service role</strong> because we haven't created any role yet for the code build from IAM. So, we'll just create a new one.</li>
+<li>Give a proper <strong>Role name</strong> so that you can remember and if you see it in the IAM console, you'll just instantly recognize that this is a role or AWS CodeBuild</li>
+<li>I am leaving <strong>Additional configuration</strong> as empty. This is where you set up Environment variables, system configuration and so on. You can setup some <strong>Additional configuration</strong> if you like</li>
+</ul>
+<h3>Step 4-3 (Buildspec)</h3>
+<p><img alt="Buildspec" src="../images/codepipeline/Step-4-3.png"></p>
+<ul>
+<li>Select <strong>Use a buildspec file</strong> under <strong>Build specifications</strong></li>
+<li>Under the <strong>Buildspec name</strong> section, you can add your own custom name if you have custom buildspec yml file but that's completely optional</li>
+<li>Fill out the <strong>Logs</strong> section. Your build logs are all streamed to <strong>AWS CloudWatch</strong> if you want. You can also use S3 to store your logs. In my case, I chose <strong>AWS CloudWatch</strong> and gave a <strong>Group name</strong> and <strong>Stream name</strong></li>
+<li>Now click on <strong>Continue to CodePipeline</strong> button and you will be redirected to that page (<strong>Step 3</strong>)</li>
+</ul>
+<h2>Step 5</h2>
+<ul>
+<li>After <strong>Step 4-3</strong>, you'll be redirected to that <strong>Add build stage</strong> page and you'll see your newly created build project. If you don't see it there, then just refresh the page.</li>
+</ul>
+<p><img alt="Project in build stage" src="../images/codepipeline/Step-5.png"></p>
+<ul>
+<li>Now, click the <strong>Next</strong> button.</li>
+</ul>
+<h2>Step 6</h2>
+<p><img alt="Add deploy stage" src="../images/codepipeline/Step-6.png"></p>
+<ul>
+<li>This step is called <strong>Add deploy stage</strong></li>
+<li>First, choose the deploy provider. Select <strong>AWS CodeDeploy</strong></li>
+<li>Under the <strong>Application name</strong> section, you should choose the CodeDeploy application. Since, we haven't yet created the CodeDeploy application, let's just create one. Don't close this browser tab. Just open new browser tab and go to <strong>Step 7</strong></li>
+</ul>
+<h2>Step 7</h2>
+<ul>
+<li>To create the <strong>AWS CodeDeploy</strong> application, first go to the <strong>CodeDeploy</strong> section from AWS Console and click on the <strong>Create application</strong> button. You'll then see <strong>Application configuration</strong> form. Give your application a name <strong>Application name</strong> and choose the <strong>Compute platform</strong> as <strong>EC2/On-premises</strong> since we are deploying our application on our EC2 server.</li>
+</ul>
+<p><img alt="Create code deploy application" src="../images/codepipeline/Step-7.png"></p>
+<ul>
+<li>After you create the CodeDeploy application, we need to divert a little bit to setup a <strong>New service IAM Role</strong> and a <strong>Deployment group</strong>. We'll continue from <strong>Step 6</strong> after setting up the deployment group. For now, let's go to step 8. We'll revisit <strong>Step 6</strong> after this.</li>
+</ul>
+<h2>Step 8 (Create New service IAM Role for CodeDeploy)</h2>
+<ul>
+<li>Go to the <strong>AWS IAM Console</strong>
+<img alt="IAM Roles" src="../images/codepipeline/Step-8.png"></li>
+<li>Click on <strong>Roles</strong> on the sidebar menu</li>
+<li>
+<p>Then click on <strong>Create role</strong> button.</p>
+</li>
+<li>
+<p>Select <strong>CodeDeploy</strong> and also <strong>CodeDeploy</strong> under <strong>Select your use case</strong>
+<img alt="Code deploy selection" src="../images/codepipeline/Step-9.png"></p>
+</li>
+<li>You'll see something like this:</li>
+</ul>
+<p><img alt="Attached permissions policies" src="../images/codepipeline/Step-10.png"></p>
+<ul>
+<li>Click <strong>Next: Tags</strong></li>
+<li>
+<p>Give your role a tag with <strong>Name</strong> and <strong>Value</strong> if you like
+<img alt="Role tags" src="../images/codepipeline/Step-11.png"></p>
+</li>
+<li>
+<p>Click <strong>Next: Review</strong> button
+<img alt="Role Review" src="../images/codepipeline/Step-12.png"></p>
+</li>
+<li>
+<p>Give your role a name. We'll be using this role while creating deployment group.</p>
+</li>
+<li>Then click on <strong>Create role</strong> button</li>
+</ul>
+<h2>Step 9 (Create deployment group)</h2>
+<ul>
+<li>Under <strong>CodeDeploy</strong> &gt; <strong>Application</strong> section, you'll see the <strong>CodeDeploy</strong> application name <em>hello-world-codedeploy-application</em> that you just created in <strong>Step 7</strong></li>
+<li>Click on the application link and under the <strong>Deployment groups</strong> tab, you'll see a button that says <strong>Create deployment group</strong>. Click that.</li>
+<li>You'll see a form like this:</li>
+</ul>
+<p><img alt="Deployment group creation form" src="../images/codepipeline/Step-13.png"></p>
+<ul>
+<li>
+<p>Under the <strong>Service role</strong> section, select the service role that you just created on <strong>Step 9</strong></p>
+</li>
+<li>
+<p>Under <strong>Environment configuration</strong> section, select <strong>Amazon EC2 instances</strong>. Then add tags. These tags are actually the EC2 instance tag that you've already setup for Django application deployment</p>
+</li>
+<li>
+<p>Fill out the form and click <strong>Create deployment group</strong> button</p>
+</li>
+<li>Your deployment group will be created and you'll see a page just like this:</li>
+</ul>
+<p><img alt="Deployment group creation complete" src="../images/codepipeline/Step-14.png"></p>
+<h2>Step 10</h2>
+<ul>
+<li>Now go to <strong>Step 6</strong> where you've left off. Since, we've just created <strong>CodeDeploy application</strong> and <strong>Deployment group</strong>. Select those values in specific fields. If they are not populated under the select dropdown, just refresh the page and you'll be fine.
+<img alt="Code deploy stage" src="../images/codepipeline/Step-15.png"></li>
+<li>Click <strong>Next</strong> button and go to <strong>Step 11</strong></li>
+</ul>
+<h2>Step 11</h2>
+<ul>
+<li>This is probably the last step of our code pipeline setup. After clicking the <strong>Next</strong> button from <strong>Step 10</strong>, you'll see a <strong>CodePipeline Review</strong> page.</li>
+</ul>
+<p><img alt="CodePipeline review" src="../images/codepipeline/Step-16.png"></p>
+<ul>
+<li>Just go through it and check if everything is setup correctly</li>
+<li>If you need to change something, go to previous section. And if you think everything is fine, click on <strong>Create pipeline</strong> button</li>
+</ul>
+<h2>Step 12</h2>
+<ul>
+<li>You'll see a success page something like this.</li>
+</ul>
+<p><img alt="CodePipeline complete" src="../images/codepipeline/Step-17.png"></p>
+<h2>Step 13 (Create buildspec.yml file)</h2>
+<p>At this point, your pipeline will obviously fail in the <strong>Build</strong> section because we haven't setup the <code>buildspec.yml</code> file.</p>
+<p>Here's a <code>buildspec.yml</code> file that I setup for my django project pipeline. Take a reference and change accordingly.</p>
+<script src="https://gist.github.com/girisagar46/6e351be212e94e98dbc159e57795a0cc.js"></script>
+
+<p>**I'll be writing a separate post on what's going inside the <code>buildspec.yml</code> file. But, for now just copy-paste this in your <code>buildspec.yml</code> file and push it to your repository.</p>
+<h2>Step 14 (Create appspec.yml file)</h2>
+<p>Your CodePipeline will still fail on <strong>Deploy</strong> part because we haven't still setup an <code>appspec.yml</code> file yet. This file is used by the CodeDeploy to deploy our application to the EC2 instance.</p>
+<p>Here's the configuration for my <code>appspec.yml</code> file that I setup for my django project pipeline. Take a reference and change it accordingly.</p>
+<script src="https://gist.github.com/girisagar46/b6f6e3f80b1fc32561ebece6fdaa465d.js"></script>
+
+<p><strong>After this, your CodePipeline should be Green.</strong></p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://sagargiri.com/tag/devops">devops</a>
+      <a href="https://sagargiri.com/tag/cicd">cicd</a>
+      <a href="https://sagargiri.com/tag/aws">aws</a>
+      <a href="https://sagargiri.com/tag/aws-codepipeline">aws codepipeline</a>
+      <a href="https://sagargiri.com/tag/codecommit">codecommit</a>
+      <a href="https://sagargiri.com/tag/django">django</a>
+      <a href="https://sagargiri.com/tag/continuous-integration">continuous integration</a>
+      <a href="https://sagargiri.com/tag/continuous-deployment">continuous deployment</a>
+    </p>
+  </div>
+
+
+
+
+
+
+</article>
+
+<footer>
+<p>&copy; 2025 </p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p></footer>  </main>
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Sagar's Blog ",
+  "url" : "https://sagargiri.com",
+  "image": "/images/title.png",
+  "description": "programming, python, CS, AWS, Django"
+}
+</script>
+</body>
+</html>

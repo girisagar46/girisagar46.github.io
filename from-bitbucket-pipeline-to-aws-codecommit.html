@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://sagargiri.com/theme/pygments/default.min.css">
+
+
+
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/solid.css">
+
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/static/custom.css">
+
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333333">
+
+  <link href="https://sagargiri.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Sagar's Blog Atom">
+
+
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-73000395-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+ 
+
+<meta name="author" content="Sagar Giri" />
+<meta name="description" content="In this article you&#39;ll ne learning how to sync your BitBucket repository to AWS CodeCommit. Once your AWS CodeCommit is synced with your BitBucket repo you can use AWS CodeCommit for many AWS services like CodePipeline, CodeBuild, CodeDeploy etc." />
+<meta name="keywords" content="devops, cicd, aws, aws codepipeline, codecommit">
+
+
+  <meta property="og:site_name" content="Sagar's Blog"/>
+  <meta property="og:title" content="From Bitbucket Pipeline to AWS CodeCommit"/>
+  <meta property="og:description" content="In this article you&#39;ll ne learning how to sync your BitBucket repository to AWS CodeCommit. Once your AWS CodeCommit is synced with your BitBucket repo you can use AWS CodeCommit for many AWS services like CodePipeline, CodeBuild, CodeDeploy etc."/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://sagargiri.com/from-bitbucket-pipeline-to-aws-codecommit"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2019-02-08 22:08:00+09:00"/>
+  <meta property="article:modified_time" content="2019-02-08 22:08:00+09:00"/>
+  <meta property="article:author" content="https://sagargiri.com/author/sagar-giri.html">
+  <meta property="article:section" content="tutorial"/>
+  <meta property="article:tag" content="devops"/>
+  <meta property="article:tag" content="cicd"/>
+  <meta property="article:tag" content="aws"/>
+  <meta property="article:tag" content="aws codepipeline"/>
+  <meta property="article:tag" content="codecommit"/>
+  <meta property="og:image" content="https://sagargiri.com/images/cicd/upload-ssh-aws.png">
+
+  <title>Sagar's Blog &ndash; From Bitbucket Pipeline to AWS CodeCommit</title>
+
+
+<script>
+  (function(w,d,s,l,i){
+    w[l]=w[l]||[];
+    w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+    j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+    f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5K6D7ZG');
+</script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "7cfbr3w8ss");
+</script>
+</head>
+<body class="light-theme">
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5K6D7ZG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+<aside>
+  <div>
+    <a href="https://sagargiri.com/">
+      <img src="/images/title.png" alt="Sagar Giri" title="Sagar Giri">
+    </a>
+
+    <h1>
+      <a href="https://sagargiri.com/">Sagar Giri</a>
+    </h1>
+
+    <p><pre>$ cd /pub && more beer</pre></p>
+
+
+    <nav>
+      <ul class="list">
+
+
+            <li>
+              <a target="_self"
+                 href="https://sagargiri.com/pages/about-me#about-me">
+                About Me
+              </a>
+            </li>
+
+          <li>
+            <a target="_self" href="https://girisagar46.github.io/FYPFruitClassifier/" >Project</a>
+          </li>
+      </ul>
+    </nav>
+
+    <ul class="social">
+      <li>
+        <a class="sc-linkedin"
+           href="https://linkedin.com/in/girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-github"
+           href="https://github.com/girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-github"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-stack-overflow"
+           href="https://stackoverflow.com/story/girisagar46.github.io"
+           target="_blank">
+          <i class="fa-brands fa-stack-overflow"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-mastodon"
+rel="me"           href="https://fosstodon.org/@girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-mastodon"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</aside>
+  <main>
+
+<nav>
+  <a href="https://sagargiri.com/">Home</a>
+
+  <a href="/archives">Archives</a>
+  <a href="/categories">Categories</a>
+  <a href="/tags">Tags</a>
+
+  <a href="https://sagargiri.com/feeds/all.atom.xml">Atom</a>
+
+</nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="from-bitbucket-pipeline-to-aws-codecommit">From Bitbucket Pipeline to AWS CodeCommit</h1>
+    <p>
+      Posted on February 08, 2019 in <a href="https://sagargiri.com/category/tutorial">tutorial</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <h2>Setup codecommit IAM user</h2>
+<ul>
+<li>
+<p>Create new user from AWS IAM console</p>
+</li>
+<li>
+<p>Give two permission to that new codecommit user: </p>
+<ul>
+<li><code>AWSCodeCommitFullAccess</code> and </li>
+<li><code>AmazonS3FullAccess</code></li>
+</ul>
+</li>
+<li>
+<p>Open that new user from IAM console. Under user's section and go to <strong>Security Credentials</strong> tab</p>
+</li>
+<li>
+<p>Under <strong>SSH keys for AWS CodeCommit</strong> upload new SSH public key. </p>
+</li>
+<li>
+<p>To do this open up your terminal and add following commands:</p>
+<ul>
+<li><code>$ ssh-keygen -f ~/.ssh/codecommit_rsa</code></li>
+<li>And inside <strong>.ssh</strong> folder you’ll find <code>codecommit_rsa</code> and <code>codecommit_rsa.pub</code> file</li>
+<li>Open <code>codecommit_rsa.pub</code> in your editor and copy the contents</li>
+<li>Click <strong>Upload SSH public Key</strong> button and in the popup and paste the contents of <code>codecommit_rsa.pub</code> file and click Upload <strong>SSH public Key</strong></li>
+</ul>
+</li>
+</ul>
+<p><img alt="Upload SSH public Key" src="../images/cicd/upload-ssh-aws.png"></p>
+<p>After uploading this, you’ll get the “SSH key ID”</p>
+<p><img alt="The SSH KEY ID" src="../images/cicd/ssh-key-id.png"></p>
+<ul>
+<li>Open your terminal and edit this file: <code>~/.ssh/config</code> </li>
+<li>Set the values as described below and save the file.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Host git-codecommit.*.amazonaws.com
+User Your-IAM-SSH-Key-ID-Here
+IdentityFile ~/.ssh/codecommit_rsa
+</code></pre></div>
+
+<ul>
+<li>Now, create new codecommit repository:<ul>
+<li><code>AWS Console</code> &gt; <code>Code Commit</code> &gt; <code>Getting started</code> &gt; <code>Create repository</code></li>
+<li>Give your repository a name and description and hit the <code>create</code> button.</li>
+</ul>
+</li>
+</ul>
+<h2>Setup BitbucketPipeline</h2>
+<ul>
+<li>Open your repository in BitBucket on which you want to setup pipeline. [Note: You must have admin access to that repository]</li>
+<li>
+<p>After opening your repository go to <code>settings</code> &gt; <code>Pipeline Settings</code> &gt; <code>Enable Pipeline</code> </p>
+</li>
+<li>
+<p>Then go to <code>Pipeline</code> &gt; <code>Settings</code> -&gt; <code>Repository variables</code> and set these values:</p>
+</li>
+</ul>
+<p><img alt="BitBucket pipeline repository variables" src="../images/cicd/repo-vars.png"></p>
+<h4>Description of each of these variables:</h4>
+<ol>
+<li>
+<p><code>CodeCommitConfig</code> -&gt; 64 bit encoded version of the contents inside your <code>~/.ssh/config</code> file. Generate this by doing:
+    <code>bash
+    $ base64 ~/.ssh/config</code>
+    And copy the output to the value field of <code>CodeCommitConfig</code></p>
+</li>
+<li>
+<p><code>CodeCommitHost</code>: your AWS codecommit host. Blurred part is the AWS region</p>
+</li>
+<li>
+<p><code>CodeCommitKey</code>: 64 bit encoded version of the contents inside your private key at <code>~/.ssh/codecommit_rsa</code>. Generate this by doing:</p>
+<p><code>bash
+$ base64 ~/.ssh/codecommit_rsa</code>
+And copy the output to the value field of <code>CodeCommitKey</code></p>
+</li>
+<li>
+<p><code>CodeCommitRepo</code>: The link of repository that you just created</p>
+</li>
+<li>
+<p><code>CodeCommitUser</code>: Your-IAM-SSH-Key-ID</p>
+</li>
+</ol>
+<h4>Create bitbucket-pipelines.yml</h4>
+<p>Create <code>bitbucket-pipelines.yml</code> file with following contents:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">pipelines</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">default</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">step</span><span class="p">:</span>
+<span class="w">       </span><span class="nt">script</span><span class="p">:</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo $CodeCommitKey &gt; ~/.ssh/codecommit_rsa.tmp</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base64 -d ~/.ssh/codecommit_rsa.tmp &gt; ~/.ssh/codecommit_rsa</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chmod 400 ~/.ssh/codecommit_rsa</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo $CodeCommitConfig &gt; ~/.ssh/config.tmp</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base64 -d  ~/.ssh/config.tmp &gt; ~/.ssh/config</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">set +e</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh -o StrictHostKeyChecking=no $CodeCommitHost</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">set -e</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git remote set-url origin ssh://$CodeCommitRepo</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git push origin $BITBUCKET_BRANCH</span>
+</code></pre></div>
+
+<ul>
+<li>
+<p>Make sure your indention are correct. You can use yml validator (<a href="https://jsonformatter.org/yaml-validator">https://jsonformatter.org/yaml-validator</a>) to do this.</p>
+</li>
+<li>
+<p>Push the <code>bitbucket-pipelines.yml</code> to any branch, then your pipeline will run and sync the changes to AWS Codecommit repository</p>
+</li>
+</ul>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://sagargiri.com/tag/devops">devops</a>
+      <a href="https://sagargiri.com/tag/cicd">cicd</a>
+      <a href="https://sagargiri.com/tag/aws">aws</a>
+      <a href="https://sagargiri.com/tag/aws-codepipeline">aws codepipeline</a>
+      <a href="https://sagargiri.com/tag/codecommit">codecommit</a>
+    </p>
+  </div>
+
+
+
+
+
+
+</article>
+
+<footer>
+<p>&copy; 2025 </p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p></footer>  </main>
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Sagar's Blog ",
+  "url" : "https://sagargiri.com",
+  "image": "/images/title.png",
+  "description": "programming, python, CS, AWS, Django"
+}
+</script>
+</body>
+</html>

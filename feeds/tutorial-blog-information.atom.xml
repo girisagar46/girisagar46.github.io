@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sagar's Blog - tutorial, blog, information</title><link href="https://sagargiri.com/" rel="alternate"></link><link href="https://sagargiri.com/feeds/tutorial-blog-information.atom.xml" rel="self"></link><id>https://sagargiri.com/</id><updated>2019-09-06T14:30:00+09:00</updated><subtitle>&lt;pre&gt;$ cd /pub &amp;&amp; more beer&lt;/pre&gt;</subtitle><entry><title>The Insides of Kubernetes and how it actually works.</title><link href="https://sagargiri.com/k8s-in-out" rel="alternate"></link><published>2019-09-06T14:30:00+09:00</published><updated>2019-09-06T14:30:00+09:00</updated><author><name>Sagar Giri</name></author><id>tag:sagargiri.com,2019-09-06:/k8s-in-out</id><summary type="html">&lt;p&gt;In this article, you'll learn about the REST objects in kubernetes (pods, replication controller, deployments, service)&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;"It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon 15 years of experience of running production workloads at Google, combined with best-of-breed ideas and practices from the community." — Kubernetes, Production-Grade Container Orchestration&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;What is Kubernetes?&lt;/h3&gt;
+&lt;p&gt;In a typical micro service architecture using k8s, we have these things:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Cover" src="../images/k8s/architecture.jpg"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;In a simple term, k8s is composed of Nodes and Pods.&lt;/li&gt;
+&lt;li&gt;Combination of nodes creates a cluster aka kubernetes cluster.&lt;/li&gt;
+&lt;li&gt;You can consider nodes as a physical or virtual server.&lt;/li&gt;
+&lt;li&gt;There are two kinds of nodes:&lt;ol&gt;
+&lt;li&gt;Master node (Controls what's going on)&lt;/li&gt;
+&lt;li&gt;Node aka Minions (That does the actual work)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Each node has pods.&lt;/li&gt;
+&lt;li&gt;Each pods have one or more container running inside it.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;In the birds eye view, Kubernetes architecture can be viewed as:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Birds-eye" src="../images/k8s/birds-eye.jpg"&gt;&lt;/p&gt;
+&lt;h3&gt;Nodes:&lt;/h3&gt;
+&lt;p&gt;A node is a worker machine in Kubernetes. Learn more &lt;a href="https://lmgtfy.com/?q=kubernetes+nodes"&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;There are two types of nodes:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Master node&lt;/li&gt;
+&lt;li&gt;Worker node&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Master Node&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;There can be one or more master node in a k8s cluster.&lt;/li&gt;
+&lt;li&gt;Best practice is to make master node free of workloads so that master node can only look after cluster.&lt;/li&gt;
+&lt;li&gt;You can think master node as a shepherd who who tends and rears sheep. (worker nodes)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;What's inside a master node?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Master Node" src="../images/k8s/master-node.jpg"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Remember a Node is a machine. So the base layer is the hardware layer. It can be bare metal, a virtual server, EC2 instance or even your personal laptop (if you are in local environment)&lt;/li&gt;
+&lt;li&gt;Then the layer after that is OS layer. And remember, K8s only works in Linux OS. Kubernetes is platform agnostic in terms of hardware lever, but it needs Linux OS to operate.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Components of Master node:&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Scheduler:
+Watches for new pods and assign work to that pod.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Controller:
+This watches for changes in the cluster&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Key Value Store:
+This is the persistent storage service. It uses &lt;a href="https://etcd.io/"&gt;etcd&lt;/a&gt; to maintain it's state. So in a master node, only this component is stateful.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;API server: This exposes the REST API for developers and clients to interact with k8s cluster. Developers deal directly with api server via command line tool provided by kubernetes called &lt;code&gt;kubectl&lt;/code&gt;. API server can also be linked with authentication service to provide extra layer of security for k8s cluster.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Worker Node&lt;/h4&gt;
+&lt;p&gt;Worker node (also used to be called as minion) are also a machine that does the actual work. For example, updating a shopping cart or authenticating a user in your web application.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What's inside a worker node?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Worker Node" src="../images/k8s/worker-node.jpg"&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Kubelet:
+They are main k8s agent
+They instantiate pod, register node with a cluster and operate on port 10255
+Kubelet just report back to master node if a container dies.
+The endpoint provied by kubelet are: &lt;code&gt;/spec&lt;/code&gt;, &lt;code&gt;/healtz&lt;/code&gt; , &lt;code&gt;/pods&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Container Engine:
+They do container management (pulling image, running container)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Kube Proxy
+Responsible for K8s networking
+This makes sure that each pod get unique IP address for network communication
+If more than 1 container is running inside a pod, then all pod share the same IP address but the port is different
+This also does load balancing across all pods in a service (#service section)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Declarative model and Desired state&lt;/h3&gt;
+&lt;p&gt;Kubernetes work in declarative model. Which basically means that we provide the APIServer (which is inside the master node) some specification to describe the desired state. The specification is written in JSON or YAML format.
+Once we provide the specification &lt;strong&gt;declaration&lt;/strong&gt;, then it's the responsibility of Kubernetes to maintain the &lt;em&gt;desired&lt;/em&gt; state.&lt;/p&gt;
+&lt;h4&gt;Declarative Model&lt;/h4&gt;
+&lt;p&gt;We give manifest to do something. For example: At each time, there must be 5 containers running.&lt;/p&gt;
+&lt;h4&gt;Desired State&lt;/h4&gt;
+&lt;p&gt;This is done by k8s internally. For example: Since we declared to run 5 replicas, but at a particular instant of time, if only 4 are running (which don't match with declaration), then k8s kicks in and tries to maintain the desired state from the declaration manifest (written in YAML or JSON which is provided to master node)&lt;/p&gt;
+&lt;h3&gt;Pods&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Pods are atomic unit of deployment in k8s world and they exists inside a node&lt;/li&gt;
+&lt;li&gt;Containers always runs inside a pod&lt;/li&gt;
+&lt;li&gt;Pods can have multiple containers (only in advanced cases, but ideally one)&lt;/li&gt;
+&lt;li&gt;If two containers are running inside a same pod, then they share same memory space and volumes. This running more than one containers are useful if we want tightly coupled architecture.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="Pod Multi" src="../images/k8s/pod-multi.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;Here in above figure, these two containers share the same DB and also same file system and also the same IP address.&lt;/p&gt;
+&lt;p&gt;In detail:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Pod Multi" src="../images/k8s/pod-multi-detail.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;Containers inside the pod share the same IP address of the pod, but the port of each container is different. Intra container communication happens inside the pods by localhost.&lt;/p&gt;
+&lt;p&gt;For loosely coupled system, the containers from two different pods can talk to each other through network communication.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Pod Multi Container multi" src="../images/k8s/pod-multi-container-multi.jpg"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pods are also the unit of scaling in kubernetes world. We scale pods up and down (add or remove pods) while scaling.&lt;/li&gt;
+&lt;li&gt;Pods are &lt;em&gt;atomic&lt;/em&gt;. Which means we just create replicas of pods. We don't wait for the containers to be up before creating a pod. We just create create replicas of already up and running pods.&lt;/li&gt;
+&lt;li&gt;Pod lifecycle is:
+    &lt;strong&gt;pending -&amp;gt; running -&amp;gt; success or failed -&amp;gt; die&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;There is no half (partially up) pod. Either it's up or not.&lt;/li&gt;
+&lt;li&gt;Ideally 1 pod gets scheduled to one node&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pod Lifecycle:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Pod lifecycle" src="../images/k8s/pod-lifecycle.png"&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;First we provide the manifest file to API server in k8s master node&lt;/li&gt;
+&lt;li&gt;API server receives manifest file and tries to run container and pod goes to pending mode&lt;/li&gt;
+&lt;li&gt;In pending mode, image is downloaded&lt;/li&gt;
+&lt;li&gt;Then container inside the pods are run&lt;/li&gt;
+&lt;li&gt;Then it goes to running mode&lt;/li&gt;
+&lt;li&gt;And if the purpose of pod is full filled, then when pod is gracefully stopped, it goes to succeed state&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Note: If for some whatever reason, if some problem arises in pending mode, then the pod goes to failed mode.&lt;/p&gt;
+&lt;h3&gt;Replication Controller&lt;/h3&gt;
+&lt;p&gt;But, in real world, we really don't work with pods directly. We use ReplicationController to work with pods.
+ReplicationController sits on top of pod and it instantiating the pod(s)&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Replication Controller" src="../images/k8s/rc.png"&gt;&lt;/p&gt;
+&lt;h3&gt;Services&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Pods are volatile. They are not persistent.&lt;/li&gt;
+&lt;li&gt;Pods go alive and die rapidly. When they die and generate their IP address changes rapidly. If pods die or new pods are added it's very difficult to manage the IP address and connection between these pods. To address this issue, we make use of service.&lt;/li&gt;
+&lt;li&gt;Service sits between pods layer and manages the network connection between the pods&lt;/li&gt;
+&lt;li&gt;They also do load balancing tasks&lt;/li&gt;
+&lt;li&gt;It's the job of service to send traffic to healthy pods and it uses TCP protocol by default&lt;/li&gt;
+&lt;li&gt;When our app is deployed in Kubernetes, we want it to be used by public. Hence, Service also helps to expose our application to public world (in the internet)&lt;/li&gt;
+&lt;li&gt;Service gets single DNS, static IP, and never changing port.&lt;/li&gt;
+&lt;li&gt;Services are stateful and they never change once defined.&lt;/li&gt;
+&lt;li&gt;Services and pods are tied together by label&lt;/li&gt;
+&lt;li&gt;Our client can talk to service in-order to get access to the application hosted in the pods&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="Service" src="../images/k8s/service.png"&gt;&lt;/p&gt;
+&lt;h3&gt;Deployments&lt;/h3&gt;
+&lt;p&gt;&lt;img alt="Deployments" src="../images/k8s/deployment.png"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;These are the one which we interact the most&lt;/li&gt;
+&lt;li&gt;They sit above the replication controller. And in the world of k8s deployment, replication sets are called replica set&lt;/li&gt;
+&lt;li&gt;Deployments are:&lt;/li&gt;
+&lt;li&gt;Self documenting&lt;/li&gt;
+&lt;li&gt;Write spec once, deploy many&lt;/li&gt;
+&lt;li&gt;Versioned&lt;/li&gt;
+&lt;li&gt;Simple rolling updates and rollbacks&lt;/li&gt;
+&lt;li&gt;Proper first class REST objects in k8s api&lt;/li&gt;
+&lt;li&gt;Defined in standard manifest file&lt;/li&gt;
+&lt;li&gt;Deployed via API server (in master node)&lt;/li&gt;
+&lt;li&gt;Add features to replication controller&lt;/li&gt;
+&lt;/ul&gt;</content><category term="tutorial, blog, information"></category><category term="devops"></category><category term="kubernetes"></category><category term="container"></category><category term="orchestration"></category></entry></feed>

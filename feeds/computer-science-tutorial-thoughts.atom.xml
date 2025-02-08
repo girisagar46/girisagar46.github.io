@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sagar's Blog - computer science, tutorial, thoughts</title><link href="https://sagargiri.com/" rel="alternate"></link><link href="https://sagargiri.com/feeds/computer-science-tutorial-thoughts.atom.xml" rel="self"></link><id>https://sagargiri.com/</id><updated>2017-02-13T21:34:00+09:00</updated><subtitle>&lt;pre&gt;$ cd /pub &amp;&amp; more beer&lt;/pre&gt;</subtitle><entry><title>Top Websites That Computer Science Students Must Visit.</title><link href="https://sagargiri.com/top-website-that-cs-student-should-visit" rel="alternate"></link><published>2017-02-13T21:34:00+09:00</published><updated>2017-02-13T21:34:00+09:00</updated><author><name>Sagar Giri</name></author><id>tag:sagargiri.com,2017-02-13:/top-website-that-cs-student-should-visit</id><summary type="html">&lt;p&gt;Are you a computer science student? If yes, then this might be a right article for you.&lt;/p&gt;</summary><content type="html">&lt;script&gt;
+    $(function() {
+        $('a[href]').attr('target', '_blank');
+    });
+&lt;/script&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Develop a passion for learning. If you do, you will never cease to grow. - Anthony J. D'Angelo&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I was going through Quora feeds and my eye caught one particular question, "What are the top websites computer science students must visit?" This question had more than 3k followers. I immediately opened the question link and bookmarked it. &lt;/p&gt;
+&lt;p&gt;Different users had given many answers and some of the links that I really liked are as follows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/"&gt;Stack Overflow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/"&gt;GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://ocw.mit.edu/courses/#electrical-engineering-and-computer-science"&gt;MIT OpenCourseWare&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://cs50.tv/2011/fall"&gt;Harvard Extension School/ Hardvard CS50&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.udacity.com/"&gt;Udacity&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.khanacademy.org/#computer-science"&gt;Khan Academy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.tutorialspoint.com/"&gt;Tutorials Point&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.quora.com/"&gt;Quora&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.coursera.org/"&gt;Coursera&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.hackerrank.com/"&gt;HackerRank&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://academicearth.org/subjects/computerscience"&gt;Academic Earth&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.open.edu/itunes"&gt;The Open University&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://programming-motherfucker.com/"&gt;Programming Motherfu***r&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.virtualhosting.com/blog/2008/50-killer-online-resources-for-computer-science-students/"&gt;50+ Killer Resources for Computer Science Students&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.cs4fn.org/"&gt;Computer Science for Fun&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://code.tutsplus.com/"&gt;Code.tutsplus.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.smartscholar.com/computer-science-guide/"&gt;Computer Science Education Resource Guide&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These are some of the links I really liked. But, this isn't the limit. Go through this answer in Quora by yourself.
+&lt;a href="https://www.quora.com/What-are-the-top-websites-computer-science-students-must-visit"&gt;https://www.quora.com/What-are-the-top-websites-computer-science-students-must-visit&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;And, now some of my personal favorites are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://dataschool.io/"&gt;Data School&lt;/a&gt; - If you are intersted in data science. &lt;/li&gt;
+&lt;li&gt;&lt;a href="http://bigdatauniversity.com/"&gt;Big Data University&lt;/a&gt; - If you are really into big data, machine learning, spark.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://machinelearningmastery.com"&gt;Machinelearning Mastery&lt;/a&gt; - Great place to start your machine learning career.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.datasciencecentral.com/"&gt;Data Science Central&lt;/a&gt; - Awesome blog about machine learning and data science.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://ohshitgit.com/"&gt;Oh shit, git!&lt;/a&gt; - How to not screw up your git repo.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.edx.org/"&gt;Edx&lt;/a&gt; - Quality education for everyone, everywhere for Free!&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/girisagar46/how-to-contribute-to-open-source"&gt;How to contribute to Open Source&lt;/a&gt; - Get started to contribute to opensource projects.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://egghead.io/"&gt;Egghead.io&lt;/a&gt; - Bite-size video tutorials for badass web developers&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.javatpoint.com/"&gt;Javatpoint&lt;/a&gt; - Get started with any popular programming language you like.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.freecodecamp.com/"&gt;Free Code Camp&lt;/a&gt; - Open source community that helps you learn to code. (Nepali version coming soon)&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://medium.com/tag/computer-science"&gt;Medium Blog for CS&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.reddit.com/r/algorithms/"&gt;Algorithms Subreddit&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.liveedu.tv/"&gt;Live Edu&lt;/a&gt; - Watch professionals code in real time. Visit website, meet coders and learn programming.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.idiotinside.com/topics/python/"&gt;Idiot Inside&lt;/a&gt; - Python and others&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://awesome-python.com/"&gt;Awesome Python&lt;/a&gt; - Info about different Python libraries.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://javascriptissexy.com/"&gt;javascriptissexy.com&lt;/a&gt; - Indeed JS is sexy. Awesome blog only and about JS.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Many of the links that are mentioned above are related to programming but, Computer Science is not only about coding/programming.
+A competent computer science students should be able to design new algorithms, reduce complexity of the problem set and algorithms, or design a new programming language, implement a compiler or an interpreter, etc. But, without strong knowledge of programming, nothing is possible.&lt;/p&gt;
+&lt;p&gt;If you have some cool links, do share it in the comment section below. :) &lt;/p&gt;</content><category term="computer science, tutorial, thoughts"></category><category term="computer science"></category><category term="bsc csit"></category><category term="tutorial"></category><category term="writings"></category></entry></feed>

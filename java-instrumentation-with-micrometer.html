@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://sagargiri.com/theme/pygments/default.min.css">
+
+
+
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/solid.css">
+
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/static/custom.css">
+
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333333">
+
+  <link href="https://sagargiri.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Sagar's Blog Atom">
+
+
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-73000395-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+ 
+
+<meta name="author" content="Sagar Giri" />
+<meta name="description" content="In this blog tutorial, let&#39;s instrument your Java SE code with Prometheus using Micrometer" />
+<meta name="keywords" content="tutorial, java, micrometer, prometheus">
+
+
+  <meta property="og:site_name" content="Sagar's Blog"/>
+  <meta property="og:title" content="Instrument your Java Code with Micrometer, Prometheus, and Grafana."/>
+  <meta property="og:description" content="In this blog tutorial, let&#39;s instrument your Java SE code with Prometheus using Micrometer"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://sagargiri.com/java-instrumentation-with-micrometer"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2020-12-31 15:33:00+09:00"/>
+  <meta property="article:modified_time" content="2020-12-31 15:33:00+09:00"/>
+  <meta property="article:author" content="https://sagargiri.com/author/sagar-giri.html">
+  <meta property="article:section" content="tutorial"/>
+  <meta property="article:tag" content="tutorial"/>
+  <meta property="article:tag" content="java"/>
+  <meta property="article:tag" content="micrometer"/>
+  <meta property="article:tag" content="prometheus"/>
+  <meta property="og:image" content="https://sagargiri.com/images/java-micrometer/grafana-login.png">
+
+  <title>Sagar's Blog &ndash; Instrument your Java Code with Micrometer, Prometheus, and Grafana.</title>
+
+
+<script>
+  (function(w,d,s,l,i){
+    w[l]=w[l]||[];
+    w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+    j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+    f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5K6D7ZG');
+</script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "7cfbr3w8ss");
+</script>
+</head>
+<body class="light-theme">
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5K6D7ZG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+<aside>
+  <div>
+    <a href="https://sagargiri.com/">
+      <img src="/images/title.png" alt="Sagar Giri" title="Sagar Giri">
+    </a>
+
+    <h1>
+      <a href="https://sagargiri.com/">Sagar Giri</a>
+    </h1>
+
+    <p><pre>$ cd /pub && more beer</pre></p>
+
+
+    <nav>
+      <ul class="list">
+
+
+            <li>
+              <a target="_self"
+                 href="https://sagargiri.com/pages/about-me#about-me">
+                About Me
+              </a>
+            </li>
+
+          <li>
+            <a target="_self" href="https://girisagar46.github.io/FYPFruitClassifier/" >Project</a>
+          </li>
+      </ul>
+    </nav>
+
+    <ul class="social">
+      <li>
+        <a class="sc-linkedin"
+           href="https://linkedin.com/in/girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-github"
+           href="https://github.com/girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-github"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-stack-overflow"
+           href="https://stackoverflow.com/story/girisagar46.github.io"
+           target="_blank">
+          <i class="fa-brands fa-stack-overflow"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-mastodon"
+rel="me"           href="https://fosstodon.org/@girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-mastodon"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</aside>
+  <main>
+
+<nav>
+  <a href="https://sagargiri.com/">Home</a>
+
+  <a href="/archives">Archives</a>
+  <a href="/categories">Categories</a>
+  <a href="/tags">Tags</a>
+
+  <a href="https://sagargiri.com/feeds/all.atom.xml">Atom</a>
+
+</nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="java-instrumentation-with-micrometer">Instrument your Java Code with Micrometer, Prometheus, and Grafana.</h1>
+    <p>
+      Posted on December 31, 2020 in <a href="https://sagargiri.com/category/tutorial">tutorial</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <blockquote>
+<p>Micrometer provides a simple facade over the instrumentation clients for the most popular monitoring systems, allowing you to instrument your JVM-based application code without vendor lock-in. Think SLF4J, but for metrics. - https://micrometer.io/</p>
+</blockquote>
+<p>I'm assuming you have some Java code, and you'd like to instrument it (measure how well it's performing, what is the heap space in current state, are there any exceptions. etc)</p>
+<p>With this 3 steps, you'll be up and running in no time.</p>
+<h1>Step 1: Setup the development environment</h1>
+<p>Here I am using <a href="https://www.docker.com/">Docker</a> and <a href="https://docs.docker.com/compose/">Docker compose</a> to set up the environment for simplicity purposes. If you do not have these in your machine, I highly recommend you to install it so that you can follow along.</p>
+<blockquote>
+<p>The full source code is available here: https://github.com/girisagar46/prome-java</p>
+</blockquote>
+<p>First and foremost, I will set <a href="https://prometheus.io/">Prometheus</a> and <a href="https://grafana.com/">Grafana</a> in my <code>docker-compose.yml</code> file.</p>
+<p>The <code>docker-compose.yml</code> file looks like this:</p>
+<div class="highlight"><pre><span></span><code><span class="n">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.8&quot;</span>
+
+<span class="n">services</span><span class="p">:</span>
+<span class="w">  </span><span class="n">prometheus</span><span class="p">:</span>
+<span class="w">    </span><span class="n">image</span><span class="p">:</span><span class="w"> </span><span class="n">prom</span><span class="o">/</span><span class="n">prometheus</span>
+<span class="w">    </span><span class="n">container_name</span><span class="p">:</span><span class="w"> </span><span class="n">prometheus</span>
+<span class="w">    </span><span class="n">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="o">./</span><span class="n">monitoring</span><span class="o">/</span><span class="n">prometheus</span><span class="o">.</span><span class="n">yml</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">prometheus</span><span class="o">/</span><span class="n">prometheus</span><span class="o">.</span><span class="n">yml</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="o">./</span><span class="n">data</span><span class="o">/</span><span class="n">prometheus</span><span class="p">:</span><span class="o">/</span><span class="n">data</span>
+<span class="w">    </span><span class="n">command</span><span class="p">:</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="s2">&quot;--config.file=/etc/prometheus/prometheus.yml&quot;</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="s2">&quot;--storage.tsdb.path=/data&quot;</span>
+<span class="w">    </span><span class="n">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="s2">&quot;9090:9090&quot;</span>
+<span class="w">    </span><span class="n">restart</span><span class="p">:</span><span class="w"> </span><span class="n">always</span>
+
+<span class="w">  </span><span class="n">grafana</span><span class="p">:</span>
+<span class="w">    </span><span class="n">image</span><span class="p">:</span><span class="w"> </span><span class="n">grafana</span><span class="o">/</span><span class="n">grafana</span>
+<span class="w">    </span><span class="n">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="o">./</span><span class="n">grafana</span><span class="p">:</span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">grafana</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="o">./</span><span class="n">grafana</span><span class="o">/</span><span class="n">datasources</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">grafana</span><span class="o">/</span><span class="n">datasources</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="o">./</span><span class="n">grafana</span><span class="o">/</span><span class="n">dashboards</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">grafana</span><span class="o">/</span><span class="n">dashboard</span>
+<span class="w">    </span><span class="n">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="s2">&quot;3000:3000&quot;</span>
+<span class="w">    </span><span class="n">restart</span><span class="p">:</span><span class="w"> </span><span class="n">always</span>
+<span class="w">    </span><span class="n">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">GF_SECURITY_ADMIN_USER</span><span class="o">=</span><span class="n">admin</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">GF_SECURITY_ADMIN_PASSWORD</span><span class="o">=</span><span class="n">admin</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">GF_USERS_ALLOW_SIGN_UP</span><span class="o">=</span><span class="bp">false</span>
+</code></pre></div>
+
+<p>Since we're mounting <code>/monitoring/prometheus.yml</code> into prometheus service, let's create the directory <code>monitoring</code> and create a file <code>prometheus.yml</code> inside the <code>monitoring</code> directory.</p>
+<p>The contents of the <code>prometheus.yml</code> looks like this:</p>
+<script src="https://gist.github.com/girisagar46/3f2327a403eb37f6b5cac0bf07aa592a.js"></script>
+
+<p>Once the <code>docker-compose.yml</code> is ready, start the services with <code>docker-compose up</code></p>
+<p>And when the services are up, visit <a href="http://localhost:9090/">http://localhost:9090/</a>. You'll see something like this:
+<img alt="Prometheus UI" src="../images/java-micrometer/prometheus-ui.png"></p>
+<p>And if you navigate to <a href="http://localhost:9090/targets">http://localhost:9090/targets</a> (<code>Status</code> dropdown -&gt; <code>Targets</code>), you'll see something like this:
+<img alt="Prometheus UI" src="../images/java-micrometer/prometheus-targets.png"></p>
+<p>As you can see there's an error message that says:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">Get</span><span class="w"> </span><span class="s2">&quot;http://host.docker.internal:8080/metrics&quot;</span>:<span class="w"> </span><span class="nv">dial</span><span class="w"> </span><span class="nv">tcp</span><span class="w"> </span><span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">65</span>.<span class="mi">2</span>:<span class="mi">8080</span>:<span class="w"> </span><span class="k">connect</span>:<span class="w"> </span><span class="nv">connection</span><span class="w"> </span><span class="nv">refused</span>
+</code></pre></div>
+
+<p>because our Java application is not running at the moment. We'll fix this a little letter.</p>
+<p>If you visit <a href="http://localhost:3000/">http://localhost:3000/</a>, you'll see the Grafana login page:</p>
+<p><img alt="Grafana Login" src="../images/java-micrometer/grafana-login.png"></p>
+<p>Use the default username: <code>admin</code> and password <code>admin</code> to get inside the Grafana dashboard. When asked to change password, skip it as it's just a local development environment. Obviously in production, this has to be more sure by enabling the login by Gmail or any other OAUTH mechanism.</p>
+<p>Now you need to add Prometheus data source so that our Grafana can get the piece of the metrics we're exposing.
+To add the datasource directly go to <a href="http://localhost:3000/datasources">http://localhost:3000/datasources</a></p>
+<p>Then click on <strong>Add data source</strong> button and fill up the form as shown in the screenshot below.</p>
+<p><img alt="grafana-datasource.png" src="../images/java-micrometer/grafana-datasource.png"></p>
+<h1>Step 2: Expose metrics from your Java application</h1>
+<ol>
+<li>Create <code>MetricService</code> class which will provide the singleton instance of <code>PrometheusMeterRegistry</code></li>
+</ol>
+<script src="https://gist.github.com/girisagar46/9ffa46b7f251301576a7df9bd4e59c00.js"></script>
+
+<ol>
+<li>Create HTTP metric endpoint where prometheus can go to scrape the metrics. As you can see in the <code>prometheus.yml</code> file we've defined <code>metrics_path: "/metrics"</code>. So, let's create HTTP endpoint. I'll add this in the <code>Actuator.java</code> file:</li>
+</ol>
+<script src="https://gist.github.com/girisagar46/2684a5443274bf19890a5c5224e4e2fc.js"></script>
+
+<ol>
+<li>Create the Main class (the entry point to our application)</li>
+</ol>
+<script src="https://gist.github.com/girisagar46/8a79f2433a238ab60dad71aec5235c12.js"></script>
+
+<p>At this point, the source code directory looks like this:</p>
+<p><img alt="project-structure.png" src="../images/java-micrometer/project-structure.png"></p>
+<p>Now if you run your application (Execute Main.java) and go to <a href="http://localhost:8080/metrics">http://localhost:8080/metrics</a>, you'll see following output:</p>
+<div class="highlight"><pre><span></span><code>...
+<span class="gh">#</span> HELP jvm_gc_live_data_size_bytes Size of long-lived heap memory pool after reclamation
+<span class="gh">#</span> TYPE jvm_gc_live_data_size_bytes gauge
+jvm_gc_live_data_size_bytes 0.0
+<span class="gh">#</span> HELP jvm_buffer_count_buffers An estimate of the number of buffers in the pool
+<span class="gh">#</span> TYPE jvm_buffer_count_buffers gauge
+jvm_buffer_count_buffers{id=&quot;mapped - &#39;non-volatile memory&#39;&quot;,} 0.0
+jvm_buffer_count_buffers{id=&quot;mapped&quot;,} 0.0
+jvm_buffer_count_buffers{id=&quot;direct&quot;,} 2.0
+<span class="gh">#</span> HELP jvm_memory_used_bytes The amount of used memory
+<span class="gh">#</span> TYPE jvm_memory_used_bytes gauge
+...
+</code></pre></div>
+
+<p>Which means your Java application is exposing metrics for the Prometheus to grab.</p>
+<h1>Step 3: Visualize the exposed metrics in Grafana</h1>
+<p>Since, we're only exposing JVM metrics for now let's see those exposed metrics on Grafana through a sweet dashboard.</p>
+<p>Let's import the <a href="https://grafana.com/grafana/dashboards/4701">Micrometer grafana official dashboard</a>. The ID of the grafana dashboard is <code>4701</code>. So, let's import the dashboard to Grafana.</p>
+<p>Click on the <strong>Import</strong> button which is shown in the screenshot below.</p>
+<p><img alt="dashboard-import.png" src="../images/java-micrometer/dashboard-import.png"></p>
+<p>Type <code>4701</code> in the input field <code>Import via grafana.com</code> and click <strong>Load</strong> button.</p>
+<p><img alt="import-4701.png" src="../images/java-micrometer/import-4701.png"></p>
+<p>Once, you click load, you'll see this page. Follow the 3 steps shown in the screenshot.</p>
+<p><img alt="import-dashboard.png" src="../images/java-micrometer/import-dashboard.png"></p>
+<p>Now your dashboard is imported, change the date range to view recent data.</p>
+<p><img alt="dashboard-range.png" src="../images/java-micrometer/dashboard-range.png"></p>
+<p>Congratulations!! your dashboard is fully functional and ready to use.</p>
+<p><img alt="full-dashboard.png" src="../images/java-micrometer/full-dashboard.png"></p>
+<p>You can play with Prometheus and Grafana as much as you like because everything is running in local. Try creating some alerts, Prometheus rules, write some PROMQL and expose some other metrics with Micrometer.</p>
+<p>If you want to take this to production, you can do it in various ways. Using K8s, using 3rd party service, hosting your own, using AWS managed service, etc. There are plethora of options, and you can choose any depending on your cost and requirements.</p>
+<h1>Going further</h1>
+<p>Now the basic setup is done, the metrics world does not stop here. It's a vast ocean. Here are some further additional resources which will help you to go forward.</p>
+<ol>
+<li><a href="https://micrometer.io/docs/concepts">https://micrometer.io/docs/concepts</a></li>
+<li><a href="https://prometheus.io/docs/prometheus/latest/getting_started/">https://prometheus.io/docs/prometheus/latest/getting_started/</a></li>
+<li><a href="https://prometheus.io/docs/prometheus/latest/querying/basics/">https://prometheus.io/docs/prometheus/latest/querying/basics/</a></li>
+<li><a href="https://www.youtube.com/watch?v=hTjHuoWxsks">Video: PromQL for Mere Mortals</a></li>
+<li><a href="https://www.youtube.com/watch?v=nJMRmhbY5hY">Video: The 4 Types Of Prometheus Metrics</a></li>
+<li><a href="https://www.robustperception.io/blog">https://www.robustperception.io/blog</a></li>
+<li><a href="https://grafana.com/tutorials/">https://grafana.com/tutorials/</a></li>
+<li><a href="https://github.com/prometheus/client_java">https://github.com/prometheus/client_java</a></li>
+<li><a href="https://www.reddit.com/r/PrometheusMonitoring">https://www.reddit.com/r/PrometheusMonitoring</a> -&gt; Reddit community</li>
+<li><a href="https://www.reddit.com/r/grafana">https://www.reddit.com/r/grafana</a> -&gt; Reddit community</li>
+<li><a href="https://slofile.com/slack/micrometer-metrics">https://slofile.com/slack/micrometer-metrics</a> -&gt; Official Slack channel for Micrometer (Join and ask any questions related to Prometheus, Grafana and Micrometer)</li>
+</ol>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://sagargiri.com/tag/tutorial">tutorial</a>
+      <a href="https://sagargiri.com/tag/java">java</a>
+      <a href="https://sagargiri.com/tag/micrometer">micrometer</a>
+      <a href="https://sagargiri.com/tag/prometheus">prometheus</a>
+    </p>
+  </div>
+
+
+
+
+
+
+</article>
+
+<footer>
+<p>&copy; 2025 </p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p></footer>  </main>
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Sagar's Blog ",
+  "url" : "https://sagargiri.com",
+  "image": "/images/title.png",
+  "description": "programming, python, CS, AWS, Django"
+}
+</script>
+</body>
+</html>

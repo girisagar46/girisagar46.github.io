@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://sagargiri.com/theme/pygments/default.min.css">
+
+
+
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/theme/font-awesome/css/solid.css">
+
+  <link rel="stylesheet" type="text/css" href="https://sagargiri.com/static/custom.css">
+
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#333333">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#333333">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Microsoft EDGE -->
+  <meta name="msapplication-TileColor" content="#333333">
+
+  <link href="https://sagargiri.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Sagar's Blog Atom">
+
+
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-73000395-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+ 
+
+<meta name="author" content="Sagar Giri" />
+<meta name="description" content="Installing Python 3.6.3 in your freshly installed Ubuntu 16.04 Desktop, Linux Mint Desktop or even in AWS/Azure Ubuntu 16.04 server instance is pain in the a**. This article will teach you how to install Python 3.6.3 from source including the dependencies you need to install inorder to work it correctly." />
+<meta name="keywords" content="tutorial, python3.6, python, installation">
+
+
+  <meta property="og:site_name" content="Sagar's Blog"/>
+  <meta property="og:title" content="Installing Python3.6 in Ubuntu 16.04 LTS Instance Server"/>
+  <meta property="og:description" content="Installing Python 3.6.3 in your freshly installed Ubuntu 16.04 Desktop, Linux Mint Desktop or even in AWS/Azure Ubuntu 16.04 server instance is pain in the a**. This article will teach you how to install Python 3.6.3 from source including the dependencies you need to install inorder to work it correctly."/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://sagargiri.com/installing-python3.6-in-ubuntu-server"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2018-05-23 23:32:00+09:00"/>
+  <meta property="article:modified_time" content="2018-05-23 23:32:00+09:00"/>
+  <meta property="article:author" content="https://sagargiri.com/author/sagar-giri.html">
+  <meta property="article:section" content="tutorial"/>
+  <meta property="article:tag" content="tutorial"/>
+  <meta property="article:tag" content="python3.6"/>
+  <meta property="article:tag" content="python"/>
+  <meta property="article:tag" content="installation"/>
+  <meta property="og:image" content="/images/title.png">
+
+  <title>Sagar's Blog &ndash; Installing Python3.6 in Ubuntu 16.04 LTS Instance Server</title>
+
+
+<script>
+  (function(w,d,s,l,i){
+    w[l]=w[l]||[];
+    w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+    j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+    f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5K6D7ZG');
+</script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "7cfbr3w8ss");
+</script>
+</head>
+<body class="light-theme">
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5K6D7ZG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+<aside>
+  <div>
+    <a href="https://sagargiri.com/">
+      <img src="/images/title.png" alt="Sagar Giri" title="Sagar Giri">
+    </a>
+
+    <h1>
+      <a href="https://sagargiri.com/">Sagar Giri</a>
+    </h1>
+
+    <p><pre>$ cd /pub && more beer</pre></p>
+
+
+    <nav>
+      <ul class="list">
+
+
+            <li>
+              <a target="_self"
+                 href="https://sagargiri.com/pages/about-me#about-me">
+                About Me
+              </a>
+            </li>
+
+          <li>
+            <a target="_self" href="https://girisagar46.github.io/FYPFruitClassifier/" >Project</a>
+          </li>
+      </ul>
+    </nav>
+
+    <ul class="social">
+      <li>
+        <a class="sc-linkedin"
+           href="https://linkedin.com/in/girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-github"
+           href="https://github.com/girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-github"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-stack-overflow"
+           href="https://stackoverflow.com/story/girisagar46.github.io"
+           target="_blank">
+          <i class="fa-brands fa-stack-overflow"></i>
+        </a>
+      </li>
+      <li>
+        <a class="sc-mastodon"
+rel="me"           href="https://fosstodon.org/@girisagar46"
+           target="_blank">
+          <i class="fa-brands fa-mastodon"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</aside>
+  <main>
+
+<nav>
+  <a href="https://sagargiri.com/">Home</a>
+
+  <a href="/archives">Archives</a>
+  <a href="/categories">Categories</a>
+  <a href="/tags">Tags</a>
+
+  <a href="https://sagargiri.com/feeds/all.atom.xml">Atom</a>
+
+</nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="installing-python3.6-in-ubuntu-server">Installing Python3.6 in Ubuntu 16.04 LTS Instance Server</h1>
+    <p>
+      Posted on May 23, 2018 in <a href="https://sagargiri.com/category/tutorial">tutorial</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>Here is the step by step guide to install <code>Python 3.6.3</code> in your AWS EC2's Ubuntu 16.04 server instance or in your local machine with Ubuntu 16.04 LTS Desktop or in Linux Mint.</p>
+<p><strong>Note: If you are using Ubuntu 18.04 LTS, then it ships with Python 3.6.3 by default.</strong></p>
+<p>Check which Python version is pre-installed in the system by typing <code>$ python3 -V</code> in the terminal. Generally it is <code>Python 3.5.2</code> for Ubtuntu 16.04 LTS.</p>
+<h2>Pre-requisites</h2>
+<ol>
+<li>
+<p>First you need to upgrade and update your system.</p>
+<p><code>$ sudo apt update &amp;&amp; sudo apt -y upgrade</code></p>
+</li>
+<li>
+<p>Then you need to install <code>zlib1g-dev</code> package because of <a href="https://github.com/pypa/pip/issues/1919">this</a> issue. </p>
+<p><code>$ sudo apt -y install zlib1g-dev</code>
+To make sure it is installed correctly, type <code>$ cat /usr/include/zlib.h</code>. It'll show you the source of <code>zlib</code> header file.</p>
+</li>
+<li>
+<p>Because of <a href="https://stackoverflow.com/questions/893053/seeing-escape-characters-when-pressing-the-arrow-keys-in-python-shell">this</a> issue, you also have to install another package called <code>libreadline-dev</code></p>
+<p><code>$ sudo apt install libreadline-dev</code></p>
+</li>
+<li>
+<p>Now, install <code>build-essential</code> and other bunch of stuffs which is required by <code>Python 3.6.3</code> afterwards.</p>
+<p><code>$ sudo apt install build-essential checkinstall libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev</code></p>
+<p>These packages are needed for setting up SSL for downloading packages over PIP, for setting up <code>sqlite</code>, <code>g++</code> and so on.</p>
+</li>
+<li>
+<p>Export <code>LD_LIBRARY_PATH</code> for secure SSL connection.</p>
+<p><code>$ export LD_LIBRARY_PATH=/usr/local/ssl/lib/</code></p>
+</li>
+</ol>
+<h2>Begin installation of Python 3.6.3</h2>
+<ol>
+<li>
+<p>First, download tar zipped file from Python FTP server.</p>
+<p><code>wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz</code></p>
+</li>
+<li>
+<p>Extract the zipped file:</p>
+<p><code>$ tar zxvf Python-3.6.3.tgz</code></p>
+</li>
+<li>
+<p>Move Python3.6.3 directory to <code>/opt/</code> directory and <code>cd</code> into it.</p>
+<p><code>$ sudo mv Python-3.6.3 /opt/</code></p>
+<p><code>$ cd /opt/Python-3.6.3/</code></p>
+</li>
+<li>
+<p>Configure Python directory.</p>
+<p><code>$./configure --enable-optimizations</code></p>
+</li>
+<li>
+<p>Make it:</p>
+<p><code>$ make</code></p>
+</li>
+<li>
+<p>Test the Make if you want (this is optional)</p>
+<p><code>$ make test</code></p>
+</li>
+<li>
+<p>Install it via Make:</p>
+<p><code>sudo make install</code></p>
+</li>
+<li>
+<p>Verify that Python 3.6.3 is installed in your system by typing</p>
+<p><code>$ python3</code></p>
+<p>If it again shows Python 3.5.2 then type <code>$ python3.6</code>. To make things easier, set up an alias. To set up alias do the following:</p>
+<p>Edit <code>.bashrc</code> file located in your home directory.</p>
+<p><code>$ nano ~/.bashrc</code></p>
+<p>Add following line at the end</p>
+<p><code>alias python3=/usr/local/bin/python3.6</code></p>
+</li>
+</ol>
+<p><em>At this point, Python 3.6.3 is correctly installed in your system</em></p>
+<h2>Further steps:</h2>
+<ol>
+<li>
+<p>Make sure yout PIP is correct. In Python2 is <code>pip</code> and in Python3 its <code>pip3</code></p>
+<p><code>$ pip3 -V</code> shows you which Python it is pointing to.</p>
+</li>
+<li>
+<p>If you are using <code>pyodbc</code> then you need to install <code>unixodbc-dev</code></p>
+<p><code>$ sudo apt -f install unixodbc-dev</code></p>
+<p>Then you can insall <code>pyodbc</code> with:</p>
+<p><code>$ pip3 install pyodbc</code></p>
+</li>
+</ol>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://sagargiri.com/tag/tutorial">tutorial</a>
+      <a href="https://sagargiri.com/tag/python36">python3.6</a>
+      <a href="https://sagargiri.com/tag/python">python</a>
+      <a href="https://sagargiri.com/tag/installation">installation</a>
+    </p>
+  </div>
+
+
+
+
+
+
+</article>
+
+<footer>
+<p>&copy; 2025 </p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p></footer>  </main>
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Sagar's Blog ",
+  "url" : "https://sagargiri.com",
+  "image": "/images/title.png",
+  "description": "programming, python, CS, AWS, Django"
+}
+</script>
+</body>
+</html>

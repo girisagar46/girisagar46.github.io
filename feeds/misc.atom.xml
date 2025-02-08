@@ -1,0 +1,1107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sagar's Blog - misc</title><link href="https://sagargiri.com/" rel="alternate"></link><link href="https://sagargiri.com/feeds/misc.atom.xml" rel="self"></link><id>https://sagargiri.com/</id><updated>2021-01-17T21:32:00+09:00</updated><subtitle>&lt;pre&gt;$ cd /pub &amp;&amp; more beer&lt;/pre&gt;</subtitle><entry><title>Terraform: Getting Started from Zero</title><link href="https://sagargiri.com/straight-up-Terraform" rel="alternate"></link><published>2021-01-17T21:32:00+09:00</published><updated>2021-01-17T21:32:00+09:00</updated><author><name>Sagar Giri</name></author><id>tag:sagargiri.com,2021-01-17:/straight-up-Terraform</id><summary type="html">&lt;p&gt;This is the very detailed introduction to getting started with Terraform&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;Terraform is an open-source infrastructure as code software tool that enables you to safely and predictably create, change, and improve infrastructure. - www.Terraform.io&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!--toc--&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#chapter-1-introduction-to-iac"&gt;Chapter 1: Introduction to IaC&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#11-begin-with-a-look-back"&gt;1.1 Begin with a look back&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#12-why-infrastructure-as-code"&gt;1.2 Why infrastructure as code?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#13-terminology"&gt;1.3 Terminology&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#14-explore-approaches-to-iac"&gt;1.4 Explore approaches to IaC&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#chapter-2-terraform"&gt;Chapter 2: Terraform&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#21-what-is-terraform"&gt;2.1 What is Terraform?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#22-install-terraform"&gt;2.2 Install Terraform&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#23-terraform-tour"&gt;2.3 Terraform Tour&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#24-the-very-basics-of-terraform"&gt;2.4 The very "Basics of Terraform"&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#chapter-3-learning-hcl"&gt;Chapter 3: Learning HCL&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#31-overview-of-hcl-structure"&gt;3.1 Overview of HCL structure&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#32-terraform-data-sources-and-resources"&gt;3.2 Terraform data sources and resources&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#33-terraform-outputs"&gt;3.3 Terraform Outputs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#34-interpolation-in-hcl"&gt;3.4 Interpolation in HCL&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#35-dependencies-in-terraform"&gt;3.5 Dependencies in Terraform&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#36-variables-and-locals"&gt;3.6 Variables and Locals&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#37-conditionals-and-the-count-property"&gt;3.7 Conditionals and the Count property&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#38-data-types-and-operators"&gt;3.8 Data types and operators&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#39-functions"&gt;3.9 Functions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#310-iterations-in-collections"&gt;3.10 Iterations in collections&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#311-directives-and-heredocs"&gt;3.11 Directives and heredocs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#312-clean-up"&gt;3.12 Clean up&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#chapter-4-code-re-use-for-applying-dry"&gt;Chapter 4: Code Re-Use for applying DRY&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#41-understanding-terraform-modules"&gt;4.1 Understanding Terraform Modules&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#42-distributing-modules"&gt;4.2 Distributing modules&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#chapter-5-collaboration-with-terraform"&gt;Chapter 5: Collaboration with Terraform&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#51-terraform-backends"&gt;5.1 Terraform backends&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#52-terraform-workspaces"&gt;5.2 Terraform workspaces&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Chapter 1: Introduction to IaC&lt;/h1&gt;
+&lt;h2&gt;1.1 Begin with a look back&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;[1960-1970] - Mainframe Computers&lt;ul&gt;
+&lt;li&gt;Big machines&lt;/li&gt;
+&lt;li&gt;Big facilities and using fork-lifts to move machines&lt;/li&gt;
+&lt;li&gt;Automation was not that critical in this era&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;[1980-1990] - Client/Server World&lt;ul&gt;
+&lt;li&gt;Things started to get little more complicated&lt;/li&gt;
+&lt;li&gt;UNIX or PC servers running various OS&lt;/li&gt;
+&lt;li&gt;These machines serve users using networking&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;[Mid 90's-2000] - Virtualization&lt;ul&gt;
+&lt;li&gt;Software defines infrastructures&lt;/li&gt;
+&lt;li&gt;Hardware were virtualized&lt;/li&gt;
+&lt;li&gt;Clients do not have any hardware debt&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Cloud Era&lt;ul&gt;
+&lt;li&gt;No hardware to manage&lt;/li&gt;
+&lt;li&gt;It's all software management problem&lt;/li&gt;
+&lt;li&gt;All these things could be managed by API's, Scripts&lt;/li&gt;
+&lt;li&gt;Manage all the infrastructures by the code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;1.2 Why infrastructure as code?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Repeatability&lt;ul&gt;
+&lt;li&gt;We can deploy the same thing over and over again&lt;/li&gt;
+&lt;li&gt;We'll have a backup&lt;/li&gt;
+&lt;li&gt;We can have multiple environments (dev, stage, prod)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Auditability&lt;ul&gt;
+&lt;li&gt;We can see what changed, who changed and impact of change&lt;/li&gt;
+&lt;li&gt;We can detect the problems easily&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Change control&lt;ul&gt;
+&lt;li&gt;Allows us to use VCS to control what to change&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Collaboration&lt;ul&gt;
+&lt;li&gt;Multiple people can work together on the same code base&lt;/li&gt;
+&lt;li&gt;Example: Use GitHub to propose a change&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;1.3 Terminology&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;IaC&lt;/strong&gt; - Infrastructure as Code&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CM&lt;/strong&gt; - Configuration Management (Example: Ansible, Puppet, etc)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;IaaS&lt;/strong&gt; - Infrastructure as a Service (Example: AWS, GoogleCloud, Azure)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PaaS&lt;/strong&gt; - Platform as a Service (Example: Heroku, AWS EBS)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;VCS&lt;/strong&gt; - Version Control System&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CI/CD&lt;/strong&gt; - Continuous Integration/ Continuous Deployment (Delivery)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SDLC&lt;/strong&gt; - Software Development Life Cycle&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Declarative&lt;/strong&gt; - Declare what you want&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Imperative&lt;/strong&gt; - How to get the desired state&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;1.4 Explore approaches to IaC&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Imperative Approach&lt;ul&gt;
+&lt;li&gt;Procedural Approach&lt;/li&gt;
+&lt;li&gt;Answers How?&lt;/li&gt;
+&lt;li&gt;Example Tools: AWS Cli, Python/Boto3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Declarative Approach&lt;ul&gt;
+&lt;li&gt;Answers What?&lt;/li&gt;
+&lt;li&gt;Example Tools: AWS CloudFormation, Terraform&lt;/li&gt;
+&lt;li&gt;We can change things easily for example AWS instance type&lt;/li&gt;
+&lt;li&gt;Tool does everything for us&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Chapter 2: Terraform&lt;/h1&gt;
+&lt;h2&gt;2.1 What is Terraform?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Terraform is a cross-platform command line tool&lt;/li&gt;
+&lt;li&gt;Declarative IaC tool&lt;ul&gt;
+&lt;li&gt;We define what we want and Terraform will create it for us&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Also, an Online Service&lt;ul&gt;
+&lt;li&gt;Provided through Terraform Cloud&lt;/li&gt;
+&lt;li&gt;Remote execution, Secret Storage&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Terraform consists&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Configuration&lt;/strong&gt;: Configuration files to define what we want&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;State&lt;/strong&gt;: Like a Database which stores the current state and can be stored anywhere like in local PC, S3, GCS, Google Drive, etc&lt;ul&gt;
+&lt;li&gt;State is the Terraform view of the world&lt;/li&gt;
+&lt;li&gt;Terraform looks here instead of cloud provider&lt;/li&gt;
+&lt;li&gt;Terraform compares &lt;strong&gt;Config and State&lt;/strong&gt; to create-destroy resource&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2.2 Install Terraform&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://www.Terraform.io/downloads.html"&gt;https://www.Terraform.io/downloads.html&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;-version
+Terraform&lt;span class="w"&gt; &lt;/span&gt;v0.14.4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;2.3 Terraform Tour&lt;/h2&gt;
+&lt;p&gt;Initialize Terraform&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╭─sagar-giri@PCN-489&lt;span class="w"&gt; &lt;/span&gt;~/IdeaProjects/HelloTerraform
+╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;init
+Terraform&lt;span class="w"&gt; &lt;/span&gt;initialized&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;an&lt;span class="w"&gt; &lt;/span&gt;empty&lt;span class="w"&gt; &lt;/span&gt;directory!
+
+The&lt;span class="w"&gt; &lt;/span&gt;directory&lt;span class="w"&gt; &lt;/span&gt;has&lt;span class="w"&gt; &lt;/span&gt;no&lt;span class="w"&gt; &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;configuration&lt;span class="w"&gt; &lt;/span&gt;files.&lt;span class="w"&gt; &lt;/span&gt;You&lt;span class="w"&gt; &lt;/span&gt;may&lt;span class="w"&gt; &lt;/span&gt;begin&lt;span class="w"&gt; &lt;/span&gt;working
+with&lt;span class="w"&gt; &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;immediately&lt;span class="w"&gt; &lt;/span&gt;by&lt;span class="w"&gt; &lt;/span&gt;creating&lt;span class="w"&gt; &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;configuration&lt;span class="w"&gt; &lt;/span&gt;files.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Plan Terraform&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╭─sagar-giri@PCN-489&lt;span class="w"&gt; &lt;/span&gt;~/IdeaProjects/HelloTerraform
+╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;plan
+
+Error:&lt;span class="w"&gt; &lt;/span&gt;No&lt;span class="w"&gt; &lt;/span&gt;configuration&lt;span class="w"&gt; &lt;/span&gt;files
+
+Plan&lt;span class="w"&gt; &lt;/span&gt;requires&lt;span class="w"&gt; &lt;/span&gt;configuration&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;be&lt;span class="w"&gt; &lt;/span&gt;present.&lt;span class="w"&gt; &lt;/span&gt;Planning&lt;span class="w"&gt; &lt;/span&gt;without&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;configuration
+would&lt;span class="w"&gt; &lt;/span&gt;mark&lt;span class="w"&gt; &lt;/span&gt;everything&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;destruction,&lt;span class="w"&gt; &lt;/span&gt;which&lt;span class="w"&gt; &lt;/span&gt;is&lt;span class="w"&gt; &lt;/span&gt;normally&lt;span class="w"&gt; &lt;/span&gt;not&lt;span class="w"&gt; &lt;/span&gt;what&lt;span class="w"&gt; &lt;/span&gt;is&lt;span class="w"&gt; &lt;/span&gt;desired.
+If&lt;span class="w"&gt; &lt;/span&gt;you&lt;span class="w"&gt; &lt;/span&gt;would&lt;span class="w"&gt; &lt;/span&gt;like&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;destroy&lt;span class="w"&gt; &lt;/span&gt;everything,&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;plan&lt;span class="w"&gt; &lt;/span&gt;with&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;-destroy&lt;span class="w"&gt; &lt;/span&gt;option.
+Otherwise,&lt;span class="w"&gt; &lt;/span&gt;create&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;configuration&lt;span class="w"&gt; &lt;/span&gt;file&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;.tf&lt;span class="w"&gt; &lt;/span&gt;file&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;and&lt;span class="w"&gt; &lt;/span&gt;try&lt;span class="w"&gt; &lt;/span&gt;again.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Apply&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╭─sagar-giri@PCN-489&lt;span class="w"&gt; &lt;/span&gt;~/IdeaProjects/HelloTerraform
+╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="w"&gt;                                                                                                 &lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;↵
+
+Error:&lt;span class="w"&gt; &lt;/span&gt;No&lt;span class="w"&gt; &lt;/span&gt;configuration&lt;span class="w"&gt; &lt;/span&gt;files
+
+Apply&lt;span class="w"&gt; &lt;/span&gt;requires&lt;span class="w"&gt; &lt;/span&gt;configuration&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;be&lt;span class="w"&gt; &lt;/span&gt;present.&lt;span class="w"&gt; &lt;/span&gt;Applying&lt;span class="w"&gt; &lt;/span&gt;without&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;configuration
+would&lt;span class="w"&gt; &lt;/span&gt;mark&lt;span class="w"&gt; &lt;/span&gt;everything&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;destruction,&lt;span class="w"&gt; &lt;/span&gt;which&lt;span class="w"&gt; &lt;/span&gt;is&lt;span class="w"&gt; &lt;/span&gt;normally&lt;span class="w"&gt; &lt;/span&gt;not&lt;span class="w"&gt; &lt;/span&gt;what&lt;span class="w"&gt; &lt;/span&gt;is&lt;span class="w"&gt; &lt;/span&gt;desired.
+If&lt;span class="w"&gt; &lt;/span&gt;you&lt;span class="w"&gt; &lt;/span&gt;would&lt;span class="w"&gt; &lt;/span&gt;like&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;destroy&lt;span class="w"&gt; &lt;/span&gt;everything,&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Terraform destroy&amp;#39;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;instead.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Destroy&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╭─sagar-giri@PCN-489&lt;span class="w"&gt; &lt;/span&gt;~/IdeaProjects/HelloTerraform
+╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;destroy
+Do&lt;span class="w"&gt; &lt;/span&gt;you&lt;span class="w"&gt; &lt;/span&gt;really&lt;span class="w"&gt; &lt;/span&gt;want&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;destroy&lt;span class="w"&gt; &lt;/span&gt;all&lt;span class="w"&gt; &lt;/span&gt;resources?
+&lt;span class="w"&gt;  &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;will&lt;span class="w"&gt; &lt;/span&gt;destroy&lt;span class="w"&gt; &lt;/span&gt;all&lt;span class="w"&gt; &lt;/span&gt;your&lt;span class="w"&gt; &lt;/span&gt;managed&lt;span class="w"&gt; &lt;/span&gt;infrastructure,&lt;span class="w"&gt; &lt;/span&gt;as&lt;span class="w"&gt; &lt;/span&gt;shown&lt;span class="w"&gt; &lt;/span&gt;above.
+&lt;span class="w"&gt;  &lt;/span&gt;There&lt;span class="w"&gt; &lt;/span&gt;is&lt;span class="w"&gt; &lt;/span&gt;no&lt;span class="w"&gt; &lt;/span&gt;undo.&lt;span class="w"&gt; &lt;/span&gt;Only&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;yes&amp;#39;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;will&lt;span class="w"&gt; &lt;/span&gt;be&lt;span class="w"&gt; &lt;/span&gt;accepted&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;confirm.
+
+&lt;span class="w"&gt;  &lt;/span&gt;Enter&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;value:&lt;span class="w"&gt; &lt;/span&gt;no
+
+Destroy&lt;span class="w"&gt; &lt;/span&gt;cancelled.
+╭─sagar-giri@PCN-489&lt;span class="w"&gt; &lt;/span&gt;~/IdeaProjects/HelloTerraform
+╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;destroy&lt;span class="w"&gt;                                                                                               &lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;↵
+Do&lt;span class="w"&gt; &lt;/span&gt;you&lt;span class="w"&gt; &lt;/span&gt;really&lt;span class="w"&gt; &lt;/span&gt;want&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;destroy&lt;span class="w"&gt; &lt;/span&gt;all&lt;span class="w"&gt; &lt;/span&gt;resources?
+&lt;span class="w"&gt;  &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;will&lt;span class="w"&gt; &lt;/span&gt;destroy&lt;span class="w"&gt; &lt;/span&gt;all&lt;span class="w"&gt; &lt;/span&gt;your&lt;span class="w"&gt; &lt;/span&gt;managed&lt;span class="w"&gt; &lt;/span&gt;infrastructure,&lt;span class="w"&gt; &lt;/span&gt;as&lt;span class="w"&gt; &lt;/span&gt;shown&lt;span class="w"&gt; &lt;/span&gt;above.
+&lt;span class="w"&gt;  &lt;/span&gt;There&lt;span class="w"&gt; &lt;/span&gt;is&lt;span class="w"&gt; &lt;/span&gt;no&lt;span class="w"&gt; &lt;/span&gt;undo.&lt;span class="w"&gt; &lt;/span&gt;Only&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;yes&amp;#39;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;will&lt;span class="w"&gt; &lt;/span&gt;be&lt;span class="w"&gt; &lt;/span&gt;accepted&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;confirm.
+
+&lt;span class="w"&gt;  &lt;/span&gt;Enter&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;value:&lt;span class="w"&gt; &lt;/span&gt;yes
+
+Destroy&lt;span class="w"&gt; &lt;/span&gt;complete!&lt;span class="w"&gt; &lt;/span&gt;Resources:&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;destroyed.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Help (Look for the &lt;em&gt;&lt;strong&gt;Main commands&lt;/strong&gt;&lt;/em&gt; section)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;help&lt;/span&gt;
+Usage:&lt;span class="w"&gt; &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;global&lt;span class="w"&gt; &lt;/span&gt;options&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&amp;lt;subcommand&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;args&lt;span class="o"&gt;]&lt;/span&gt;
+
+The&lt;span class="w"&gt; &lt;/span&gt;available&lt;span class="w"&gt; &lt;/span&gt;commands&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;execution&lt;span class="w"&gt; &lt;/span&gt;are&lt;span class="w"&gt; &lt;/span&gt;listed&lt;span class="w"&gt; &lt;/span&gt;below.
+The&lt;span class="w"&gt; &lt;/span&gt;primary&lt;span class="w"&gt; &lt;/span&gt;workflow&lt;span class="w"&gt; &lt;/span&gt;commands&lt;span class="w"&gt; &lt;/span&gt;are&lt;span class="w"&gt; &lt;/span&gt;given&lt;span class="w"&gt; &lt;/span&gt;first,&lt;span class="w"&gt; &lt;/span&gt;followed&lt;span class="w"&gt; &lt;/span&gt;by
+less&lt;span class="w"&gt; &lt;/span&gt;common&lt;span class="w"&gt; &lt;/span&gt;or&lt;span class="w"&gt; &lt;/span&gt;more&lt;span class="w"&gt; &lt;/span&gt;advanced&lt;span class="w"&gt; &lt;/span&gt;commands.
+
+Main&lt;span class="w"&gt; &lt;/span&gt;commands:
+&lt;span class="w"&gt;  &lt;/span&gt;init&lt;span class="w"&gt;          &lt;/span&gt;Prepare&lt;span class="w"&gt; &lt;/span&gt;your&lt;span class="w"&gt; &lt;/span&gt;working&lt;span class="w"&gt; &lt;/span&gt;directory&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;other&lt;span class="w"&gt; &lt;/span&gt;commands
+&lt;span class="w"&gt;  &lt;/span&gt;validate&lt;span class="w"&gt;      &lt;/span&gt;Check&lt;span class="w"&gt; &lt;/span&gt;whether&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;configuration&lt;span class="w"&gt; &lt;/span&gt;is&lt;span class="w"&gt; &lt;/span&gt;valid
+&lt;span class="w"&gt;  &lt;/span&gt;plan&lt;span class="w"&gt;          &lt;/span&gt;Show&lt;span class="w"&gt; &lt;/span&gt;changes&lt;span class="w"&gt; &lt;/span&gt;required&lt;span class="w"&gt; &lt;/span&gt;by&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;current&lt;span class="w"&gt; &lt;/span&gt;configuration
+&lt;span class="w"&gt;  &lt;/span&gt;apply&lt;span class="w"&gt;         &lt;/span&gt;Create&lt;span class="w"&gt; &lt;/span&gt;or&lt;span class="w"&gt; &lt;/span&gt;update&lt;span class="w"&gt; &lt;/span&gt;infrastructure
+&lt;span class="w"&gt;  &lt;/span&gt;destroy&lt;span class="w"&gt;       &lt;/span&gt;Destroy&lt;span class="w"&gt; &lt;/span&gt;previously-created&lt;span class="w"&gt; &lt;/span&gt;infrastructure
+
+All&lt;span class="w"&gt; &lt;/span&gt;other&lt;span class="w"&gt; &lt;/span&gt;commands:
+&lt;span class="w"&gt;  &lt;/span&gt;console&lt;span class="w"&gt;       &lt;/span&gt;Try&lt;span class="w"&gt; &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;expressions&lt;span class="w"&gt; &lt;/span&gt;at&lt;span class="w"&gt; &lt;/span&gt;an&lt;span class="w"&gt; &lt;/span&gt;interactive&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;command&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;prompt
+&lt;span class="w"&gt;  &lt;/span&gt;fmt&lt;span class="w"&gt;           &lt;/span&gt;Reformat&lt;span class="w"&gt; &lt;/span&gt;your&lt;span class="w"&gt; &lt;/span&gt;configuration&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;standard&lt;span class="w"&gt; &lt;/span&gt;style
+&lt;span class="w"&gt;  &lt;/span&gt;force-unlock&lt;span class="w"&gt;  &lt;/span&gt;Release&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;stuck&lt;span class="w"&gt; &lt;/span&gt;lock&lt;span class="w"&gt; &lt;/span&gt;on&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;current&lt;span class="w"&gt; &lt;/span&gt;workspace
+&lt;span class="w"&gt;  &lt;/span&gt;get&lt;span class="w"&gt;           &lt;/span&gt;Install&lt;span class="w"&gt; &lt;/span&gt;or&lt;span class="w"&gt; &lt;/span&gt;upgrade&lt;span class="w"&gt; &lt;/span&gt;remote&lt;span class="w"&gt; &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;modules
+&lt;span class="w"&gt;  &lt;/span&gt;graph&lt;span class="w"&gt;         &lt;/span&gt;Generate&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;Graphviz&lt;span class="w"&gt; &lt;/span&gt;graph&lt;span class="w"&gt; &lt;/span&gt;of&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;steps&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;an&lt;span class="w"&gt; &lt;/span&gt;operation
+&lt;span class="w"&gt;  &lt;/span&gt;import&lt;span class="w"&gt;        &lt;/span&gt;Associate&lt;span class="w"&gt; &lt;/span&gt;existing&lt;span class="w"&gt; &lt;/span&gt;infrastructure&lt;span class="w"&gt; &lt;/span&gt;with&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;resource
+&lt;span class="w"&gt;  &lt;/span&gt;login&lt;span class="w"&gt;         &lt;/span&gt;Obtain&lt;span class="w"&gt; &lt;/span&gt;and&lt;span class="w"&gt; &lt;/span&gt;save&lt;span class="w"&gt; &lt;/span&gt;credentials&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;remote&lt;span class="w"&gt; &lt;/span&gt;host
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nb"&gt;logout&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;Remove&lt;span class="w"&gt; &lt;/span&gt;locally-stored&lt;span class="w"&gt; &lt;/span&gt;credentials&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;remote&lt;span class="w"&gt; &lt;/span&gt;host
+&lt;span class="w"&gt;  &lt;/span&gt;output&lt;span class="w"&gt;        &lt;/span&gt;Show&lt;span class="w"&gt; &lt;/span&gt;output&lt;span class="w"&gt; &lt;/span&gt;values&lt;span class="w"&gt; &lt;/span&gt;from&lt;span class="w"&gt; &lt;/span&gt;your&lt;span class="w"&gt; &lt;/span&gt;root&lt;span class="w"&gt; &lt;/span&gt;module
+&lt;span class="w"&gt;  &lt;/span&gt;providers&lt;span class="w"&gt;     &lt;/span&gt;Show&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;providers&lt;span class="w"&gt; &lt;/span&gt;required&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;this&lt;span class="w"&gt; &lt;/span&gt;configuration
+&lt;span class="w"&gt;  &lt;/span&gt;refresh&lt;span class="w"&gt;       &lt;/span&gt;Update&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;state&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;match&lt;span class="w"&gt; &lt;/span&gt;remote&lt;span class="w"&gt; &lt;/span&gt;systems
+&lt;span class="w"&gt;  &lt;/span&gt;show&lt;span class="w"&gt;          &lt;/span&gt;Show&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;current&lt;span class="w"&gt; &lt;/span&gt;state&lt;span class="w"&gt; &lt;/span&gt;or&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;saved&lt;span class="w"&gt; &lt;/span&gt;plan
+&lt;span class="w"&gt;  &lt;/span&gt;state&lt;span class="w"&gt;         &lt;/span&gt;Advanced&lt;span class="w"&gt; &lt;/span&gt;state&lt;span class="w"&gt; &lt;/span&gt;management
+&lt;span class="w"&gt;  &lt;/span&gt;taint&lt;span class="w"&gt;         &lt;/span&gt;Mark&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;resource&lt;span class="w"&gt; &lt;/span&gt;instance&lt;span class="w"&gt; &lt;/span&gt;as&lt;span class="w"&gt; &lt;/span&gt;not&lt;span class="w"&gt; &lt;/span&gt;fully&lt;span class="w"&gt; &lt;/span&gt;functional
+&lt;span class="w"&gt;  &lt;/span&gt;untaint&lt;span class="w"&gt;       &lt;/span&gt;Remove&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;tainted&amp;#39;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;state&lt;span class="w"&gt; &lt;/span&gt;from&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;resource&lt;span class="w"&gt; &lt;/span&gt;instance
+&lt;span class="w"&gt;  &lt;/span&gt;version&lt;span class="w"&gt;       &lt;/span&gt;Show&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;current&lt;span class="w"&gt; &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;version
+&lt;span class="w"&gt;  &lt;/span&gt;workspace&lt;span class="w"&gt;     &lt;/span&gt;Workspace&lt;span class="w"&gt; &lt;/span&gt;management
+
+Global&lt;span class="w"&gt; &lt;/span&gt;options&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;use&lt;span class="w"&gt; &lt;/span&gt;these&lt;span class="w"&gt; &lt;/span&gt;before&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;subcommand,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;any&lt;span class="o"&gt;)&lt;/span&gt;:
+&lt;span class="w"&gt;  &lt;/span&gt;-chdir&lt;span class="o"&gt;=&lt;/span&gt;DIR&lt;span class="w"&gt;    &lt;/span&gt;Switch&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;different&lt;span class="w"&gt; &lt;/span&gt;working&lt;span class="w"&gt; &lt;/span&gt;directory&lt;span class="w"&gt; &lt;/span&gt;before&lt;span class="w"&gt; &lt;/span&gt;executing&lt;span class="w"&gt; &lt;/span&gt;the
+&lt;span class="w"&gt;                &lt;/span&gt;given&lt;span class="w"&gt; &lt;/span&gt;subcommand.
+&lt;span class="w"&gt;  &lt;/span&gt;-help&lt;span class="w"&gt;         &lt;/span&gt;Show&lt;span class="w"&gt; &lt;/span&gt;this&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;help&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;output,&lt;span class="w"&gt; &lt;/span&gt;or&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;help&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;specified&lt;span class="w"&gt; &lt;/span&gt;subcommand.
+&lt;span class="w"&gt;  &lt;/span&gt;-version&lt;span class="w"&gt;      &lt;/span&gt;An&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;alias&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;version&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;subcommand.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Format the Terraform file&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;fmt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;2.4 The very "Basics of Terraform"&lt;/h2&gt;
+&lt;p&gt;Terraform uses HCL (&lt;a href="https://github.com/hashicorp"&gt;HashiCorp&lt;/a&gt; Configuration Language)&lt;/p&gt;
+&lt;p&gt;The extension of file ends with &lt;code&gt;.tf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Create &lt;code&gt;main.tf&lt;/code&gt; inside a directory&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="s2"&gt;&amp;quot;greeting&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;{
+&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="nv"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Hello Terraform.&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;}
+
+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;provider&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;random&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;{}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Initialize Terraform&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;init
+
+Initializing&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;backend...
+
+Initializing&lt;span class="w"&gt; &lt;/span&gt;provider&lt;span class="w"&gt; &lt;/span&gt;plugins...
+-&lt;span class="w"&gt; &lt;/span&gt;Finding&lt;span class="w"&gt; &lt;/span&gt;latest&lt;span class="w"&gt; &lt;/span&gt;version&lt;span class="w"&gt; &lt;/span&gt;of&lt;span class="w"&gt; &lt;/span&gt;hashicorp/random...
+-&lt;span class="w"&gt; &lt;/span&gt;Installing&lt;span class="w"&gt; &lt;/span&gt;hashicorp/random&lt;span class="w"&gt; &lt;/span&gt;v3.0.1...
+-&lt;span class="w"&gt; &lt;/span&gt;Installed&lt;span class="w"&gt; &lt;/span&gt;hashicorp/random&lt;span class="w"&gt; &lt;/span&gt;v3.0.1&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;signed&lt;span class="w"&gt; &lt;/span&gt;by&lt;span class="w"&gt; &lt;/span&gt;HashiCorp&lt;span class="o"&gt;)&lt;/span&gt;
+
+Terraform&lt;span class="w"&gt; &lt;/span&gt;has&lt;span class="w"&gt; &lt;/span&gt;created&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;lock&lt;span class="w"&gt; &lt;/span&gt;file&lt;span class="w"&gt; &lt;/span&gt;.Terraform.lock.hcl&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;record&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;provider
+selections&lt;span class="w"&gt; &lt;/span&gt;it&lt;span class="w"&gt; &lt;/span&gt;made&lt;span class="w"&gt; &lt;/span&gt;above.&lt;span class="w"&gt; &lt;/span&gt;Include&lt;span class="w"&gt; &lt;/span&gt;this&lt;span class="w"&gt; &lt;/span&gt;file&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;your&lt;span class="w"&gt; &lt;/span&gt;version&lt;span class="w"&gt; &lt;/span&gt;control&lt;span class="w"&gt; &lt;/span&gt;repository
+so&lt;span class="w"&gt; &lt;/span&gt;that&lt;span class="w"&gt; &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;can&lt;span class="w"&gt; &lt;/span&gt;guarantee&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;make&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;same&lt;span class="w"&gt; &lt;/span&gt;selections&lt;span class="w"&gt; &lt;/span&gt;by&lt;span class="w"&gt; &lt;/span&gt;default&lt;span class="w"&gt; &lt;/span&gt;when
+you&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Terraform init&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;future.
+
+Terraform&lt;span class="w"&gt; &lt;/span&gt;has&lt;span class="w"&gt; &lt;/span&gt;been&lt;span class="w"&gt; &lt;/span&gt;successfully&lt;span class="w"&gt; &lt;/span&gt;initialized!
+
+You&lt;span class="w"&gt; &lt;/span&gt;may&lt;span class="w"&gt; &lt;/span&gt;now&lt;span class="w"&gt; &lt;/span&gt;begin&lt;span class="w"&gt; &lt;/span&gt;working&lt;span class="w"&gt; &lt;/span&gt;with&lt;span class="w"&gt; &lt;/span&gt;Terraform.&lt;span class="w"&gt; &lt;/span&gt;Try&lt;span class="w"&gt; &lt;/span&gt;running&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;terraform plan&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;see
+any&lt;span class="w"&gt; &lt;/span&gt;changes&lt;span class="w"&gt; &lt;/span&gt;that&lt;span class="w"&gt; &lt;/span&gt;are&lt;span class="w"&gt; &lt;/span&gt;required&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;your&lt;span class="w"&gt; &lt;/span&gt;infrastructure.&lt;span class="w"&gt; &lt;/span&gt;All&lt;span class="w"&gt; &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;commands
+should&lt;span class="w"&gt; &lt;/span&gt;now&lt;span class="w"&gt; &lt;/span&gt;work.
+
+If&lt;span class="w"&gt; &lt;/span&gt;you&lt;span class="w"&gt; &lt;/span&gt;ever&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;set&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;or&lt;span class="w"&gt; &lt;/span&gt;change&lt;span class="w"&gt; &lt;/span&gt;modules&lt;span class="w"&gt; &lt;/span&gt;or&lt;span class="w"&gt; &lt;/span&gt;backend&lt;span class="w"&gt; &lt;/span&gt;configuration&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;Terraform,
+rerun&lt;span class="w"&gt; &lt;/span&gt;this&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;command&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;reinitialize&lt;span class="w"&gt; &lt;/span&gt;your&lt;span class="w"&gt; &lt;/span&gt;working&lt;span class="w"&gt; &lt;/span&gt;directory.&lt;span class="w"&gt; &lt;/span&gt;If&lt;span class="w"&gt; &lt;/span&gt;you&lt;span class="w"&gt; &lt;/span&gt;forget,&lt;span class="w"&gt; &lt;/span&gt;other
+commands&lt;span class="w"&gt; &lt;/span&gt;will&lt;span class="w"&gt; &lt;/span&gt;detect&lt;span class="w"&gt; &lt;/span&gt;it&lt;span class="w"&gt; &lt;/span&gt;and&lt;span class="w"&gt; &lt;/span&gt;remind&lt;span class="w"&gt; &lt;/span&gt;you&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;do&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;so&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;necessary.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Plan it&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;plan
+
+An&lt;span class="w"&gt; &lt;/span&gt;execution&lt;span class="w"&gt; &lt;/span&gt;plan&lt;span class="w"&gt; &lt;/span&gt;has&lt;span class="w"&gt; &lt;/span&gt;been&lt;span class="w"&gt; &lt;/span&gt;generated&lt;span class="w"&gt; &lt;/span&gt;and&lt;span class="w"&gt; &lt;/span&gt;is&lt;span class="w"&gt; &lt;/span&gt;shown&lt;span class="w"&gt; &lt;/span&gt;below.
+Resource&lt;span class="w"&gt; &lt;/span&gt;actions&lt;span class="w"&gt; &lt;/span&gt;are&lt;span class="w"&gt; &lt;/span&gt;indicated&lt;span class="w"&gt; &lt;/span&gt;with&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;following&lt;span class="w"&gt; &lt;/span&gt;symbols:
+
+Terraform&lt;span class="w"&gt; &lt;/span&gt;will&lt;span class="w"&gt; &lt;/span&gt;perform&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;following&lt;span class="w"&gt; &lt;/span&gt;actions:
+
+Plan:&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;add,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;change,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;destroy.
+
+Changes&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;Outputs:
+&lt;span class="w"&gt;  &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;greeting&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Hello Terraform.&amp;quot;&lt;/span&gt;
+
+------------------------------------------------------------------------
+
+Note:&lt;span class="w"&gt; &lt;/span&gt;You&lt;span class="w"&gt; &lt;/span&gt;didn&lt;span class="s1"&gt;&amp;#39;t specify an &amp;quot;-out&amp;quot; parameter to save this plan, so Terraform&lt;/span&gt;
+&lt;span class="s1"&gt;can&amp;#39;&lt;/span&gt;t&lt;span class="w"&gt; &lt;/span&gt;guarantee&lt;span class="w"&gt; &lt;/span&gt;that&lt;span class="w"&gt; &lt;/span&gt;exactly&lt;span class="w"&gt; &lt;/span&gt;these&lt;span class="w"&gt; &lt;/span&gt;actions&lt;span class="w"&gt; &lt;/span&gt;will&lt;span class="w"&gt; &lt;/span&gt;be&lt;span class="w"&gt; &lt;/span&gt;performed&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;
+&lt;span class="s2"&gt;&amp;quot;Terraform apply&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;is&lt;span class="w"&gt; &lt;/span&gt;subsequently&lt;span class="w"&gt; &lt;/span&gt;run.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Apply it. You might have to type &lt;code&gt;yes&lt;/code&gt; in the middle of it.&lt;/p&gt;
+&lt;p&gt;After applying it creates a &lt;code&gt;.tfstate&lt;/code&gt; file, and you should not touch the &lt;code&gt;.tfstate&lt;/code&gt; file.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;apply
+
+An&lt;span class="w"&gt; &lt;/span&gt;execution&lt;span class="w"&gt; &lt;/span&gt;plan&lt;span class="w"&gt; &lt;/span&gt;has&lt;span class="w"&gt; &lt;/span&gt;been&lt;span class="w"&gt; &lt;/span&gt;generated&lt;span class="w"&gt; &lt;/span&gt;and&lt;span class="w"&gt; &lt;/span&gt;is&lt;span class="w"&gt; &lt;/span&gt;shown&lt;span class="w"&gt; &lt;/span&gt;below.
+Resource&lt;span class="w"&gt; &lt;/span&gt;actions&lt;span class="w"&gt; &lt;/span&gt;are&lt;span class="w"&gt; &lt;/span&gt;indicated&lt;span class="w"&gt; &lt;/span&gt;with&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;following&lt;span class="w"&gt; &lt;/span&gt;symbols:
+
+Terraform&lt;span class="w"&gt; &lt;/span&gt;will&lt;span class="w"&gt; &lt;/span&gt;perform&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;following&lt;span class="w"&gt; &lt;/span&gt;actions:
+
+Plan:&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;add,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;change,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;destroy.
+
+Changes&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;Outputs:
+&lt;span class="w"&gt;  &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;greeting&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Hello Terraform.&amp;quot;&lt;/span&gt;
+
+Do&lt;span class="w"&gt; &lt;/span&gt;you&lt;span class="w"&gt; &lt;/span&gt;want&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;perform&lt;span class="w"&gt; &lt;/span&gt;these&lt;span class="w"&gt; &lt;/span&gt;actions?
+&lt;span class="w"&gt;  &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;will&lt;span class="w"&gt; &lt;/span&gt;perform&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;actions&lt;span class="w"&gt; &lt;/span&gt;described&lt;span class="w"&gt; &lt;/span&gt;above.
+&lt;span class="w"&gt;  &lt;/span&gt;Only&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;yes&amp;#39;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;will&lt;span class="w"&gt; &lt;/span&gt;be&lt;span class="w"&gt; &lt;/span&gt;accepted&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;approve.
+
+&lt;span class="w"&gt;  &lt;/span&gt;Enter&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;value:&lt;span class="w"&gt; &lt;/span&gt;yes
+
+
+Apply&lt;span class="w"&gt; &lt;/span&gt;complete!&lt;span class="w"&gt; &lt;/span&gt;Resources:&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;added,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;changed,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;destroyed.
+
+Outputs:
+
+&lt;span class="nv"&gt;greeting&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Hello Terraform.&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;See the output&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;output
+&lt;span class="nv"&gt;greeting&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Hello Terraform.&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Specify which output you want&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;output&lt;span class="w"&gt; &lt;/span&gt;greeting
+&lt;span class="s2"&gt;&amp;quot;Hello Terraform.&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1&gt;Chapter 3: Learning HCL&lt;/h1&gt;
+&lt;h2&gt;3.1 Overview of HCL structure&lt;/h2&gt;
+&lt;p&gt;By conventions &lt;code&gt;main.tf&lt;/code&gt; , &lt;code&gt;outputs.tf&lt;/code&gt; and &lt;code&gt;variables.tf&lt;/code&gt; are required files inside a directory&lt;/p&gt;
+&lt;p&gt;Sometimes the &lt;code&gt;main.tf&lt;/code&gt; file gets too big. In this case we use the submodules.&lt;/p&gt;
+&lt;p&gt;Example &lt;code&gt;main.tf&lt;/code&gt; with AWS as a provider:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# Terraform block is optional but it&amp;#39;s a best practice to have it&lt;/span&gt;
+&lt;span class="nb"&gt;terraform&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;  # required_version is the Terraform version which we want to apply&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;required_version&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;gt;=0.14.0&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Which cloud provider you want to use&lt;/span&gt;
+&lt;span class="kr"&gt;provider&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;aws&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;  # region is required&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;region&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ap-northeast-1&amp;quot;&lt;/span&gt;
+
+&lt;span class="c1"&gt;  # Since I am putting this file in GitHub I do not EVER put my AWS credentials here.&lt;/span&gt;
+&lt;span class="c1"&gt;  # Instead I use the environment variable or Terraform cloud or the ~/.aws/credentials file&lt;/span&gt;
+&lt;span class="c1"&gt;  #access_keys = &amp;quot;my-access-key&amp;quot;&lt;/span&gt;
+&lt;span class="c1"&gt;  #access_secret = &amp;quot;my-secret-key&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;3.2 Terraform data sources and resources&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Resources&lt;ul&gt;
+&lt;li&gt;Resource is any object that you want to manage with Terraform. For example: S3, AWS EKS, GKE, VM's.&lt;/li&gt;
+&lt;li&gt;Resources are defined in the resource block&lt;/li&gt;
+&lt;li&gt;Declaring a resource tells Terraform that it should CREATE and manage the Resource described.&lt;/li&gt;
+&lt;li&gt;If the resource already exists, it must be imported into Terraform state.&lt;/li&gt;
+&lt;li&gt;Example: &lt;code&gt;resource "aws_s3_bucket" "Terraform-bucket-2021" {}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;REF: &lt;a href="https://www.Terraform.io/docs/configuration/blocks/resources/index.html"&gt;https://www.Terraform.io/docs/configuration/blocks/resources/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Data sources&lt;ul&gt;
+&lt;li&gt;Data sources are resources that Terraform does not manage. For example: &lt;em&gt;Availability Zones, Account ID&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;We can use data source to get the availability zones to place EC2 instances in multiple AZ's&lt;/li&gt;
+&lt;li&gt;REF: &lt;a href="https://www.Terraform.io/docs/configuration/data-sources.html"&gt;https://www.Terraform.io/docs/configuration/data-sources.html&lt;/a&gt;
+Example:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Create a S3 bucket in AWS using resource block.&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nb"&gt;terraform&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;required_version&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;gt;=0.14.0&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;provider&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;aws&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;region&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ap-northeast-1&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;resource&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;  # bucket name should be unique.&lt;/span&gt;
+&lt;span class="c1"&gt;  # If you don&amp;#39;t provide any name, Terraform will create it for you and saves in outputs.tf file&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;bucket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Plan and save the output to a file using command: &lt;code&gt;terraform plan -out s3.tfplan&lt;/code&gt; . This will create a file named &lt;code&gt;s3.tfplan&lt;/code&gt; with following output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;plan&lt;span class="w"&gt; &lt;/span&gt;-out&lt;span class="w"&gt; &lt;/span&gt;example.tfplan
+
+An&lt;span class="w"&gt; &lt;/span&gt;execution&lt;span class="w"&gt; &lt;/span&gt;plan&lt;span class="w"&gt; &lt;/span&gt;has&lt;span class="w"&gt; &lt;/span&gt;been&lt;span class="w"&gt; &lt;/span&gt;generated&lt;span class="w"&gt; &lt;/span&gt;and&lt;span class="w"&gt; &lt;/span&gt;is&lt;span class="w"&gt; &lt;/span&gt;shown&lt;span class="w"&gt; &lt;/span&gt;below.
+Resource&lt;span class="w"&gt; &lt;/span&gt;actions&lt;span class="w"&gt; &lt;/span&gt;are&lt;span class="w"&gt; &lt;/span&gt;indicated&lt;span class="w"&gt; &lt;/span&gt;with&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;following&lt;span class="w"&gt; &lt;/span&gt;symbols:
+&lt;span class="w"&gt;  &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;create
+
+Terraform&lt;span class="w"&gt; &lt;/span&gt;will&lt;span class="w"&gt; &lt;/span&gt;perform&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;following&lt;span class="w"&gt; &lt;/span&gt;actions:
+
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="c1"&gt;# aws_s3_bucket.Terraform-bucket-2021 will be created&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;resource&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;acceleration_status&lt;/span&gt;&lt;span class="w"&gt;         &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;acl&lt;/span&gt;&lt;span class="w"&gt;                         &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;private&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;arn&lt;/span&gt;&lt;span class="w"&gt;                         &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;bucket&lt;/span&gt;&lt;span class="w"&gt;                      &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;bucket_domain_name&lt;/span&gt;&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;bucket_regional_domain_name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;force_destroy&lt;/span&gt;&lt;span class="w"&gt;               &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;false&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;hosted_zone_id&lt;/span&gt;&lt;span class="w"&gt;              &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;id&lt;/span&gt;&lt;span class="w"&gt;                          &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;region&lt;/span&gt;&lt;span class="w"&gt;                      &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;request_payer&lt;/span&gt;&lt;span class="w"&gt;               &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;website_domain&lt;/span&gt;&lt;span class="w"&gt;              &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;website_endpoint&lt;/span&gt;&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;versioning&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;enabled&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mfa_delete&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+Plan:&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;add,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;change,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;destroy.
+
+------------------------------------------------------------------------
+
+This&lt;span class="w"&gt; &lt;/span&gt;plan&lt;span class="w"&gt; &lt;/span&gt;was&lt;span class="w"&gt; &lt;/span&gt;saved&lt;span class="w"&gt; &lt;/span&gt;to:&lt;span class="w"&gt; &lt;/span&gt;example.tfplan
+
+To&lt;span class="w"&gt; &lt;/span&gt;perform&lt;span class="w"&gt; &lt;/span&gt;exactly&lt;span class="w"&gt; &lt;/span&gt;these&lt;span class="w"&gt; &lt;/span&gt;actions,&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;following&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;command&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;apply:
+&lt;span class="w"&gt;    &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;example.tfplan&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Anything beginning with the &lt;code&gt;+&lt;/code&gt; means Terraform will create this resource for us. In the output above, it's &lt;code&gt;+ create&lt;/code&gt; which means the resource doesn't exist yet and Terraform will perform &lt;code&gt;create&lt;/code&gt; operation on the resource.&lt;/p&gt;
+&lt;p&gt;Now, apply the plan using command: &lt;code&gt;terraform apply s3.tfplan&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Once applied, following output will be seen:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$ terraform apply example.tfplan
+aws_s3_bucket.Terraform-bucket-2021: Creating...
+aws_s3_bucket.Terraform-bucket-2021: Creation complete after 5s [id=Terraform-bucket-2021]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+The state of your infrastructure has been saved to the path
+below. This state is required to modify and destroy your
+infrastructure, so keep it safe. To inspect the complete state
+use the &lt;span class="sb"&gt;`terraform show`&lt;/span&gt; command.
+
+State path: Terraform.tfstate
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;It means that the s3 bucket has been created.&lt;/p&gt;
+&lt;p&gt;Verify if the bucket exist using &lt;code&gt;aws s3 ls&lt;/code&gt; command&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$&lt;span class="w"&gt; &lt;/span&gt;aws&lt;span class="w"&gt; &lt;/span&gt;s3&lt;span class="w"&gt; &lt;/span&gt;ls
+&lt;span class="m"&gt;2021&lt;/span&gt;-01-16&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;19&lt;/span&gt;:42:52&lt;span class="w"&gt; &lt;/span&gt;Terraform-bucket-2021
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Bucket is successfully created 🎉&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;Note: In real world, you ought to share the plan with your colleagues and there's an agreement between collegues before applying it.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;3.3 Terraform Outputs&lt;/h2&gt;
+&lt;p&gt;When we don't define some value (bucket name for example), Terraform will create the bucket name for us, and we can know the bucket details using Terraform outputs.&lt;/p&gt;
+&lt;p&gt;In above case, let's output the bucket information of &lt;code&gt;terraform-bucket-2021&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To do that we need to create a output block&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kr"&gt;resource&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;bucket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;output&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;bucket_info&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;  # &amp;lt;syntax&amp;gt; value = resource_type[.]label_name&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;aws_s3_bucket.Terraform-bucket-2021&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, plan it &lt;code&gt;terraform plan -out s3.tfplan&lt;/code&gt; . Here, the previous filename &lt;code&gt;s3.tfplan&lt;/code&gt; will be replaced with the new fresh file.&lt;/p&gt;
+&lt;p&gt;Not apply the &lt;code&gt;s3.tfplan&lt;/code&gt; using command &lt;code&gt;terraform apply s3.tfplan&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You'll see following output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Apply&lt;span class="w"&gt; &lt;/span&gt;complete!&lt;span class="w"&gt; &lt;/span&gt;Resources:&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;added,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;changed,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;destroyed.
+
+Outputs:
+
+&lt;span class="nv"&gt;bucket_info&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;acceleration_status&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;acl&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;private&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;arn&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;arn:aws:s3:::Terraform-bucket-2021&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;bucket&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;bucket_domain_name&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Terraform-bucket-2021.s3.amazonaws.com&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;bucket_prefix&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tostring&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;bucket_regional_domain_name&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Terraform-bucket-2021.s3.ap-northeast-1.amazonaws.com&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;cors_rule&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tolist&lt;span class="o"&gt;([])&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;force_destroy&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;false&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;grant&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;toset&lt;span class="o"&gt;([])&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;hosted_zone_id&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Z2M4EHUR26P7ZW&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;id&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Terraform-bucket-2021&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;lifecycle_rule&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tolist&lt;span class="o"&gt;([])&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;logging&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;toset&lt;span class="o"&gt;([])&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;object_lock_configuration&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tolist&lt;span class="o"&gt;([])&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;policy&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tostring&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;region&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ap-northeast-1&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;replication_configuration&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tolist&lt;span class="o"&gt;([])&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;request_payer&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;BucketOwner&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;server_side_encryption_configuration&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tolist&lt;span class="o"&gt;([])&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;tags&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tomap&lt;span class="o"&gt;({})&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;versioning&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tolist&lt;span class="o"&gt;([&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;enabled&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;false&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;mfa_delete&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;false&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;,
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;website&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tolist&lt;span class="o"&gt;([])&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;website_domain&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tostring&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;website_endpoint&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tostring&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;As you can see &lt;code&gt;Apply complete! Resources: 0 added, 0 changed, 0 destroyed.&lt;/code&gt; because no resources were created even though our &lt;code&gt;.tf&lt;/code&gt; file has resource block.&lt;/p&gt;
+&lt;p&gt;You can also get the output using &lt;code&gt;terraform output&lt;/code&gt; command like this: &lt;code&gt;terraform output bucket_info&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;List output of availability zones of region configured in your AWS configuration&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;First, create the data block because regions are not managed by Terraform and it's a data. And the output block. Since the output is from the data block, we define value as: &lt;code&gt;data.&amp;lt;type&amp;gt;.&amp;lt;label&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kr"&gt;data&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;&amp;quot;aws_availability_zones&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;available&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;state&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;available&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;output&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;aws_availability_zones&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;data.aws_availability_zones.available&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, plan it &lt;code&gt;terraform plan -out s3.tfplan&lt;/code&gt;  and apply &lt;code&gt;terraform apply s3.tfplan&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You'll see following output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Apply&lt;span class="w"&gt; &lt;/span&gt;complete!&lt;span class="w"&gt; &lt;/span&gt;Resources:&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;added,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;changed,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;destroyed.
+
+Outputs:
+
+&lt;span class="nv"&gt;aws_availability_zones&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;all_availability_zones&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tobool&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;blacklisted_names&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;toset&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/*&lt;span class="w"&gt; &lt;/span&gt;of&lt;span class="w"&gt; &lt;/span&gt;string&lt;span class="w"&gt; &lt;/span&gt;*/
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;blacklisted_zone_ids&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;toset&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/*&lt;span class="w"&gt; &lt;/span&gt;of&lt;span class="w"&gt; &lt;/span&gt;string&lt;span class="w"&gt; &lt;/span&gt;*/
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;exclude_names&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;toset&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/*&lt;span class="w"&gt; &lt;/span&gt;of&lt;span class="w"&gt; &lt;/span&gt;string&lt;span class="w"&gt; &lt;/span&gt;*/
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;exclude_zone_ids&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;toset&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/*&lt;span class="w"&gt; &lt;/span&gt;of&lt;span class="w"&gt; &lt;/span&gt;string&lt;span class="w"&gt; &lt;/span&gt;*/
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;filter&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;toset&lt;span class="o"&gt;(&lt;/span&gt;null&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/*&lt;span class="w"&gt; &lt;/span&gt;of&lt;span class="w"&gt; &lt;/span&gt;object&lt;span class="w"&gt; &lt;/span&gt;*/
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;group_names&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;toset&lt;span class="o"&gt;([&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ap-northeast-1&amp;quot;&lt;/span&gt;,
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;id&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;2021-01-16 10:53:54.916848 +0000 UTC&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;names&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tolist&lt;span class="o"&gt;([&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ap-northeast-1a&amp;quot;&lt;/span&gt;,
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ap-northeast-1c&amp;quot;&lt;/span&gt;,
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ap-northeast-1d&amp;quot;&lt;/span&gt;,
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;available&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;zone_ids&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tolist&lt;span class="o"&gt;([&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;apne1-az4&amp;quot;&lt;/span&gt;,
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;apne1-az1&amp;quot;&lt;/span&gt;,
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;apne1-az2&amp;quot;&lt;/span&gt;,
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Note: The output of AZ's can be used later on if we want to provision EC2 instances in multiple regions. We can use this output to do it so.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;3.4 Interpolation in HCL&lt;/h2&gt;
+&lt;p&gt;Interpolation is just the means of concatenating different values to create one value. In case of S3 bucket the value of S3 bucket has to be globally unique. Hence, inorder to create a bucket with unique name, we can use interpolation.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Create aws bucket which name has the &lt;/strong&gt;&lt;strong&gt;&lt;code&gt;accountID&lt;/code&gt;&lt;/strong&gt;&lt;strong&gt; in it.&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kr"&gt;data&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;&amp;quot;aws_caller_identity&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;current&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;
+
+&lt;span class="kr"&gt;resource&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;bucket2&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;bucket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;${data.aws_caller_identity.current.account_id}-bucket2&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Here &lt;code&gt;data.aws_caller_identity.current.account_id&lt;/code&gt; is interpolated which is &lt;code&gt;account_id + "-bucket2"&lt;/code&gt; got from the data block &lt;code&gt;aws_caller_identity&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;3.5 Dependencies in Terraform&lt;/h2&gt;
+&lt;p&gt;Terraform has the concept of &lt;code&gt;implicit&lt;/code&gt; and &lt;code&gt;explicit&lt;/code&gt; dependencies.&lt;/p&gt;
+&lt;p&gt;Whe Terraform processes the HCL configs, it evaluates the dependency graph, and it'll create dependencies before it creates the dependent resource. If there is not any dependencies, Terraform will create resource in parallel which will give performance boost.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;p&gt;Implicit dependency resolve when the dependent resource already exists.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kr"&gt;resource&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;bucket3&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;bucket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;${data.aws_caller_identity.current.account_id}-bucket3&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nb"&gt;tags&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;    # I already have bucket2 available so this is implicit&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;dependency&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;aws_s3_bucket.bucket2.arn&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Explicit dependency when the dependent resource does not exist yet, and we need to wait for it to be created first. (analogy depends&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kr"&gt;resource&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;bucket4&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;bucket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;${data.aws_caller_identity.current.account_id}-bucket4&amp;quot;&lt;/span&gt;
+&lt;span class="c1"&gt;  # Explicit&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;depends_on&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nv"&gt;aws_s3_bucket.bucket3&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;To see the dependencies, generate the &lt;code&gt;dot&lt;/code&gt; file using &lt;code&gt;terraform graph &amp;gt; graph.dot&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;And paste the content in online tool &lt;a href="https://dreampuf.github.io/GraphvizOnline/"&gt;https://dreampuf.github.io/GraphvizOnline/&lt;/a&gt; to see the output.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;terraform graph&lt;/code&gt; command is only used for debugging purpose.&lt;/p&gt;
+&lt;h2&gt;3.6 Variables and Locals&lt;/h2&gt;
+&lt;p&gt;Variables are ways to get input to the Terraform config&lt;/p&gt;
+&lt;p&gt;Ways to provide variables:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Using command line while applying&lt;/li&gt;
+&lt;li&gt;Specify them in files such as &lt;code&gt;.tfvars&lt;/code&gt; or &lt;code&gt;.auto.tfvars&lt;/code&gt; for complex data types&lt;/li&gt;
+&lt;li&gt;Using environment variables but all the environment variable name should have prefix of &lt;code&gt;TF_VAR_&lt;/code&gt;
+In Terraform config, we use &lt;code&gt;variable&lt;/code&gt; block to define expected variables.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Create a S3 bucket, but the bucket name should be provided by the user&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kr"&gt;variable&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;bucket_name&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;type&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;
+
+&lt;span class="c1"&gt;  # `default` is optional. If default is omitted, then value must be supplied&lt;/span&gt;
+&lt;span class="c1"&gt;  # default = &amp;quot;My_Bucket1234&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;resource&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;bucket5&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;bucket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;var.bucket_name&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;And when plan is executed, the bucket name is expected as an input value:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;plan&lt;span class="w"&gt; &lt;/span&gt;-out&lt;span class="w"&gt; &lt;/span&gt;var.tfplan
+var.bucket_name
+&lt;span class="w"&gt;  &lt;/span&gt;Enter&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;value:&lt;span class="w"&gt; &lt;/span&gt;MyPiBucket31415
+
+An&lt;span class="w"&gt; &lt;/span&gt;execution&lt;span class="w"&gt; &lt;/span&gt;plan&lt;span class="w"&gt; &lt;/span&gt;has&lt;span class="w"&gt; &lt;/span&gt;been&lt;span class="w"&gt; &lt;/span&gt;generated&lt;span class="w"&gt; &lt;/span&gt;and&lt;span class="w"&gt; &lt;/span&gt;is&lt;span class="w"&gt; &lt;/span&gt;shown&lt;span class="w"&gt; &lt;/span&gt;below.
+Resource&lt;span class="w"&gt; &lt;/span&gt;actions&lt;span class="w"&gt; &lt;/span&gt;are&lt;span class="w"&gt; &lt;/span&gt;indicated&lt;span class="w"&gt; &lt;/span&gt;with&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;following&lt;span class="w"&gt; &lt;/span&gt;symbols:
+&lt;span class="w"&gt;  &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;create
+
+Terraform&lt;span class="w"&gt; &lt;/span&gt;will&lt;span class="w"&gt; &lt;/span&gt;perform&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;following&lt;span class="w"&gt; &lt;/span&gt;actions:
+
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="c1"&gt;# aws_s3_bucket.bucket5 will be created&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;resource&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;bucket5&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;acceleration_status&lt;/span&gt;&lt;span class="w"&gt;         &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;acl&lt;/span&gt;&lt;span class="w"&gt;                         &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;private&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;arn&lt;/span&gt;&lt;span class="w"&gt;                         &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;bucket&lt;/span&gt;&lt;span class="w"&gt;                      &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;MyPiBucket31415&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;bucket_domain_name&lt;/span&gt;&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;bucket_regional_domain_name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;force_destroy&lt;/span&gt;&lt;span class="w"&gt;               &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;false&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;hosted_zone_id&lt;/span&gt;&lt;span class="w"&gt;              &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;id&lt;/span&gt;&lt;span class="w"&gt;                          &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;region&lt;/span&gt;&lt;span class="w"&gt;                      &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;request_payer&lt;/span&gt;&lt;span class="w"&gt;               &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;website_domain&lt;/span&gt;&lt;span class="w"&gt;              &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;website_endpoint&lt;/span&gt;&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="w"&gt;      &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;versioning&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;enabled&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;+&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mfa_delete&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;known&lt;span class="w"&gt; &lt;/span&gt;after&lt;span class="w"&gt; &lt;/span&gt;apply&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+Plan:&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;add,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;change,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;destroy.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Local values&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Local values make Terraform configs more readable.&lt;/p&gt;
+&lt;p&gt;If we want to use same value multiple times in the code, it's better to save it as a local value.&lt;/p&gt;
+&lt;p&gt;We can have multiple locals, but the names should be unique because names are global.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nb"&gt;locals&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;aws_account&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;${data.aws_caller_identity.current.account_id}-${lower(data.aws_caller_identity.current.user_id)}&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;resource&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;bucket6&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;bucket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;${local.aws_account}-bucket6&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Note: Here the
+&lt;code&gt;lower()&lt;/code&gt;
+ is a Terraform function. See more here:
+&lt;a href="https://www.Terraform.io/docs/configuration/functions.html"&gt;https://www.Terraform.io/docs/configuration/functions.html&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;3.7 Conditionals and the Count property&lt;/h2&gt;
+&lt;p&gt;Count is the meta attribute of Terraform&lt;/p&gt;
+&lt;p&gt;Count means instead of creating 1 resource, you can define &lt;code&gt;n&lt;/code&gt; number of count to replicate the same resource.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Create 2 buckets&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kr"&gt;resource&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;bucketX&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;count&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;bucket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;${local.aws_account}-bucket${count.index+7}&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Q. What happens when &lt;code&gt;count=0&lt;/code&gt; ?&lt;/p&gt;
+&lt;p&gt;Terraform will destroy all resource if created or not create anything if it's not created yet.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;We can also replicate resources using &lt;/strong&gt;&lt;strong&gt;&lt;code&gt;for_each&lt;/code&gt;&lt;/strong&gt;**  **&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nb"&gt;locals&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nb"&gt;buckets&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;bucket101&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;mybucket101&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;bucket102&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;mybucket102&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;resource&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;bucketIterator&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;for_each&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;local.buckets&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;bucket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;${local.aws_account}-${each.value}&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;output&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;bucketIterator&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;aws_s3_bucket.bucketIterator&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;We can also define list instead of map:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nb"&gt;locals&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;buckets&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;mybucket101&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;mybucket102&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;resource&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;bucketIterator&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;  # Since buckets is a list, we need to convert to set using toset()&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;for_each&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;toset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;local.buckets&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c1"&gt;  # Here we can use either .key or .value&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;bucket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;${local.aws_account}-${each.key}&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;output&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;bucketIterator&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;aws_s3_bucket.bucketIterator&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;count&lt;/code&gt; vs &lt;code&gt;for_each&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;count&lt;/code&gt; is generally used for toggle switch when in development phase&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;for_each&lt;/code&gt; is more powerful, as we can use map in &lt;code&gt;for_each&lt;/code&gt; hence, better to use &lt;code&gt;for_each&lt;/code&gt; in prod&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3.8 Data types and operators&lt;/h2&gt;
+&lt;p&gt;REF: &lt;a href="https://www.Terraform.io/docs/configuration/expressions/types.html"&gt;https://www.Terraform.io/docs/configuration/expressions/types.html&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nb"&gt;locals&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;a_string&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;This is a String&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;a_number&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;3.1415&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;a_boolean&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;true&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;a_list&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;element1&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="no"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nb"&gt;a_map&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;key&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;value&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;nums&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;30&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;is_active&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;true&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;configs&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="na"&gt;instance_type&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;t2.micro&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="na"&gt;vpc_enabled&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;true&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;  # Operators&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;operators&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="err"&gt;+&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="err"&gt;-&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="err"&gt;*&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="err"&gt;/&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;  # Logical&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;t&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;true&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;true&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;f&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;true&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;||&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="no"&gt;false&lt;/span&gt;
+
+&lt;span class="c1"&gt;  # Comparison&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;gt&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;lt&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;&amp;lt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;9&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;eq&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;4&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;neq&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Terraform config to create &lt;/strong&gt;&lt;strong&gt;&lt;code&gt;n&lt;/code&gt;&lt;/strong&gt;&lt;strong&gt; number of buckets where &lt;/strong&gt;&lt;strong&gt;&lt;code&gt;n&lt;/code&gt;&lt;/strong&gt;&lt;strong&gt; not more than &lt;/strong&gt;&lt;strong&gt;&lt;code&gt;5&lt;/code&gt;&lt;/strong&gt;** **&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kr"&gt;variable&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;bucket_count&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;type&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;number&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;data&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;&amp;quot;aws_caller_identity&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;current&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;
+
+&lt;span class="nb"&gt;locals&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;min_bucket_count&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;
+&lt;span class="c1"&gt;  # Conditional operators similar to ternary operator&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;num_buckets&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;var.bucket_count&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;local.min_bucket_count&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;var.bucket_count&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;aws_account&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;${data.aws_caller_identity.current.account_id}-${lower(data.aws_caller_identity.current.user_id)}&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;resource&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;&amp;quot;aws_s3_bucket&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;buckets&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;count&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;local.num_buckets&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;bucket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;${local.aws_account}-buckets${count.index+7}&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;3.9 Functions&lt;/h2&gt;
+&lt;p&gt;REF: &lt;a href="https://www.Terraform.io/docs/configuration/functions.html"&gt;https[://www.Terraform.io/docs/configuration/functions.html](https://www.Terraform.io/docs/configuration/functions.html)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nb"&gt;locals&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;ts&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;timestamp&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;current_month&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;formatdate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;MMMM&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;local.ts&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;tomorrow&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;formatdate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;MMMM&amp;quot;, timeadd(local.ts, &amp;quot;24h&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;upper&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;upper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;lowercase&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;lower&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;lower&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;UPPERCASE&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;output&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;func&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;${local.ts} ${local.current_month} ${local.tomorrow} ${local.upper} ${local.lower}&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Apply&lt;span class="w"&gt; &lt;/span&gt;complete!&lt;span class="w"&gt; &lt;/span&gt;Resources:&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;added,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;changed,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;destroyed.
+
+Outputs:
+
+&lt;span class="nv"&gt;func&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;2021-01-16T15:36:41Z January January LOWERCASE uppercase&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;3.10 Iterations in collections&lt;/h2&gt;
+&lt;p&gt;HCL uses &lt;code&gt;for&lt;/code&gt; syntax dfor iterating over list values&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nb"&gt;locals&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;my_list&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;one&amp;quot;, &amp;quot;two&amp;quot;, &amp;quot;three&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;upper_list&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;item&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;local.my_list&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;upper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;item&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nb"&gt;upper_map&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;item&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;local.my_list&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;item&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;upper&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;item&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;  # Filtering&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;n&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;9&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;evens&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;local.n&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;%&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;output&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;my_list&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;local.my_list&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kr"&gt;output&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;upper_list&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;local.upper_list&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;output&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;upper_map&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;local.upper_map&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;output&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;evens&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;local.evens&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Output after apply:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Apply&lt;span class="w"&gt; &lt;/span&gt;complete!&lt;span class="w"&gt; &lt;/span&gt;Resources:&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;added,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;changed,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;destroyed.
+
+Outputs:
+
+&lt;span class="nv"&gt;evens&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;,
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;,
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="m"&gt;6&lt;/span&gt;,
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="m"&gt;8&lt;/span&gt;,
+&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;my_list&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;one&amp;quot;&lt;/span&gt;,
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;two&amp;quot;&lt;/span&gt;,
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;three&amp;quot;&lt;/span&gt;,
+&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;upper_list&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ONE&amp;quot;&lt;/span&gt;,
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;TWO&amp;quot;&lt;/span&gt;,
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;THREE&amp;quot;&lt;/span&gt;,
+&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;upper_map&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;one&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ONE&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;three&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;THREE&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;two&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;TWO&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;3.11 Directives and heredocs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;heredocs&lt;/code&gt;&lt;ul&gt;
+&lt;li&gt;is a multiline string that is used to create an inline JSON documents&lt;/li&gt;
+&lt;li&gt;They are used in outputs, variables description and inline documents
+Example:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nb"&gt;locals&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;count&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;nums&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kr"&gt;output&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;heredocs&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;  # EOT means EOF&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;-&lt;/span&gt;&lt;span class="dl"&gt;EOT&lt;/span&gt;
+&lt;span class="sh"&gt;    This is the `heredoc`.&lt;/span&gt;
+&lt;span class="sh"&gt;    This is multiline String.&lt;/span&gt;
+&lt;span class="sh"&gt;    Used for writing documentations.&lt;/span&gt;
+&lt;span class="dl"&gt;  EOT&lt;/span&gt;
+&lt;span class="c1"&gt;  # Dont forget EOT at the end&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;output&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;directive&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;-&lt;/span&gt;&lt;span class="dl"&gt;EOT&lt;/span&gt;
+&lt;span class="sh"&gt;    We can use directive in heredoc.&lt;/span&gt;
+&lt;span class="sh"&gt;    %{if local.count == 0}&lt;/span&gt;
+&lt;span class="sh"&gt;    The count is 0, destroying everything...&lt;/span&gt;
+&lt;span class="sh"&gt;    %{else}&lt;/span&gt;
+&lt;span class="sh"&gt;    The count is ${local.count}&lt;/span&gt;
+&lt;span class="sh"&gt;    %{endif}&lt;/span&gt;
+&lt;span class="dl"&gt;  EOT&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;output&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;iterated-directive&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;-&lt;/span&gt;&lt;span class="dl"&gt;EOT&lt;/span&gt;
+&lt;span class="sh"&gt;    Directive can also be iterated.&lt;/span&gt;
+&lt;span class="sh"&gt;    %{for num in local.nums}&lt;/span&gt;
+&lt;span class="sh"&gt;    ${num}&lt;/span&gt;
+&lt;span class="sh"&gt;    %{endfor}&lt;/span&gt;
+&lt;span class="dl"&gt;  EOT&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Output after apply:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Apply&lt;span class="w"&gt; &lt;/span&gt;complete!&lt;span class="w"&gt; &lt;/span&gt;Resources:&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;added,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;changed,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;destroyed.
+
+Outputs:
+
+&lt;span class="nv"&gt;directive&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;lt;&amp;lt;EOT&lt;/span&gt;
+&lt;span class="s"&gt;We can use directive in heredoc.&lt;/span&gt;
+
+&lt;span class="s"&gt;The count is 0, destroying everything...&lt;/span&gt;
+
+
+&lt;span class="s"&gt;EOT&lt;/span&gt;
+&lt;span class="nv"&gt;heredocs&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;lt;&amp;lt;EOT&lt;/span&gt;
+&lt;span class="s"&gt;This is the `heredoc`.&lt;/span&gt;
+&lt;span class="s"&gt;This is multiline String.&lt;/span&gt;
+&lt;span class="s"&gt;Used for writing documentations.&lt;/span&gt;
+
+&lt;span class="s"&gt;EOT&lt;/span&gt;
+iterated-directive&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;lt;&amp;lt;EOT&lt;/span&gt;
+&lt;span class="s"&gt;Directive can also be iterated.&lt;/span&gt;
+
+&lt;span class="s"&gt;1&lt;/span&gt;
+
+&lt;span class="s"&gt;2&lt;/span&gt;
+
+&lt;span class="s"&gt;3&lt;/span&gt;
+
+
+&lt;span class="s"&gt;EOT&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;3.12 Clean up&lt;/h2&gt;
+&lt;p&gt;Since we created multiple buckets and all, it's time to clean up.&lt;/p&gt;
+&lt;p&gt;Even though the buckets don't cost any, it's wise to clean up since we're just playing with Terraform in development mode.&lt;/p&gt;
+&lt;p&gt;First look for states that's tracked by Terraform using &lt;code&gt;terraform state list&lt;/code&gt; . If it shows bunch of outputs of your bucket, execute &lt;code&gt;terraform destroy&lt;/code&gt; which will destroy all resources that were created.&lt;/p&gt;
+&lt;h1&gt;Chapter 4: Code Re-Use for applying DRY&lt;/h1&gt;
+&lt;h2&gt;4.1 Understanding Terraform Modules&lt;/h2&gt;
+&lt;p&gt;What is a module in Terraform?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;All Terraform is in a module. The top level module is called the Root module&lt;/li&gt;
+&lt;li&gt;Modules are just a directory that contains Terraform file, and they can be nested&lt;/li&gt;
+&lt;li&gt;Modules can be imported which are already available&lt;/li&gt;
+&lt;li&gt;Modules written by others can be get here &lt;a href="https://registry.Terraform.io"&gt;https://registry.Terraform.io&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Module helps in implementing DRY principle&lt;/li&gt;
+&lt;li&gt;Module naming convention (if you want to publish to Terraform registry)&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;terraform-&amp;lt;PROVIDER&amp;gt;-&amp;lt;NAME&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;NAME&amp;gt;&lt;/code&gt; can contain hyphens
+Module layout&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;├──&lt;span class="w"&gt; &lt;/span&gt;Terraform-aws-s3
+│&lt;span class="w"&gt;   &lt;/span&gt;├──&lt;span class="w"&gt; &lt;/span&gt;README.md
+│&lt;span class="w"&gt;   &lt;/span&gt;├──&lt;span class="w"&gt; &lt;/span&gt;datas.tf
+│&lt;span class="w"&gt;   &lt;/span&gt;├──&lt;span class="w"&gt; &lt;/span&gt;locals.tf
+│&lt;span class="w"&gt;   &lt;/span&gt;├──&lt;span class="w"&gt; &lt;/span&gt;main.tf
+│&lt;span class="w"&gt;   &lt;/span&gt;├──&lt;span class="w"&gt; &lt;/span&gt;outputs.tf
+│&lt;span class="w"&gt;   &lt;/span&gt;├──&lt;span class="w"&gt; &lt;/span&gt;variables.tf
+│&lt;span class="w"&gt;   &lt;/span&gt;└──&lt;span class="w"&gt; &lt;/span&gt;versions.tf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You can use &lt;a href="https://github.com/QuiNovas/cookiecutter-Terraform-module"&gt;https://github.com/QuiNovas/cookiecutter-Terraform-module&lt;/a&gt; to automate the process of creating these files&lt;/p&gt;
+&lt;p&gt;To use module&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# Module located in local filesystem&lt;/span&gt;
+&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;local-module&amp;quot;&lt;/span&gt; {
+    &lt;span class="nb"&gt;source&lt;/span&gt; = &lt;span class="s"&gt;&amp;quot;/path/to/module&amp;quot;&lt;/span&gt;
+}
+
+&lt;span class="c1"&gt;# Module which is published&lt;/span&gt;
+&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;published-module&amp;quot;&lt;/span&gt; {
+    &lt;span class="nb"&gt;source&lt;/span&gt; = &lt;span class="s"&gt;&amp;quot;rojopolis/Terraform-aws-lambda-python-archive&amp;quot;&lt;/span&gt;
+    &lt;span class="nb"&gt;version&lt;/span&gt; = &lt;span class="s"&gt;&amp;quot;1.2.3&amp;quot;&lt;/span&gt;
+}
+
+&lt;span class="c1"&gt;# Module which is in GitHub&lt;/span&gt;
+&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;github-module&amp;quot;&lt;/span&gt; {
+    &lt;span class="nb"&gt;source&lt;/span&gt; = &lt;span class="s"&gt;&amp;quot;https://github.com/rojopolis/Terraform-aws-lambda-python-archive&amp;quot;&lt;/span&gt;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Play with &lt;a href="https://github.com/rojopolis/Terraform-aws-lambda-python-archive/"&gt;https://github.com/rojopolis/Terraform-aws-lambda-python-archive/&lt;/a&gt; to know about modules.&lt;/p&gt;
+&lt;h2&gt;4.2 Distributing modules&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Name the module properly &lt;code&gt;terraform-&amp;lt;PROVIDER&amp;gt;-&amp;lt;NAME&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Should be in public repository in GitHub.&lt;/li&gt;
+&lt;li&gt;Should have license and examples&lt;/li&gt;
+&lt;li&gt;Repo should be released with a tag&lt;/li&gt;
+&lt;li&gt;Sign-in to &lt;a href="https://registry.Terraform.io"&gt;https://registry.Terraform.io&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Select the repo which is named correctly&lt;/li&gt;
+&lt;li&gt;Done 🎉&lt;/li&gt;
+&lt;li&gt;Profit 🏦&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Chapter 5: Collaboration with Terraform&lt;/h1&gt;
+&lt;h2&gt;5.1 Terraform backends&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Backend is a shared storage medium that stores state files&lt;/li&gt;
+&lt;li&gt;Backends officially supports blocking&lt;/li&gt;
+&lt;li&gt;Blocking is required inorder to prevent multiple user's updating resources at the same time&lt;/li&gt;
+&lt;li&gt;Most of the providers support blocking&lt;/li&gt;
+&lt;li&gt;We can use S3 as a backend provider&lt;/li&gt;
+&lt;li&gt;Backend provider is not in Terraform
+Example:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nb"&gt;terraform&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;required_version&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;gt;=0.14.0&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="kr"&gt;backend&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;s3&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;    # bucket should already exist&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;bucket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;my-Terraform-backend&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;key&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;sagar-Terraform-resources&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;region&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ap-northeast-1&amp;quot;&lt;/span&gt;
+&lt;span class="c1"&gt;    # dynamo db table also should already exist&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;dynamodb_table&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;sagar-Terraform-lock&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You must &lt;code&gt;init&lt;/code&gt; again inorder to change the backend.&lt;/p&gt;
+&lt;p&gt;Locks are stored in dynamodb table. Whoever acquires the lock first has the precedence of getting the resource.&lt;/p&gt;
+&lt;p&gt;We can also have remote backend&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="kr"&gt;backend&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;&amp;quot;remote&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;hostname&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;app.Terraform.io&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;organization&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;beBit&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;workspace&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="na"&gt;name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;hello-Terraform&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;If we change the S3 backend to remote backend, we need to do &lt;code&gt;terraform init&lt;/code&gt; again which will ask us if we'd like to move the state file from S3 to the remote backend.&lt;/p&gt;
+&lt;h2&gt;5.2 Terraform workspaces&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Workspace helps us to create different environment with the same sets of Terraform configurations.&lt;/li&gt;
+&lt;li&gt;You can view the list of your Terraform workspaces using the command &lt;code&gt;terraform workspace list&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;The default workspace name is called &lt;code&gt;default&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;You can not delete the default workspace&lt;/li&gt;
+&lt;li&gt;Execute &lt;code&gt;terraform workspace --help&lt;/code&gt; to view the workspaces sub-commands&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Create a new workspace:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;workspace&lt;span class="w"&gt; &lt;/span&gt;new&lt;span class="w"&gt; &lt;/span&gt;staging
+Created&lt;span class="w"&gt; &lt;/span&gt;and&lt;span class="w"&gt; &lt;/span&gt;switched&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;workspace&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;staging&amp;quot;&lt;/span&gt;!
+
+You&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;re&lt;span class="w"&gt; &lt;/span&gt;now&lt;span class="w"&gt; &lt;/span&gt;on&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;new,&lt;span class="w"&gt; &lt;/span&gt;empty&lt;span class="w"&gt; &lt;/span&gt;workspace.&lt;span class="w"&gt; &lt;/span&gt;Workspaces&lt;span class="w"&gt; &lt;/span&gt;isolate&lt;span class="w"&gt; &lt;/span&gt;their&lt;span class="w"&gt; &lt;/span&gt;state,
+so&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;you&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;terraform plan&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;Terraform&lt;span class="w"&gt; &lt;/span&gt;will&lt;span class="w"&gt; &lt;/span&gt;not&lt;span class="w"&gt; &lt;/span&gt;see&lt;span class="w"&gt; &lt;/span&gt;any&lt;span class="w"&gt; &lt;/span&gt;existing&lt;span class="w"&gt; &lt;/span&gt;state
+&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;this&lt;span class="w"&gt; &lt;/span&gt;configuration.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;List the workspaces:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;workspace&lt;span class="w"&gt; &lt;/span&gt;list
+&lt;span class="w"&gt;  &lt;/span&gt;default
+*&lt;span class="w"&gt; &lt;/span&gt;staging
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Where the &lt;code&gt;*&lt;/code&gt; is the current one, and we can also use &lt;code&gt;terraform workspace show&lt;/code&gt; to get the current workspace.&lt;/p&gt;
+&lt;p&gt;Switch the workspace back to &lt;code&gt;default&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;workspace&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;select&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;default&lt;span class="w"&gt;                                                                                                                                                                                              &lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;↵
+Switched&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;workspace&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;default&amp;quot;&lt;/span&gt;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Deleting the workspace:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰─$&lt;span class="w"&gt; &lt;/span&gt;terraform&lt;span class="w"&gt; &lt;/span&gt;workspace&lt;span class="w"&gt; &lt;/span&gt;delete&lt;span class="w"&gt; &lt;/span&gt;staging
+Deleted&lt;span class="w"&gt; &lt;/span&gt;workspace&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;staging&amp;quot;&lt;/span&gt;!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Note: The workspace should be clean i.e. destroyed before deleting it.
+Learn more here: &lt;a href="https://www.Terraform.io/docs/state/workspaces.html"&gt;https://www.Terraform.io/docs/state/workspaces.html&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</content><category term="misc"></category><category term="Terraform"></category><category term="IAC"></category><category term="Terraform Cloud"></category></entry></feed>
