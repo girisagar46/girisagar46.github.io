@@ -1,7 +1,7 @@
-pelican
-Markdown
-invoke
-livereload
-ghp-import
-bs4
-pelican-sitemap
+pelican==4.11.0
+Markdown==3.7
+invoke==2.2.0
+livereload==2.7.1
+ghp-import==2.1.0
+bs4==0.0.2
+pelican-sitemap==1.2.0
